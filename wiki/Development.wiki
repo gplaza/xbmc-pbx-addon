@@ -1,0 +1,44 @@
+
+
+== Possible Features ==
+
+There are two types of interactions with Asterisk:
+
+ * Real Time
+  * Initiating Asterisk phone calls through XBMC
+   * Communication would be handled by an internal extension you define
+   * This could be useful for call-backs to missed calls, voicemails, or just initiating a new phone calls
+  * Displaying incoming Asterisk phone call info into XBMC
+   * i.e. Caller-ID
+  * Actions based on incoming Asterisk phone calls
+   * i.e. XBMC could be muted, paused, etc
+   * i.e. Asterisk could reject/park/voicemail phone calls if you are watching a movie, etc
+ * Historical
+  * Access CDR information
+   * Information should be shown as a List
+  * Access Voicemail recordings
+   * Playback through XBMC player
+   * Voicemail username and password would need to be previously configured
+  * Access received FAXes
+  * Display FAXes though XBMC image viewer
+
+== Real Time interaction with Asterisk ==
+
+ * Using Asterisk Manager Interface (AMI)
+  * http://www.voip-info.org/wiki/view/Asterisk+manager+API
+ * Could take advantage of the existing Python Asterisk package:
+  * http://code.google.com/p/py-asterisk/
+
+== Historical Asterisk information ==
+
+ * Would need a PHP page acting as a WebService in order to provide access to:
+  * Stored CDR info
+  * VoiceMail audio files
+  * FAX files
+ * Could take advantage of existing projects using PHP code, such as FreePBX
+
+== To Do ==
+
+ * Start testing the real-time Asterisk interaction from XBMC
+ * Start searching for PHP libraries or existing code that can provide us the base for historical Asterisk information access
+ * Write and publish some working examples
