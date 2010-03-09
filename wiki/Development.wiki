@@ -36,7 +36,18 @@ There are two types of interactions with Asterisk:
   * Stored CDR info
   * VoiceMail audio files
   * FAX files
- * Could take advantage of existing projects using PHP code, such as FreePBX
+ * Could take advantage of existing code, such as:
+  * http://www.littlejohnconsulting.com/ari
+   * Used by FreePBX
+   * http://www.freepbx.org/trac/browser/freepbx/branches/2.7/amp_conf/htdocs/recordings
+  * http://www.voip-info.org/wiki/index.php?page=Asterisk+CDR+Areski+GUI
+   * Used by FreePBX
+   * http://www.freepbx.org/trac/browser/freepbx/branches/2.7/amp_conf/htdocs/admin/cdr
+  * http://voicemailx.sourceforge.net/
+  * http://www.voip-info.org/wiki/view/Asterisk+gui+vmail.cgi
+  * http://web.archive.org/web/20061013071611/www.3ait.co.uk/~jon/cdr-info.pls
+  * http://astweb.sourceforge.net/
+
 
 == To Do ==
 
