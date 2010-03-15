@@ -1,7 +1,8 @@
 #summary WIP
-#labels Phase-Requirements
+#labels Phase-Requirements,Phase-Design
 
-== Possible Features ==
+
+== Possible interaction methods ==
 
 There are two types of interactions with Asterisk:
 
@@ -23,14 +24,16 @@ There are two types of interactions with Asterisk:
   * Access received FAXes
   * Display FAXes though XBMC image viewer
 
+
 == Real Time interaction with Asterisk ==
 
  * Using Asterisk Manager Interface (AMI)
   * http://www.voip-info.org/wiki/view/Asterisk+manager+API
- * Could take advantage of the existing Python Asterisk package:
+ * May take advantage of the existing Python Asterisk package:
   * http://code.google.com/p/py-asterisk/
 
-== Historical Asterisk information ==
+
+== Interact with Historical Asterisk information ==
 
  * Would need a PHP page acting as a WebService in order to provide access to:
   * Stored CDR info
@@ -51,6 +54,9 @@ There are two types of interactions with Asterisk:
 
 == To Do ==
 
- * Start testing the real-time Asterisk interaction from XBMC
- * Start searching for PHP libraries or existing code that can provide us the base for historical Asterisk information access
- * Write and publish some working examples
+ * Real-time interaction
+  * Start testing the real-time Asterisk interaction from XBMC using py-asterisk. *done*
+  * Write a XBMC Script & GUI
+ * CDR/Voicemail/etc interaction
+  * Start searching for PHP libraries or existing code that can provide us the base for historical Asterisk information access.
+  * Write a XBMC Script & GUI
