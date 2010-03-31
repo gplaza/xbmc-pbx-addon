@@ -25,28 +25,21 @@ class get_incoming_call(object):
 	        '''
 		Event handler for the Asterisk 'Newchannel' event.
 		'''
-		ch_uniqid = event.Uniqueid
-		ch_status = event.ChannelStateDesc
-		if ch_status == 'Ring' and self.ast_uniqid == 0:
-			self.ast_uniqid = ch_uniqid
+		if event.ChannelStateDesc == 'Ring' and self.ast_uniqid == 0:
+			self.ast_uniqid = event.Uniqueid
 
 	def NewCallerid(self, pbx, event):
 		'''
 		Event handler for the Asterisk 'NewCallerid' event.
 		'''
-		cid_cidname = event.CallerIDName
-		cid_cidnum = event.CallerIDNum
-		cid_uniqid = event.Uniqueid
-		if cid_uniqid == self.ast_uniqid and cid_cidname != "" and cid_cidnum != "":
-			print "CallerID: %s <%s>" % (cid_cidname, cid_cidnum)
+		if event.Uniqueid == self.ast_uniqid and event.CallerIDName != "" and event.CallerIDNum != "":
 			self.newcall_actions(event)
 
 	def Hangup(self, pbx, event):
 		'''
 		Event handler for the Asterisk 'Hangup' event.
 		'''
-		hang_uniqid = event.Uniqueid
-		if hang_uniqid == self.ast_uniqid:
+		if event.Uniqueid == self.ast_uniqid:
 			self.ast_uniqid = 0
 			self.hangup_actions(event)
 
@@ -55,6 +48,7 @@ class get_incoming_call(object):
 		'''
 		Defines what to do during hangup call events
 		'''
+		print "Hangup Action..."
 		if xbmc_player.isPlaying() == 1:
 			xbmc_player.pause()
 
@@ -62,17 +56,20 @@ class get_incoming_call(object):
 		'''
 		Defines what to do during new call events
 		'''
+		print "NewCall Action..."
+		str_callerid = event.CallerIDName + "<"+ event.CallerIDNum +">"
+		print "CallerID: %s " % (str_callerid)
 		if xbmc_player.isPlaying() == 1:
+			print "XBMC is playing content..."
 			print "Remaining time: %s" % (xbmc_player.getTotalTime() - xbmc_player.getTime())
 			xbmc_player.pause()
 			if xbmc_player.isPlayingAudio() == 1:
-				info_tag = xbmc.InfoTagMusic(object)
+				info_tag = xbmc_player.getMusicInfoTag(object)
 				print "Music title: %s" % (info_tag.getTitle())
 			if xbmc_player.isPlayingVideo() == 1:
-				#info_tag = xbmc.InfoTagVideo(object)
-				#print "Video title: %s, Rating: %s" % (info_tag.getTitle(), info_tag.getRating())
-				pass
-		xbmc.executebuiltin("XBMC.Notification(Incoming Call, " + event.CallerIDName + "<"+ event.CallerIDNum +">, 5000)")
+				info_tag = xbmc_player.getVideoInfoTag(object)
+				print "Video title: %s, Rating: %s" % (info_tag.getTitle(), info_tag.getRating())
+		xbmc.executebuiltin("XBMC.Notification(Incoming Call, " + str_callerid +", 5000)")
 
 	def __init__(self):
 		global xbmc_player
