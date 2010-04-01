@@ -56,7 +56,10 @@ There are two types of interactions with Asterisk:
 
  * Real-time interaction
   * Start testing the real-time Asterisk interaction from XBMC using py-asterisk. *done*
-  * Write a XBMC Script & GUI
+  * Write a XBMC Script. *WIP*
+  * Write a GUI
  * CDR/Voicemail/etc interaction
-  * Start searching for PHP libraries or existing code that can provide us the base for historical Asterisk information access.
-  * Write a XBMC Script & GUI
+  * Start searching for (PHP?) libraries or existing code that can provide us the base for historical Asterisk information access. *WIP*
+  * Write a server-side (PHP?) script. *WIP*
+  * Write a XBMC Script. *WIP*
+  * Write a GUI
