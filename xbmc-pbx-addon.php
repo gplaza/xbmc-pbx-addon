@@ -5,6 +5,12 @@
 
 */
 
+$xmldoc = new DOMDocument();
+$xmldoc->formatOutput = true;
+$xmlroot = $xmldoc->createElement("pbx");
+$xmldoc->appendChild($xmlroot);
+
+if (isset($_GET["cdr"])) {
 // CDR
 $cdr_fields = array('accountcode','src','dst','dcontext',
 	'clid','channel','dstchannel','lastapp','lastdata',
@@ -27,11 +33,7 @@ if (is_readable($cdr_filename)) {
 $cdr = array_slice($cdr,-50);
 $cdr = array_reverse($cdr);
 
-// Convert Array into XML
-$xmldoc = new DOMDocument();
-$xmldoc->formatOutput = true;
-$xmlroot = $xmldoc->createElement("pbx");
-$xmldoc->appendChild($xmlroot);
+// Convert CDR Array into XML
 for ($i=0; $i < count($cdr); $i++) {
 	$node = $xmldoc->createElement("cdr");
 	for ($c=0; $c < count($cdr[$i]); $c++) {
@@ -42,9 +44,40 @@ for ($i=0; $i < count($cdr); $i++) {
 	$xmlroot->appendChild($node);
 }
 unset($cdr);
+}
 
+if (isset($_GET["vm"])) {
+// VoiceMail
+$vm_path  = '/var/spool/asterisk/voicemail/default/000/INBOX/';
+if ($handle = opendir($vm_path)) {
+    $vm = array();
+    while (false !== ($file = readdir($handle))) {
+        if ($file != "." && $file != ".." && strpos($file,".txt")) {
+            $vm[$file] = parse_ini_file($vm_path . $file);
+        }
+    }
+    closedir($handle);
+}
+
+// Convert VM Array into XML
+foreach ($vm as $i => $c) {
+	$node = $xmldoc->createElement("vm");
+	$element = $xmldoc->createElement(file);
+	$element->appendChild($xmldoc->createTextNode($i));
+	$node->appendChild($element);
+        foreach ($c as $key => $val) {
+                $element = $xmldoc->createElement($key);
+                $element->appendChild($xmldoc->createTextNode($val));
+                $node->appendChild($element);
+        }
+        $xmlroot->appendChild($node);
+}
+unset($vm);
+}
 
 // Print XML
+header ("content-type: text/xml");
 echo $xmldoc->saveXML();
+unset($xmldoc);
 ?>
 
