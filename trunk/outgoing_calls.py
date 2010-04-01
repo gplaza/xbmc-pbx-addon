@@ -12,7 +12,6 @@ __credits__ = "XBMC Team, py-Asterisk"
 __version__ = "0.0.1"
 
 
-
 #import xbmc, xbmcgui
 from Asterisk.Manager import Manager
 import Asterisk.Manager, Asterisk.Util
