@@ -5,6 +5,51 @@
 
 */
 
+$cdr_filename = "/var/log/asterisk/cdr-csv/Master.csv";
+$vm_path  = '/var/spool/asterisk/voicemail/default/000/INBOX/';
+$audioformat = "wav";
+
+if (isset($_GET['recindex'])) {
+	// Based on http://www.freepbx.org/trac/browser/freepbx/branches/2.7/amp_conf/htdocs/recordings/misc/audio.php
+
+ $path = $vm_path . "msg" . $_GET['recindex'] . "." . $audioformat;
+  
+  // See if the file exists
+  if (!is_file($path)) { die("<b>404 File not found!</b>"); }
+
+  // Gather relevent info about file
+  $size = filesize($path);
+  $name = basename($path);
+  $extension = strtolower(substr(strrchr($name,"."),1));
+
+  // This will set the Content-Type to the appropriate setting for the file
+  $ctype ='';
+  switch( $extension ) {
+    case "mp3": $ctype="audio/mpeg"; break;
+    case "wav": $ctype="audio/x-wav"; break;
+    case "gsm": $ctype="audio/x-gsm"; break;
+
+    // not downloadable
+    default: die("<b>404 File not found!</b>"); break ;
+  }
+
+  // need to check if file is mislabeled or a liar.
+  $fp=fopen($path, "rb");
+  if ($size && $ctype && $fp) {
+    header("Pragma: public");
+    header("Expires: 0");
+    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+    header("Cache-Control: public");
+    header("Content-Description: wav file");
+    header("Content-Type: " . $ctype);
+    header("Content-Disposition: attachment; filename=" . $name);
+    header("Content-Transfer-Encoding: binary");
+    header("Content-length: " . $size);
+    fpassthru($fp);
+  } 
+}
+else {
+
 $xmldoc = new DOMDocument();
 $xmldoc->formatOutput = true;
 $xmlroot = $xmldoc->createElement("pbx");
@@ -18,7 +63,6 @@ $cdr_fields = array('accountcode','src','dst','dcontext',
 	'disposition','amaflags','uniqueid','userfield');
 
 // Read CSV file and store into an Array
-$cdr_filename = "/var/log/asterisk/cdr-csv/Master.csv";
 $cdr = array();
 if (is_readable($cdr_filename)) {
 	if (($handle = fopen($cdr_filename, "r")) !== FALSE) {
@@ -48,12 +92,11 @@ unset($cdr);
 
 if (isset($_GET["vm"])) {
 // VoiceMail
-$vm_path  = '/var/spool/asterisk/voicemail/default/000/INBOX/';
 if ($handle = opendir($vm_path)) {
     $vm = array();
     while (false !== ($file = readdir($handle))) {
         if ($file != "." && $file != ".." && strpos($file,".txt")) {
-            $vm[$file] = parse_ini_file($vm_path . $file);
+            $vm[str_replace(".txt","",str_replace("msg","",$file))] = parse_ini_file($vm_path . $file);
         }
     }
     closedir($handle);
@@ -62,7 +105,7 @@ if ($handle = opendir($vm_path)) {
 // Convert VM Array into XML
 foreach ($vm as $i => $c) {
 	$node = $xmldoc->createElement("vm");
-	$element = $xmldoc->createElement(file);
+	$element = $xmldoc->createElement(recindex);
 	$element->appendChild($xmldoc->createTextNode($i));
 	$node->appendChild($element);
         foreach ($c as $key => $val) {
@@ -79,5 +122,6 @@ unset($vm);
 header ("content-type: text/xml");
 echo $xmldoc->saveXML();
 unset($xmldoc);
+}
 ?>
 
