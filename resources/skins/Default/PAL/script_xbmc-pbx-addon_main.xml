@@ -1,0 +1,177 @@
+<window id="3000">
+        <defaultcontrol>110</defaultcontrol>
+        <controls>
+                <control type="image">
+                        <description>background image</description>
+                        <posx>0</posx>
+                        <posy>0</posy>
+                        <width>720</width>
+                        <height>576</height>
+                        <texture>background.png</texture>
+                </control>
+                <control type="image" id="0">
+                        <description>contentpanel slice</description>
+                        <posx>0</posx>
+                        <posy>88</posy>
+                        <width>720</width>
+                        <height>580</height>
+                        <texture>ContentPanel.png</texture>
+                </control>
+                <control type="label">
+                        <description>xbmc</description>
+                        <posx>120</posx>
+                        <posy>40</posy>
+                        <align>right</align>
+                        <label>XBMC PBX Addon</label>
+                        <font>special12</font>
+                </control>
+                <control type="button" id="115">
+                        <description>description label</description>
+                        <posx>150</posx>
+                        <posy>40</posy>
+                        <align>left</align>
+                        <label>Showing CDR</label>
+                        <font>special13</font>
+                </control>
+	        <control type="list" id="110">
+                        <description>List Container</description>
+                        <posx>10</posx>
+                        <posy>105</posy>
+                        <width>675</width>
+                        <height>440</height>
+                        <scrolltime>200</scrolltime>
+                        <onup>110</onup>
+                        <ondown>110</ondown>
+                        <onright>111</onright>
+                        <onleft>111</onleft>
+                        <pagecontrol>111</pagecontrol>
+                        <itemlayout height="30">
+                                <control type="image">
+                                        <width>675</width>
+                                        <height>23</height>
+                                        <posx>0</posx>
+                                        <posy>0</posy>
+                                        <texture border="5">MenuItemNF.png</texture>
+                                </control>
+                                <control type="label" id="121">
+                                        <posx>5</posx>
+                                        <posy>2</posy>
+                                        <width>250</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>FFe2ff43</textcolor>
+                                        <aligny>center</aligny>
+                                        <align>left</align>
+                                        <info>ListItem.Property(label1)</info>
+                                </control>
+                                <control type="label" id="122">
+                                        <posx>670</posx>
+                                        <posy>2</posy>
+                                        <width>250</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>60FFFFFF</textcolor>
+                                        <selectedcolor>FFFF0000</selectedcolor>
+                                        <aligny>center</aligny>
+                                        <align>right</align>
+                                        <info>ListItem.Property(label2)</info>
+                                </control>
+                        </itemlayout>
+                        <focusedlayout height="60">
+                                <control type="image">
+                                        <width>675</width>
+                                        <height>53</height>
+                                        <posx>0</posx>
+                                        <posy>0</posy>
+                                        <texture border="5">MenuItemNF.png</texture>
+                                        <visible>!Control.HasFocus(110)</visible>
+                                </control>
+                                <control type="image">
+                                        <width>675</width>
+                                        <height>53</height>
+                                        <posx>0</posx>
+                                        <posy>0</posy>
+                                        <texture border="5">MenuItemFO.png</texture>
+                                        <visible>Control.HasFocus(110)</visible>
+                                </control>
+                                <control type="label" id="121">
+                                        <posx>5</posx>
+                                        <posy>2</posy>
+                                        <width>250</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>FFe2ff43</textcolor>
+                                        <aligny>center</aligny>
+                                        <align>left</align>
+                                        <info>ListItem.Property(label1)</info>
+                                </control>
+                                <control type="label" id="123">
+                                        <posx>5</posx>
+                                        <posy>20</posy>
+                                        <width>500</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>FFFFFFFF</textcolor>
+                                        <aligny>center</aligny>
+                                        <align>left</align>
+                                        <info>ListItem.Property(label3)</info>
+                                </control>
+                                <control type="label" id="122">
+                                        <posx>670</posx>
+                                        <posy>2</posy>
+                                        <width>250</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>60FFFFFF</textcolor>
+                                        <selectedcolor>FFFF0000</selectedcolor>
+                                        <aligny>center</aligny>
+                                        <align>right</align>
+                                        <info>ListItem.Property(label2)</info>
+				</control>
+                        </focusedlayout>
+                </control>
+	        <control type="group">
+                        <posx>690</posx>
+                        <posy>105</posy>
+                        <control type="button">
+                                <description>Scrollbar Up Arrow</description>
+                                <posx>0</posx>
+                                <posy>0</posy>
+                                <width>20</width>
+                                <height>20</height>
+                                <texturenofocus>scrollbar-up-arrow.png</texturenofocus>
+                                <texturefocus>scrollbar-up-arrow-focus.png</texturefocus>
+                                <onclick>PageUp(111)</onclick>
+                                <visible>Control.IsVisible(111)</visible>
+                        </control>
+                        <control type="scrollbar" id="111">
+                                <description>Scrollbar</description>
+                                <posx>0</posx>
+                                <posy>20</posy>
+                                <width>20</width>
+                                <height>407</height>
+                                <texturesliderbackground border="4">ScrollBarV.png</texturesliderbackground>
+                                <texturesliderbar border="3">ScrollBarV_bar.png</texturesliderbar>
+                                <texturesliderbarfocus border="3">ScrollBarV_bar_focus.png</texturesliderbarfocus>
+                                <textureslidernib>-</textureslidernib>
+                                <textureslidernibfocus>-</textureslidernibfocus>
+                                <onleft>110</onleft>
+                                <onright>110</onright>
+                                <showonepage>false</showonepage>
+                                <orientation>vertical</orientation>
+                        </control>
+                        <control type="button">
+                                <description>Scrollbar Down Arrow</description>
+                                <posx>0</posx>
+                                <posy>427</posy>
+                                <width>20</width>
+                                <height>20</height>
+                                <texturenofocus>ScrollBarV_bar.png</texturenofocus>
+                                <texturefocus>ScrollBarV_bar_focus.png</texturefocus>
+                                <onclick>PageDown(111)</onclick>
+                                <visible>Control.IsVisible(111)</visible>
+                        </control>
+                </control>
+        </controls>
+</window>
+
