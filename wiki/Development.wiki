@@ -53,8 +53,13 @@ There are two types of interactions with Asterisk:
   * http://web.archive.org/web/20061013071611/www.3ait.co.uk/~jon/cdr-info.pls
   * http://astweb.sourceforge.net/
 
+== GUI ==
+ * Using WindowsXML
+  * Localization
+  * Skinnable
+
 
 == To Do ==
 
- * *Base functionality is working. Need to complete it and improve it.*
+ * *Base functionality and GUI are working. Need to complete it and improve it.*
  
