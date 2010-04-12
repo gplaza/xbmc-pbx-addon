@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<strings>
+	<string id="30000">XBMC PBX Addon</string>
+
+	<!-- Asterisk Manager related strings -->
+	<string id="30010">Asterisk Manager</string>
+	<string id="30011">Hostname or IP Address</string>
+	<string id="30012">Port</string>
+	<string id="30013">Username</string>
+	<string id="30014">Password</string>
+
+	<!-- Asterisk Inbound Calls related strings -->
+	<string id="30020">Asterisk Inbound Calls</string>
+	<string id="30021">Show Caller ID notification on XBMC</string>
+	<string id="30022">Caller ID notification timeout</string>
+	<string id="30023">Pause playing media</string>
+
+	<!-- Asterisk Outbound Calls related strings -->
+	<string id="30030">Asterisk Outbound Calls</string>
+	<string id="30031">Using extension</string>
+	<string id="30032">Using context</string>
+
+	<!-- CDR & VoiceMail related strings -->
+	<string id="30040">CDR & VoiceMail</string>
+	<string id="30041">URL to XBMC PBX Addon PHP</string>
+</strings>
+
