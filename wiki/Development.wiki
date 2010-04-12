@@ -31,6 +31,7 @@ There are two types of interactions with Asterisk:
   * http://www.voip-info.org/wiki/view/Asterisk+manager+API
  * May take advantage of the existing Python Asterisk package:
   * http://code.google.com/p/py-asterisk/
+  * *this one was used*
 
 
 == Interact with Historical Asterisk information ==
@@ -38,6 +39,7 @@ There are two types of interactions with Asterisk:
  * Would need a PHP page acting as a WebService in order to provide access to:
   * Stored CDR info
   * VoiceMail audio files
+  * *done*
   * FAX files
  * Could take advantage of existing code, such as:
   * http://www.littlejohnconsulting.com/ari
@@ -54,12 +56,5 @@ There are two types of interactions with Asterisk:
 
 == To Do ==
 
- * Real-time interaction
-  * Start testing the real-time Asterisk interaction from XBMC using py-asterisk. *done*
-  * Write a XBMC Script. *WIP*
-  * Write a GUI
- * CDR/Voicemail/etc interaction
-  * Start searching for (PHP?) libraries or existing code that can provide us the base for historical Asterisk information access. *WIP*
-  * Write a server-side (PHP?) script. *WIP*
-  * Write a XBMC Script. *WIP*
-  * Write a GUI
+ * *Base functionality is working. Need to complete it and improve it.*
+ 
