@@ -15,7 +15,7 @@ __svn_url__ = "http://xbmc-pbx-addon.googlecode.com/svn/trunk/xbmc-pbx-addon"
 __credits__ = "XBMC Team, py-Asterisk"
 __version__ = "0.0.1"
 
-xbmc.output( __scriptname__ + " Version: " + __version__  + " " )
+xbmc.output( __scriptname__ + " Version: " + __version__  + "\n" )
 BASE_RESOURCE_PATH = xbmc.translatePath( os.path.join( os.getcwd(), 'resources', 'lib' ) )
 sys.path.append (BASE_RESOURCE_PATH)
 __language__ = xbmc.Language( os.getcwd() ).getLocalizedString
@@ -79,7 +79,9 @@ class get_incoming_call(object):
         def hangup_actions(self, event):
                 log("> hangup_actions()")
                 if xbmc_player.isPlaying() == 1:
-                        xbmc_player.pause()
+			# Resume media
+			if xbmc_oncall_pause_media:
+                        	xbmc_player.pause()
 
 	#####################################################################################################
         def newcall_actions(self, event):
@@ -89,14 +91,18 @@ class get_incoming_call(object):
                 if xbmc_player.isPlaying() == 1:
                         log(">> XBMC is playing content...")
                         log("Remaining time: " + (xbmc_player.getTotalTime() - xbmc_player.getTime()))
-                        xbmc_player.pause()
                         if xbmc_player.isPlayingAudio() == 1:
                                 info_tag = xbmc_player.getMusicInfoTag(object)
                                 log("Music title: " + info_tag.getTitle())
                         if xbmc_player.isPlayingVideo() == 1:
                                 info_tag = xbmc_player.getVideoInfoTag(object)
                                 log("Video title: " + info_tag.getTitle() + ", Rating: " + info_tag.getRating())
-                xbmc.executebuiltin("XBMC.Notification(Incoming Call, " + str_callerid +", 5000)")
+			# Pause Media
+			if xbmc_oncall_pause_media:
+                        	xbmc_player.pause()
+		# Show Incoming Call Notification Popup
+		if xbmc_oncall_notification:
+                	xbmc.executebuiltin("XBMC.Notification(" + __language__(30050) + ", " + str_callerid +", " + (xbmc_oncall_notification * 1000) + ")")
 
 
 #############################################################################################################
@@ -111,14 +117,19 @@ class MainGUI(xbmcgui.WindowXML):
 	#####################################################################################################
         def onInit( self ):
 		dialog = xbmcgui.DialogProgress()
-		dialog.create( __scriptname__, "Starting..." )
-		dialog.update(0,"Reading Config...")
+		# Starting...
+		dialog.create( __scriptname__, __language__(30061))
+		# Reading Config...
+		dialog.update(0, __language__(30062))
 		self.getConfig()
-		dialog.update(25,"Fetching Asterisk Info...")
+		# Fetching Asterisk Info...
+		dialog.update(25, __language__(30063))
 		self.getInfo()
-		dialog.update(50,"Displaying Asterisk Info...")
+		# Displaying Asterisk Info...
+		dialog.update(50, __language__(30064))
 		self.showInfo("cdr")
-		dialog.update(100,"Done...")
+		# Done...
+		dialog.update(100, __language__(30065))
 		dialog.close()
 		del dialog
 		log("Done.")
@@ -148,32 +159,38 @@ class MainGUI(xbmcgui.WindowXML):
 
 	#####################################################################################################
 	def showInfo(self, option):
-		log("> showInfo()")
-		xbmcgui.lock()
-		self.getControl(110).reset()
-		# Parse CDR/VM XML content
-		for node in self.dom.getElementsByTagName(option):
-			listitem = xbmcgui.ListItem()
-			for childNode in node.childNodes:
-				if (childNode.nodeName != "#text"):
-					if ( childNode.firstChild ):
-						listitem.setProperty( option + "_" + childNode.nodeName, childNode.firstChild.data )
-					else:
-						listitem.setProperty( option + "_" + childNode.nodeName, "" )
+		log("> showInfo(" + option + ")")
+		try:
+			xbmcgui.lock()
 			if ( option == "cdr" ):
-				listitem.setProperty("label1", listitem.getProperty("cdr_clid"))
-				listitem.setProperty("label2", listitem.getProperty("cdr_start"))
-				listitem.setProperty("label3", listitem.getProperty("cdr_disposition"))
+				self.getControl(120).reset()
+				self.getControl(120).setVisible(True)
+				self.getControl(120).setEnabled(True)
+				self.getControl(121).setVisible(False)
+				self.getControl(121).setVisible(False)
 			else:
-				listitem.setProperty("label1", listitem.getProperty("vm_callerid"))
-				listitem.setProperty("label2", listitem.getProperty("vm_origdate"))
-				listitem.setProperty("label3", listitem.getProperty("vm_recindex"))
-			try:
-				self.getControl(110).addItem( listitem )
-			except:
-				log("ERROR: %s::%s (%d) - %s" % ( self.__class__.__name__, sys.exc_info()[ 2 ].tb_frame.f_code.co_name, sys.exc_info()[ 2 ].tb_lineno, sys.exc_info()[ 1 ], ))
-			del listitem
-		xbmcgui.unlock()
+				self.getControl(121).reset()
+				self.getControl(121).setVisible(True)
+				self.getControl(121).setEnabled(True)
+				self.getControl(120).setVisible(False)
+				self.getControl(120).setVisible(False)
+			# Parse CDR/VM XML content
+			for node in self.dom.getElementsByTagName(option):
+				listitem = xbmcgui.ListItem()
+				for childNode in node.childNodes:
+					if (childNode.nodeName != "#text"):
+						if ( childNode.firstChild ):
+							listitem.setProperty( childNode.nodeName, childNode.firstChild.data )
+						else:
+							listitem.setProperty( childNode.nodeName, "" )
+				if ( option == "cdr" ):
+					self.getControl(120).addItem( listitem )
+				else:
+					self.getControl(121).addItem( listitem )
+				del listitem
+			xbmcgui.unlock()
+		except:
+			log("ERROR: %s::%s (%d) - %s" % ( self.__class__.__name__, sys.exc_info()[ 2 ].tb_frame.f_code.co_name, sys.exc_info()[ 2 ].tb_lineno, sys.exc_info()[ 1 ], ))
 
 	#####################################################################################################
 	def onAction(self, action):
@@ -182,23 +199,21 @@ class MainGUI(xbmcgui.WindowXML):
 
 	def onClick( self, controlId ):
 		log("> onClick()")
-		if ( controlId == 110 ):
-			number_to_call = self.getControl(110).getSelectedItem().getProperty("cdr_src")
-			recindex = self.getControl(110).getSelectedItem().getProperty("vm_recindex")
+		if ( controlId == 120 ):
+			number_to_call = self.getControl(120).getSelectedItem().getProperty("src")
+			recindex = self.getControl(120).getSelectedItem().getProperty("recindex")
 			if (number_to_call != ""):
-				log(number_to_call)
 				dialog = xbmcgui.Dialog()
 				if (dialog.yesno(__scriptname__, "Initiate outgoing call to '" + number_to_call + "'?")):
 					self.make_outgoing_call(number_to_call)
 			elif (recindex != ""):
-				log(recindex)
 				xbmc.Player(xbmc.PLAYER_CORE_AUTO).play(self.asterisk_info_url + "?recindex=" + recindex)
-		elif ( controlId == 115 ):
-			if ( self.getControl(115).getLabel() == "Showing CDR" ):
-				self.getControl(115).setLabel("Showing VoiceMail")
+		elif ( controlId == 110 ):
+			if ( self.getControl(110).getLabel() == __language__(30101) ):
+				self.getControl(110).setLabel(__language__(30102))
 				self.showInfo("vm")
 			else:
-				self.getControl(115).setLabel("Showing CDR")
+				self.getControl(110).setLabel(__language__(30101))
 				self.showInfo("cdr")
 
 	def onFocus(self, controlId ):
@@ -243,6 +258,9 @@ else:
                 asterisk_manager_port = int(settings.getSetting("asterisk_manager_port"))
                 asterisk_manager_user = settings.getSetting("asterisk_manager_user")
                 asterisk_manager_pass = settings.getSetting("asterisk_manager_pass")
+		xbmc_oncall_notification = settings.getSetting("xbmc_oncall_notification")
+		xbmc_oncall_notification_timeout = int(settings.getSetting("xbmc_oncall_notification_timeout"))
+		xbmc_oncall_pause_media = settings.getSetting("xbmc_oncall_pause_media")
                 del settings
 		pbx = Manager((asterisk_manager_host, asterisk_manager_port), asterisk_manager_user, asterisk_manager_pass)
 		grab = get_incoming_call()

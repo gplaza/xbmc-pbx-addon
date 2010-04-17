@@ -1,5 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <window id="3000">
-        <defaultcontrol>110</defaultcontrol>
+        <defaultcontrol>120</defaultcontrol>
         <controls>
                 <control type="image">
                         <description>background image</description>
@@ -25,7 +26,7 @@
                         <label>XBMC PBX Addon</label>
                         <font>special12</font>
                 </control>
-                <control type="button" id="115">
+                <control type="button" id="110">
                         <description>description label</description>
                         <posx>150</posx>
                         <posy>40</posy>
@@ -33,18 +34,18 @@
                         <label>Showing CDR</label>
                         <font>special13</font>
                 </control>
-	        <control type="list" id="110">
-                        <description>List Container</description>
+	        <control type="list" id="120">
+                        <description>CDR List Container</description>
                         <posx>10</posx>
                         <posy>105</posy>
                         <width>675</width>
                         <height>440</height>
                         <scrolltime>200</scrolltime>
-                        <onup>110</onup>
-                        <ondown>110</ondown>
-                        <onright>111</onright>
-                        <onleft>111</onleft>
-                        <pagecontrol>111</pagecontrol>
+                        <onup>120</onup>
+                        <ondown>120</ondown>
+                        <onright>150</onright>
+                        <onleft>150</onleft>
+                        <pagecontrol>150</pagecontrol>
                         <itemlayout height="30">
                                 <control type="image">
                                         <width>675</width>
@@ -53,18 +54,18 @@
                                         <posy>0</posy>
                                         <texture border="5">MenuItemNF.png</texture>
                                 </control>
-                                <control type="label" id="121">
+                                <control type="label">
                                         <posx>5</posx>
                                         <posy>2</posy>
                                         <width>250</width>
                                         <height>20</height>
                                         <font>font12</font>
-                                        <textcolor>FFe2ff43</textcolor>
+                                        <textcolor>FFFFFFFF</textcolor>
                                         <aligny>center</aligny>
                                         <align>left</align>
-                                        <info>ListItem.Property(label1)</info>
+                                        <info>ListItem.Property(clid)</info>
                                 </control>
-                                <control type="label" id="122">
+                                <control type="label">
                                         <posx>670</posx>
                                         <posy>2</posy>
                                         <width>250</width>
@@ -74,7 +75,7 @@
                                         <selectedcolor>FFFF0000</selectedcolor>
                                         <aligny>center</aligny>
                                         <align>right</align>
-                                        <info>ListItem.Property(label2)</info>
+                                        <info>ListItem.Property(start)</info>
                                 </control>
                         </itemlayout>
                         <focusedlayout height="60">
@@ -84,7 +85,7 @@
                                         <posx>0</posx>
                                         <posy>0</posy>
                                         <texture border="5">MenuItemNF.png</texture>
-                                        <visible>!Control.HasFocus(110)</visible>
+                                        <visible>!Control.HasFocus(120)</visible>
                                 </control>
                                 <control type="image">
                                         <width>675</width>
@@ -92,42 +93,162 @@
                                         <posx>0</posx>
                                         <posy>0</posy>
                                         <texture border="5">MenuItemFO.png</texture>
-                                        <visible>Control.HasFocus(110)</visible>
+                                        <visible>Control.HasFocus(120)</visible>
                                 </control>
-                                <control type="label" id="121">
+                                <control type="label">
                                         <posx>5</posx>
                                         <posy>2</posy>
-                                        <width>250</width>
+                                        <width>95</width>
                                         <height>20</height>
                                         <font>font12</font>
                                         <textcolor>FFe2ff43</textcolor>
                                         <aligny>center</aligny>
                                         <align>left</align>
-                                        <info>ListItem.Property(label1)</info>
+                                        <label>Calldate</label>
                                 </control>
-                                <control type="label" id="123">
+                                <control type="label">
                                         <posx>5</posx>
-                                        <posy>20</posy>
-                                        <width>500</width>
+                                        <posy>22</posy>
+                                        <width>95</width>
                                         <height>20</height>
                                         <font>font12</font>
                                         <textcolor>FFFFFFFF</textcolor>
                                         <aligny>center</aligny>
                                         <align>left</align>
-                                        <info>ListItem.Property(label3)</info>
+                                        <info>ListItem.Property(start)</info>
                                 </control>
-                                <control type="label" id="122">
-                                        <posx>670</posx>
+                                <control type="label">
+                                        <posx>105</posx>
                                         <posy>2</posy>
-                                        <width>250</width>
+                                        <width>95</width>
                                         <height>20</height>
                                         <font>font12</font>
-                                        <textcolor>60FFFFFF</textcolor>
-                                        <selectedcolor>FFFF0000</selectedcolor>
+                                        <textcolor>FFe2ff43</textcolor>
                                         <aligny>center</aligny>
-                                        <align>right</align>
-                                        <info>ListItem.Property(label2)</info>
-				</control>
+                                        <align>left</align>
+                                        <label>Channel</label>
+                                </control>
+                                <control type="label">
+                                        <posx>105</posx>
+                                        <posy>22</posy>
+                                        <width>95</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>FFFFFFFF</textcolor>
+                                        <aligny>center</aligny>
+                                        <align>left</align>
+                                        <info>ListItem.Property(channel)</info>
+                                </control>
+                                <control type="label">
+                                        <posx>200</posx>
+                                        <posy>2</posy>
+                                        <width>95</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>FFe2ff43</textcolor>
+                                        <aligny>center</aligny>
+                                        <align>left</align>
+                                        <label>Source</label>
+                                </control>
+                                <control type="label">
+                                        <posx>200</posx>
+                                        <posy>22</posy>
+                                        <width>95</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>FFFFFFFF</textcolor>
+                                        <aligny>center</aligny>
+                                        <align>left</align>
+                                        <info>ListItem.Property(src)</info>
+                                </control>
+                                <control type="label">
+                                        <posx>295</posx>
+                                        <posy>2</posy>
+                                        <width>95</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>FFe2ff43</textcolor>
+                                        <aligny>center</aligny>
+                                        <align>left</align>
+                                        <label>Clid</label>
+                                </control>
+                                <control type="label">
+                                        <posx>295</posx>
+                                        <posy>22</posy>
+                                        <width>95</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>FFFFFFFF</textcolor>
+                                        <aligny>center</aligny>
+                                        <align>left</align>
+                                        <info>ListItem.Property(clid)</info>
+                                </control>
+                                <control type="label">
+                                        <posx>390</posx>
+                                        <posy>2</posy>
+                                        <width>95</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>FFe2ff43</textcolor>
+                                        <aligny>center</aligny>
+                                        <align>left</align>
+                                        <label>Dst</label>
+                                </control>
+                                <control type="label">
+                                        <posx>390</posx>
+                                        <posy>22</posy>
+                                        <width>95</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>FFFFFFFF</textcolor>
+                                        <aligny>center</aligny>
+                                        <align>left</align>
+                                        <info>ListItem.Property(dst)</info>
+                                </control>
+                                <control type="label">
+                                        <posx>485</posx>
+                                        <posy>2</posy>
+                                        <width>95</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>FFe2ff43</textcolor>
+                                        <aligny>center</aligny>
+                                        <align>left</align>
+                                        <label>Disposition</label>
+                                </control>
+                                <control type="label">
+                                        <posx>485</posx>
+                                        <posy>22</posy>
+                                        <width>95</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>FFFFFFFF</textcolor>
+                                        <aligny>center</aligny>
+                                        <align>left</align>
+                                        <info>ListItem.Property(disposition)</info>
+                                </control>
+                                <control type="label">
+                                        <posx>580</posx>
+                                        <posy>2</posy>
+                                        <width>95</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>FFe2ff43</textcolor>
+                                        <aligny>center</aligny>
+                                        <align>left</align>
+                                        <label>Duration</label>
+                                </control>
+                                <control type="label">
+                                        <posx>580</posx>
+                                        <posy>22</posy>
+                                        <width>95</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>FFFFFFFF</textcolor>
+                                        <aligny>center</aligny>
+                                        <align>left</align>
+                                        <info>ListItem.Property(duration)</info>
+                                </control>
                         </focusedlayout>
                 </control>
 	        <control type="group">
@@ -141,10 +262,10 @@
                                 <height>20</height>
                                 <texturenofocus>scrollbar-up-arrow.png</texturenofocus>
                                 <texturefocus>scrollbar-up-arrow-focus.png</texturefocus>
-                                <onclick>PageUp(111)</onclick>
-                                <visible>Control.IsVisible(111)</visible>
+                                <onclick>PageUp(150)</onclick>
+                                <visible>Control.IsVisible(150)</visible>
                         </control>
-                        <control type="scrollbar" id="111">
+                        <control type="scrollbar" id="150">
                                 <description>Scrollbar</description>
                                 <posx>0</posx>
                                 <posy>20</posy>
@@ -155,10 +276,11 @@
                                 <texturesliderbarfocus border="3">ScrollBarV_bar_focus.png</texturesliderbarfocus>
                                 <textureslidernib>-</textureslidernib>
                                 <textureslidernibfocus>-</textureslidernibfocus>
-                                <onleft>110</onleft>
-                                <onright>110</onright>
+                                <onleft>120</onleft>
+                                <onright>120</onright>
                                 <showonepage>false</showonepage>
                                 <orientation>vertical</orientation>
+				<visible>Control.IsVisible(120)</visible>
                         </control>
                         <control type="button">
                                 <description>Scrollbar Down Arrow</description>
@@ -168,8 +290,246 @@
                                 <height>20</height>
                                 <texturenofocus>ScrollBarV_bar.png</texturenofocus>
                                 <texturefocus>ScrollBarV_bar_focus.png</texturefocus>
-                                <onclick>PageDown(111)</onclick>
-                                <visible>Control.IsVisible(111)</visible>
+                                <onclick>PageDown(150)</onclick>
+                                <visible>Control.IsVisible(150)</visible>
+                        </control>
+                </control>
+	        <control type="list" id="121">
+                        <description>Voice Mail List Container</description>
+                        <posx>10</posx>
+                        <posy>105</posy>
+                        <width>675</width>
+                        <height>440</height>
+                        <scrolltime>200</scrolltime>
+                        <onup>121</onup>
+                        <ondown>121</ondown>
+                        <onright>151</onright>
+                        <onleft>151</onleft>
+                        <pagecontrol>151</pagecontrol>
+                        <itemlayout height="30">
+                                <control type="image">
+                                        <width>675</width>
+                                        <height>23</height>
+                                        <posx>0</posx>
+                                        <posy>0</posy>
+                                        <texture border="5">MenuItemNF.png</texture>
+                                </control>
+                                <control type="label">
+                                        <posx>5</posx>
+                                        <posy>2</posy>
+                                        <width>250</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>FFFFFFFF</textcolor>
+                                        <aligny>center</aligny>
+                                        <align>left</align>
+                                        <info>ListItem.Property(callerid)</info>
+                                </control>
+                                <control type="label">
+                                        <posx>670</posx>
+                                        <posy>2</posy>
+                                        <width>250</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>60FFFFFF</textcolor>
+                                        <selectedcolor>FFFF0000</selectedcolor>
+                                        <aligny>center</aligny>
+                                        <align>right</align>
+                                        <info>ListItem.Property(origdate)</info>
+                                </control>
+                        </itemlayout>
+                        <focusedlayout height="60">
+                                <control type="image">
+                                        <width>675</width>
+                                        <height>53</height>
+                                        <posx>0</posx>
+                                        <posy>0</posy>
+                                        <texture border="5">MenuItemNF.png</texture>
+                                        <visible>!Control.HasFocus(121)</visible>
+                                </control>
+                                <control type="image">
+                                        <width>675</width>
+                                        <height>53</height>
+                                        <posx>0</posx>
+                                        <posy>0</posy>
+                                        <texture border="5">MenuItemFO.png</texture>
+                                        <visible>Control.HasFocus(121)</visible>
+                                </control>
+                                <control type="label">
+                                        <posx>5</posx>
+                                        <posy>2</posy>
+                                        <width>95</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>FFe2ff43</textcolor>
+                                        <aligny>center</aligny>
+                                        <align>left</align>
+                                        <label>Date</label>
+                                </control>
+                                <control type="label">
+                                        <posx>5</posx>
+                                        <posy>22</posy>
+                                        <width>95</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>FFFFFFFF</textcolor>
+                                        <aligny>center</aligny>
+                                        <align>left</align>
+                                        <info>ListItem.Property(origdate)</info>
+                                </control>
+                                <control type="label">
+                                        <posx>100</posx>
+                                        <posy>2</posy>
+                                        <width>95</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>FFe2ff43</textcolor>
+                                        <aligny>center</aligny>
+                                        <align>left</align>
+                                        <label>Time</label>
+                                </control>
+                                <control type="label">
+                                        <posx>100</posx>
+                                        <posy>22</posy>
+                                        <width>95</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>FFFFFFFF</textcolor>
+                                        <aligny>center</aligny>
+                                        <align>left</align>
+                                        <info>ListItem.Property(origtime)</info>
+                                </control>
+                                <control type="label">
+                                        <posx>195</posx>
+                                        <posy>2</posy>
+                                        <width>95</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>FFe2ff43</textcolor>
+                                        <aligny>center</aligny>
+                                        <align>left</align>
+                                        <label>CallerID</label>
+                                </control>
+                                <control type="label">
+                                        <posx>195</posx>
+                                        <posy>22</posy>
+                                        <width>95</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>FFFFFFFF</textcolor>
+                                        <aligny>center</aligny>
+                                        <align>left</align>
+                                        <info>ListItem.Property(callerid)</info>
+                                </control>
+                                <control type="label">
+                                        <posx>290</posx>
+                                        <posy>2</posy>
+                                        <width>95</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>FFe2ff43</textcolor>
+                                        <aligny>center</aligny>
+                                        <align>left</align>
+                                        <label>Priority</label>
+                                </control>
+                                <control type="label">
+                                        <posx>290</posx>
+                                        <posy>22</posy>
+                                        <width>95</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>FFFFFFFF</textcolor>
+                                        <aligny>center</aligny>
+                                        <align>left</align>
+                                        <info>ListItem.Property(priority)</info>
+                                </control>
+                                <control type="label">
+                                        <posx>385</posx>
+                                        <posy>2</posy>
+                                        <width>95</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>FFe2ff43</textcolor>
+                                        <aligny>center</aligny>
+                                        <align>left</align>
+                                        <label>Orig Mailbox</label>
+                                </control>
+                                <control type="label">
+                                        <posx>385</posx>
+                                        <posy>22</posy>
+                                        <width>95</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>FFFFFFFF</textcolor>
+                                        <aligny>center</aligny>
+                                        <align>left</align>
+                                        <info>ListItem.Property(origmailbox)</info>
+                                </control>
+                                <control type="label">
+                                        <posx>480</posx>
+                                        <posy>2</posy>
+                                        <width>95</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>FFe2ff43</textcolor>
+                                        <aligny>center</aligny>
+                                        <align>left</align>
+                                        <label>Duration</label>
+                                </control>
+                                <control type="label">
+                                        <posx>480</posx>
+                                        <posy>22</posy>
+                                        <width>95</width>
+                                        <height>20</height>
+                                        <font>font12</font>
+                                        <textcolor>FFFFFFFF</textcolor>
+                                        <aligny>center</aligny>
+                                        <align>left</align>
+                                        <info>ListItem.Property(duration)</info>
+                                </control>
+                        </focusedlayout>
+                </control>
+	        <control type="group">
+                        <posx>690</posx>
+                        <posy>105</posy>
+                        <control type="button">
+                                <description>Scrollbar Up Arrow</description>
+                                <posx>0</posx>
+                                <posy>0</posy>
+                                <width>20</width>
+                                <height>20</height>
+                                <texturenofocus>scrollbar-up-arrow.png</texturenofocus>
+                                <texturefocus>scrollbar-up-arrow-focus.png</texturefocus>
+                                <onclick>PageUp(151)</onclick>
+                                <visible>Control.IsVisible(151)</visible>
+                        </control>
+                        <control type="scrollbar" id="151">
+                                <description>Scrollbar</description>
+                                <posx>0</posx>
+                                <posy>20</posy>
+                                <width>20</width>
+                                <height>407</height>
+                                <texturesliderbackground border="4">ScrollBarV.png</texturesliderbackground>
+                                <texturesliderbar border="3">ScrollBarV_bar.png</texturesliderbar>
+                                <texturesliderbarfocus border="3">ScrollBarV_bar_focus.png</texturesliderbarfocus>
+                                <textureslidernib>-</textureslidernib>
+                                <textureslidernibfocus>-</textureslidernibfocus>
+                                <onleft>121</onleft>
+                                <onright>121</onright>
+                                <showonepage>false</showonepage>
+                                <orientation>vertical</orientation>
+				<visible>Control.IsVisible(121)</visible>
+                        </control>
+                        <control type="button">
+                                <description>Scrollbar Down Arrow</description>
+                                <posx>0</posx>
+                                <posy>427</posy>
+                                <width>20</width>
+                                <height>20</height>
+                                <texturenofocus>ScrollBarV_bar.png</texturenofocus>
+                                <texturefocus>ScrollBarV_bar_focus.png</texturefocus>
+                                <onclick>PageDown(151)</onclick>
+                                <visible>Control.IsVisible(151)</visible>
                         </control>
                 </control>
         </controls>

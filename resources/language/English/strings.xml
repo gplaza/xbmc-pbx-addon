@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<strings>
+	<string id="30000">XBMC PBX Addon</string>
+
+	<!-- Asterisk Manager related strings -->
+	<string id="30010">Asterisk Manager</string>
+	<string id="30011">Hostname or IP Address</string>
+	<string id="30012">Port</string>
+	<string id="30013">Username</string>
+	<string id="30014">Password</string>
+
+	<!-- Asterisk Inbound Calls related strings -->
+	<string id="30020">Asterisk Inbound Calls</string>
+	<string id="30021">Show Caller ID notification on XBMC</string>
+	<string id="30022">Caller ID notification timeout</string>
+	<string id="30023">Pause playing media</string>
+
+	<!-- Asterisk Outbound Calls related strings -->
+	<string id="30030">Asterisk Outbound Calls</string>
+	<string id="30031">Using extension</string>
+	<string id="30032">Using context</string>
+
+	<!-- CDR & VoiceMail related strings -->
+	<string id="30040">CDR & VoiceMail</string>
+	<string id="30041">URL to XBMC PBX Addon PHP</string>
+
+	<!-- GUI related strings -->
+	<string id="30050">Incoming Call</string>
+	<!-- Dialog Progress -->
+	<string id="30061">Starting...</string>
+	<string id="30062">Reading config...</string>
+	<string id="30063">Fetching Asterisk Info...</string>
+	<string id="30064">Displaying Asterisk Info...</string>
+	<string id="30065">Done...</string>
+	<!-- Buttons and Labels -->
+	<string id="30101">Showing CDR</string>
+	<string id="30102">Showing Voice Mail</string>
+	<!-- CDR -->
+	<string id="30110">Call Detail Record</string>
+	<string id="30111">Account Code</string>
+	<string id="30112">Source</string>
+	<string id="30113">Destination</string>
+	<string id="30114">Destination Context</string
+	<string id="30115">Caller ID</string>
+	<string id="30116">Channel</string>
+	<string id="30117">Destination Channel</string>
+	<string id="30118">Last Application</string>
+	<string id="30119">Last Data</string>
+	<string id="30120">Start of call</string>
+	<string id="30121">Answer of call</string>
+	<string id="30122">End of call</string>
+	<string id="30123">Duration</string>
+	<string id="30124">Billing Seconds</string>
+	<string id="30125">Disposition</string>
+	<string id="30126">AMA Flags</string>
+	<string id="30127">Unique ID</string>
+	<string id="30129">User Field</string>
+	<!-- VM -->
+	<string id="30150">Voice Mail</string>
+	<string id="30151">Orig Mailbox</string>
+	<string id="30152">Context</string>
+	<string id="30153">Macro Context</string>
+	<string id="30154">Extension</string>
+	<string id="30155">Priority</string>
+	<string id="30156">Caller Channel</string>
+	<string id="30157">Caller ID</string>
+	<string id="30158">Orig Date</string>
+	<string id="30159">Orig Time</string>
+	<string id="30160">Category</string>
+	<string id="30161">Flag</string>
+	<string id="30162">Duration</string>
+	<string id="30163">Recording Index</string>
+</strings>
+
