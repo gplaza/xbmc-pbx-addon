@@ -49,6 +49,7 @@ class get_incoming_call(object):
 		log("__init__()")
                 global xbmc_player
                 xbmc_player = xbmc.Player(xbmc.PLAYER_CORE_AUTO)
+		xbmc_player_paused = False
                 self.ast_uniqid = 0
                 self.events = Asterisk.Util.EventCollection()
                 self.events.clear()
@@ -86,7 +87,8 @@ class get_incoming_call(object):
 	#####################################################################################################
         def newcall_actions(self, event):
 		log("> newcall_actions()")
-                str_callerid = event.CallerIDName + "<"+ event.CallerIDNum +">"
+		self.xbmc_player_paused = False
+                str_callerid = str(event.CallerIDName + "<"+ event.CallerIDNum +">")
                 log(">> CallerID: " + str_callerid)
                 settings = xbmc.Settings(path=os.getcwd())
                 xbmc_oncall_notification = settings.getSetting("xbmc_oncall_notification")
@@ -96,19 +98,20 @@ class get_incoming_call(object):
                 del settings
                 if xbmc_player.isPlaying() == 1:
                         log(">> XBMC is playing content...")
-                        log("Remaining time: " + (xbmc_player.getTotalTime() - xbmc_player.getTime()))
+                        log("Remaining time: " + str(xbmc_player.getTotalTime() - xbmc_player.getTime()))
                         if xbmc_player.isPlayingAudio() == 1:
                                 info_tag = xbmc_player.getMusicInfoTag(object)
                                 log("Music title: " + info_tag.getTitle())
                         if xbmc_player.isPlayingVideo() == 1:
                                 info_tag = xbmc_player.getVideoInfoTag(object)
-                                log("Video title: " + info_tag.getTitle() + ", Rating: " + info_tag.getRating())
+                                log("Video title: " + info_tag.getTitle() + ", Rating: " + str(info_tag.getRating()))
 			# Pause Media
-			if xbmc_oncall_pause_media:
+			if (xbmc_oncall_pause_media == "true"):
+				log("Pause media...")
                         	xbmc_player.pause()
 				self.xbmc_player_paused = True
 		# Show Incoming Call Notification Popup
-		if xbmc_oncall_notification:
+		if (xbmc_oncall_notification == "true"):
 			str_to_execute = "XBMC.Notification(" + __language__(30050) + ", " + str_callerid +", " + str(xbmc_oncall_notification_timeout * 1000) + ")"
 			log(str_to_execute)
                 	xbmc.executebuiltin(str_to_execute)

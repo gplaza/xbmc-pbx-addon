@@ -54,7 +54,7 @@
                         <onup>120</onup>
                         <ondown>120</ondown>
                         <onright>150</onright>
-                        <onleft>150</onleft>
+                        <onleft>111</onleft>
                         <pagecontrol>150</pagecontrol>
                         <itemlayout height="30">
                                 <control type="image">
@@ -314,7 +314,7 @@
                         <onup>121</onup>
                         <ondown>121</ondown>
                         <onright>151</onright>
-                        <onleft>151</onleft>
+                        <onleft>111</onleft>
                         <pagecontrol>151</pagecontrol>
                         <itemlayout height="30">
                                 <control type="image">
