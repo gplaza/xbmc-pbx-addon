@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <window id="3000">
-        <defaultcontrol>120</defaultcontrol>
+        <defaultcontrol>110</defaultcontrol>
         <controls>
                 <control type="image">
                         <description>background image</description>
@@ -19,19 +19,29 @@
                         <texture>ContentPanel.png</texture>
                 </control>
                 <control type="label">
-                        <description>xbmc</description>
+                        <description>XBMC PBX Addon</description>
                         <posx>120</posx>
                         <posy>40</posy>
                         <align>right</align>
-                        <label>XBMC PBX Addon</label>
+                        <label>$LOCALIZE[30000]</label>
                         <font>special12</font>
                 </control>
                 <control type="button" id="110">
-                        <description>description label</description>
-                        <posx>150</posx>
+                        <description>CDR-VM toggle button</description>
+                        <posx>200</posx>
                         <posy>40</posy>
+			<width>200</width>
                         <align>left</align>
-                        <label>Showing CDR</label>
+                        <label>$LOCALIZE[30101]</label>
+                        <font>special13</font>
+                </control>
+                <control type="button" id="111">
+                        <description>Settings</description>
+                        <posx>450</posx>
+                        <posy>40</posy>
+			<width>200</width>
+                        <align>left</align>
+                        <label>$LOCALIZE[30103]</label>
                         <font>special13</font>
                 </control>
 	        <control type="list" id="120">
@@ -104,7 +114,7 @@
                                         <textcolor>FFe2ff43</textcolor>
                                         <aligny>center</aligny>
                                         <align>left</align>
-                                        <label>Calldate</label>
+                                        <label>$LOCALIZE[30130]</label>
                                 </control>
                                 <control type="label">
                                         <posx>5</posx>
@@ -126,7 +136,7 @@
                                         <textcolor>FFe2ff43</textcolor>
                                         <aligny>center</aligny>
                                         <align>left</align>
-                                        <label>Channel</label>
+                                        <label>$LOCALIZE[30116]</label>
                                 </control>
                                 <control type="label">
                                         <posx>105</posx>
@@ -148,7 +158,7 @@
                                         <textcolor>FFe2ff43</textcolor>
                                         <aligny>center</aligny>
                                         <align>left</align>
-                                        <label>Source</label>
+                                        <label>$LOCALIZE[30112]</label>
                                 </control>
                                 <control type="label">
                                         <posx>200</posx>
@@ -170,7 +180,7 @@
                                         <textcolor>FFe2ff43</textcolor>
                                         <aligny>center</aligny>
                                         <align>left</align>
-                                        <label>Clid</label>
+                                        <label>$LOCALIZE[30115]</label>
                                 </control>
                                 <control type="label">
                                         <posx>295</posx>
@@ -192,7 +202,7 @@
                                         <textcolor>FFe2ff43</textcolor>
                                         <aligny>center</aligny>
                                         <align>left</align>
-                                        <label>Dst</label>
+                                        <label>$LOCALIZE[30113]</label>
                                 </control>
                                 <control type="label">
                                         <posx>390</posx>
@@ -214,7 +224,7 @@
                                         <textcolor>FFe2ff43</textcolor>
                                         <aligny>center</aligny>
                                         <align>left</align>
-                                        <label>Disposition</label>
+                                        <label>$LOCALIZE[30125]</label>
                                 </control>
                                 <control type="label">
                                         <posx>485</posx>
@@ -236,7 +246,7 @@
                                         <textcolor>FFe2ff43</textcolor>
                                         <aligny>center</aligny>
                                         <align>left</align>
-                                        <label>Duration</label>
+                                        <label>$LOCALIZE[30123]</label>
                                 </control>
                                 <control type="label">
                                         <posx>580</posx>
@@ -364,7 +374,7 @@
                                         <textcolor>FFe2ff43</textcolor>
                                         <aligny>center</aligny>
                                         <align>left</align>
-                                        <label>Date</label>
+                                        <label>$LOCALIZE[30158]</label>
                                 </control>
                                 <control type="label">
                                         <posx>5</posx>
@@ -386,7 +396,7 @@
                                         <textcolor>FFe2ff43</textcolor>
                                         <aligny>center</aligny>
                                         <align>left</align>
-                                        <label>Time</label>
+                                        <label>$LOCALIZE[30159]</label>
                                 </control>
                                 <control type="label">
                                         <posx>100</posx>
@@ -408,7 +418,7 @@
                                         <textcolor>FFe2ff43</textcolor>
                                         <aligny>center</aligny>
                                         <align>left</align>
-                                        <label>CallerID</label>
+                                        <label>$LOCALIZE[30157]</label>
                                 </control>
                                 <control type="label">
                                         <posx>195</posx>
@@ -430,7 +440,7 @@
                                         <textcolor>FFe2ff43</textcolor>
                                         <aligny>center</aligny>
                                         <align>left</align>
-                                        <label>Priority</label>
+                                        <label>$LOCALIZE[30155]</label>
                                 </control>
                                 <control type="label">
                                         <posx>290</posx>
@@ -452,7 +462,7 @@
                                         <textcolor>FFe2ff43</textcolor>
                                         <aligny>center</aligny>
                                         <align>left</align>
-                                        <label>Orig Mailbox</label>
+                                        <label>$LOCALIZE[30151]</label>
                                 </control>
                                 <control type="label">
                                         <posx>385</posx>
@@ -474,7 +484,7 @@
                                         <textcolor>FFe2ff43</textcolor>
                                         <aligny>center</aligny>
                                         <align>left</align>
-                                        <label>Duration</label>
+                                        <label>$LOCALIZE[30162]</label>
                                 </control>
                                 <control type="label">
                                         <posx>480</posx>

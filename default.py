@@ -80,7 +80,7 @@ class get_incoming_call(object):
                 log("> hangup_actions()")
                 if xbmc_player.isPlaying() == 1:
 			# Resume media
-			if xbmc_oncall_pause_media:
+			if self.xbmc_player_paused:
                         	xbmc_player.pause()
 
 	#####################################################################################################
@@ -88,6 +88,12 @@ class get_incoming_call(object):
 		log("> newcall_actions()")
                 str_callerid = event.CallerIDName + "<"+ event.CallerIDNum +">"
                 log(">> CallerID: " + str_callerid)
+                settings = xbmc.Settings(path=os.getcwd())
+                xbmc_oncall_notification = settings.getSetting("xbmc_oncall_notification")
+		arr_timeout = [5,10,15,20,25,30]
+                xbmc_oncall_notification_timeout = int(arr_timeout[int(settings.getSetting("xbmc_oncall_notification_timeout"))])
+                xbmc_oncall_pause_media = settings.getSetting("xbmc_oncall_pause_media")
+                del settings
                 if xbmc_player.isPlaying() == 1:
                         log(">> XBMC is playing content...")
                         log("Remaining time: " + (xbmc_player.getTotalTime() - xbmc_player.getTime()))
@@ -100,9 +106,12 @@ class get_incoming_call(object):
 			# Pause Media
 			if xbmc_oncall_pause_media:
                         	xbmc_player.pause()
+				self.xbmc_player_paused = True
 		# Show Incoming Call Notification Popup
 		if xbmc_oncall_notification:
-                	xbmc.executebuiltin("XBMC.Notification(" + __language__(30050) + ", " + str_callerid +", " + (xbmc_oncall_notification * 1000) + ")")
+			str_to_execute = "XBMC.Notification(" + __language__(30050) + ", " + str_callerid +", " + str(xbmc_oncall_notification_timeout * 1000) + ")"
+			log(str_to_execute)
+                	xbmc.executebuiltin(str_to_execute)
 
 
 #############################################################################################################
@@ -198,16 +207,24 @@ class MainGUI(xbmcgui.WindowXML):
 			self.close()
 
 	def onClick( self, controlId ):
-		log("> onClick()")
+		log("> onClick(" + str(controlId) + ")")
+		# Initiate outgoing call
 		if ( controlId == 120 ):
 			number_to_call = self.getControl(120).getSelectedItem().getProperty("src")
-			recindex = self.getControl(120).getSelectedItem().getProperty("recindex")
 			if (number_to_call != ""):
 				dialog = xbmcgui.Dialog()
-				if (dialog.yesno(__scriptname__, "Initiate outgoing call to '" + number_to_call + "'?")):
+				if (dialog.yesno(__scriptname__, __language__(30104) + " '" + number_to_call + "'?")):
 					self.make_outgoing_call(number_to_call)
-			elif (recindex != ""):
-				xbmc.Player(xbmc.PLAYER_CORE_AUTO).play(self.asterisk_info_url + "?recindex=" + recindex)
+				del dialog
+		# Play Voice Mail
+		if ( controlId == 121 ):
+			recindex = self.getControl(121).getSelectedItem().getProperty("recindex")
+			if (recindex != ""):
+				dialog = xbmcgui.Dialog()
+				if (dialog.yesno(__scriptname__, __language__(30105))):
+					xbmc.Player(xbmc.PLAYER_CORE_MPLAYER).play(self.asterisk_info_url + "?recindex=" + recindex)
+				del dialog
+		# CDR/VM toggle
 		elif ( controlId == 110 ):
 			if ( self.getControl(110).getLabel() == __language__(30101) ):
 				self.getControl(110).setLabel(__language__(30102))
@@ -215,6 +232,12 @@ class MainGUI(xbmcgui.WindowXML):
 			else:
 				self.getControl(110).setLabel(__language__(30101))
 				self.showInfo("cdr")
+		# Settings
+		elif ( controlId == 111 ):
+			settings = xbmc.Settings(path=os.getcwd())
+			settings.openSettings()
+			del settings
+			self.onInit()
 
 	def onFocus(self, controlId ):
 		pass
@@ -258,11 +281,11 @@ else:
                 asterisk_manager_port = int(settings.getSetting("asterisk_manager_port"))
                 asterisk_manager_user = settings.getSetting("asterisk_manager_user")
                 asterisk_manager_pass = settings.getSetting("asterisk_manager_pass")
-		xbmc_oncall_notification = settings.getSetting("xbmc_oncall_notification")
-		xbmc_oncall_notification_timeout = int(settings.getSetting("xbmc_oncall_notification_timeout"))
-		xbmc_oncall_pause_media = settings.getSetting("xbmc_oncall_pause_media")
                 del settings
 		pbx = Manager((asterisk_manager_host, asterisk_manager_port), asterisk_manager_user, asterisk_manager_pass)
+		#
+		# TODO: Handle errors connecting to the Asterisk Host
+		#
 		grab = get_incoming_call()
 		pbx.events += grab.events
 		pbx.serve_forever()
