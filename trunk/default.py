@@ -15,10 +15,10 @@ __svn_url__ = "http://xbmc-pbx-addon.googlecode.com/svn/trunk/xbmc-pbx-addon"
 __credits__ = "XBMC Team, py-Asterisk"
 __version__ = "0.0.1"
 
-xbmc.output( __scriptname__ + " Version: " + __version__  + "\n" )
-BASE_RESOURCE_PATH = xbmc.translatePath( os.path.join( os.getcwd(), 'resources', 'lib' ) )
-sys.path.append (BASE_RESOURCE_PATH)
-__language__ = xbmc.Language( os.getcwd() ).getLocalizedString
+xbmc.output(__scriptname__ + " Version: " + __version__  + "\n")
+BASE_RESOURCE_PATH = xbmc.translatePath(os.path.join(os.getcwd(), 'resources', 'lib'))
+sys.path.append(BASE_RESOURCE_PATH)
+__language__ = xbmc.Language(os.getcwd()).getLocalizedString
 
 import urllib, urlparse, urllib2
 import re
@@ -120,17 +120,17 @@ class get_incoming_call(object):
 #############################################################################################################
 class MainGUI(xbmcgui.WindowXML):
 	# action codes
-	ACTION_EXIT_SCRIPT = ( 9, 10 )
+	ACTION_EXIT_SCRIPT = (9, 10)
 
-	def __init__( self, *args, **kwargs ):
+	def __init__(self, *args, **kwargs):
 		log("__init__()")
-		xbmcgui.WindowXML.__init__( self, *args, **kwargs )
+		xbmcgui.WindowXML.__init__(self, *args, **kwargs)
 
 	#####################################################################################################
-        def onInit( self ):
+        def onInit(self):
 		dialog = xbmcgui.DialogProgress()
 		# Starting...
-		dialog.create( __scriptname__, __language__(30061))
+		dialog.create(__scriptname__, __language__(30061))
 		# Reading Config...
 		dialog.update(0, __language__(30062))
 		self.getConfig()
@@ -174,13 +174,17 @@ class MainGUI(xbmcgui.WindowXML):
 		log("> showInfo(" + option + ")")
 		try:
 			xbmcgui.lock()
-			if ( option == "cdr" ):
+			if (option == "cdr"):
+				self.getControl(110).setSelected(True)
+				self.getControl(111).setSelected(False)
 				self.getControl(120).reset()
 				self.getControl(120).setVisible(True)
 				self.getControl(120).setEnabled(True)
 				self.getControl(121).setVisible(False)
 				self.getControl(121).setVisible(False)
 			else:
+				self.getControl(110).setSelected(False)
+				self.getControl(111).setSelected(True)
 				self.getControl(121).reset()
 				self.getControl(121).setVisible(True)
 				self.getControl(121).setEnabled(True)
@@ -191,28 +195,28 @@ class MainGUI(xbmcgui.WindowXML):
 				listitem = xbmcgui.ListItem()
 				for childNode in node.childNodes:
 					if (childNode.nodeName != "#text"):
-						if ( childNode.firstChild ):
-							listitem.setProperty( childNode.nodeName, childNode.firstChild.data )
+						if (childNode.firstChild):
+							listitem.setProperty(childNode.nodeName, childNode.firstChild.data)
 						else:
-							listitem.setProperty( childNode.nodeName, "" )
-				if ( option == "cdr" ):
-					self.getControl(120).addItem( listitem )
+							listitem.setProperty(childNode.nodeName, "")
+				if (option == "cdr"):
+					self.getControl(120).addItem(listitem)
 				else:
-					self.getControl(121).addItem( listitem )
+					self.getControl(121).addItem(listitem)
 				del listitem
 			xbmcgui.unlock()
 		except:
-			log("ERROR: %s::%s (%d) - %s" % ( self.__class__.__name__, sys.exc_info()[ 2 ].tb_frame.f_code.co_name, sys.exc_info()[ 2 ].tb_lineno, sys.exc_info()[ 1 ], ))
+			log("ERROR: %s::%s (%d) - %s" % (self.__class__.__name__, sys.exc_info()[2].tb_frame.f_code.co_name, sys.exc_info()[2].tb_lineno, sys.exc_info()[1],))
 
 	#####################################################################################################
 	def onAction(self, action):
-		if ( action in self.ACTION_EXIT_SCRIPT ):
+		if (action in self.ACTION_EXIT_SCRIPT):
 			self.close()
 
-	def onClick( self, controlId ):
-		log("> onClick(" + str(controlId) + ")")
+	def onClick(self, controlId):
+		#log("> onClick(" + str(controlId) + ")")
 		# Initiate outgoing call
-		if ( controlId == 120 ):
+		if (controlId == 120):
 			number_to_call = self.getControl(120).getSelectedItem().getProperty("src")
 			if (number_to_call != ""):
 				dialog = xbmcgui.Dialog()
@@ -220,29 +224,27 @@ class MainGUI(xbmcgui.WindowXML):
 					self.make_outgoing_call(number_to_call)
 				del dialog
 		# Play Voice Mail
-		if ( controlId == 121 ):
+		elif (controlId == 121):
 			recindex = self.getControl(121).getSelectedItem().getProperty("recindex")
 			if (recindex != ""):
 				dialog = xbmcgui.Dialog()
 				if (dialog.yesno(__scriptname__, __language__(30105))):
 					xbmc.Player(xbmc.PLAYER_CORE_MPLAYER).play(self.asterisk_info_url + "?recindex=" + recindex)
 				del dialog
-		# CDR/VM toggle
-		elif ( controlId == 110 ):
-			if ( self.getControl(110).getLabel() == __language__(30101) ):
-				self.getControl(110).setLabel(__language__(30102))
-				self.showInfo("vm")
-			else:
-				self.getControl(110).setLabel(__language__(30101))
-				self.showInfo("cdr")
+		# CDR
+		elif (controlId == 110):
+			self.showInfo("cdr")
+		# VM
+		elif (controlId == 111):
+			self.showInfo("vm")
 		# Settings
-		elif ( controlId == 111 ):
+		elif (controlId == 115):
 			settings = xbmc.Settings(path=os.getcwd())
 			settings.openSettings()
 			del settings
 			self.onInit()
 
-	def onFocus(self, controlId ):
+	def onFocus(self, controlId):
 		pass
 
 	#####################################################################################################
@@ -250,7 +252,29 @@ class MainGUI(xbmcgui.WindowXML):
 		log("> make_outgoing_call()")
         	pbx = Manager((self.asterisk_manager_host, self.asterisk_manager_port), self.asterisk_manager_user, self.asterisk_manager_pass)
         	pbx.Originate(self.asterisk_outbound_extension,self.asterisk_outbound_context,number_to_call,1)
+		del pbx
 		log("done.")
+
+
+#############################################################################################################
+class FirstTimeGUI(xbmcgui.Window):
+
+	def __init__(self):
+		log("__init__()")
+		dialog = xbmcgui.ControlTextBox(1, 1, 600, 600, "font12", "0xFFFFFFFF")
+		msg = ""
+		for i in range(1,10):
+			msg = msg + __language__(30000 + i) + "\n"
+		self.addControl(dialog)
+		dialog.setText(msg)
+
+	#####################################################################################################
+	def onAction(self, action):
+		settings = xbmc.Settings(path=os.getcwd())
+		settings.openSettings()
+		del settings
+		self.close()
+
 
 
 #################################################################################################################
@@ -263,13 +287,22 @@ try:
 	run_mode = sys.argv[1].strip()
 except:
 	run_mode = RUNMODE_NORMAL
-if ( run_mode != RUNMODE_SILENT ):
-	# Launch GUI
+if (run_mode != RUNMODE_SILENT):
 	try:
-		ui = MainGUI( "script_xbmc-pbx-addon_main.xml", os.getcwd(), "Default" )
+		log("Launching GUI...")
+                settings = xbmc.Settings(path=os.getcwd())
+                first_time_use = settings.getSetting("first_time_use")
+		settings.setSetting("first_time_use", "false")
+                del settings
+		if (first_time_use == "true"):
+			ui = FirstTimeGUI()
+		else:
+			ui = MainGUI("script_xbmc-pbx-addon_main.xml", os.getcwd(), "Default")
 		ui.doModal()
 	except:
-		log( str(sys.exc_info()[ 1 ]) )
+		str_to_execute = "XBMC.Notification(" +  __language__(30051) + ", " + str(sys.exc_info()[1]) + ", " + str(15 * 1000) + ")"
+		log(str_to_execute)
+		xbmc.executebuiltin(str_to_execute)
 	try:
 		del ui
 		self.dom.unlink()
@@ -277,8 +310,8 @@ if ( run_mode != RUNMODE_SILENT ):
 	except:
 		pass
 else:
-	# Run in Background
 	try:
+		log("Running in background...")
                 settings = xbmc.Settings(path=os.getcwd())
                 asterisk_manager_host = settings.getSetting("asterisk_manager_host")
                 asterisk_manager_port = int(settings.getSetting("asterisk_manager_port"))
@@ -286,14 +319,13 @@ else:
                 asterisk_manager_pass = settings.getSetting("asterisk_manager_pass")
                 del settings
 		pbx = Manager((asterisk_manager_host, asterisk_manager_port), asterisk_manager_user, asterisk_manager_pass)
-		#
-		# TODO: Handle errors connecting to the Asterisk Host
-		#
 		grab = get_incoming_call()
 		pbx.events += grab.events
 		pbx.serve_forever()
 	except:
-		log( str(sys.exc_info()[ 1 ]) )
+		str_to_execute = "XBMC.Notification(" +  __language__(30051) + ", " + str(sys.exc_info()[1]) + ", " + str(15 * 1000) + ")"
+		log(str_to_execute)
+		xbmc.executebuiltin(str_to_execute)
 	try:
 		del grab
 		del pbx

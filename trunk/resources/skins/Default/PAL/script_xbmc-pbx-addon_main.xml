@@ -24,25 +24,40 @@
                         <posy>40</posy>
                         <align>right</align>
                         <label>$LOCALIZE[30000]</label>
-                        <font>special12</font>
+                        <font>special14</font>
                 </control>
-                <control type="button" id="110">
-                        <description>CDR-VM toggle button</description>
+                <control type="radiobutton" id="110">
+                        <description>CDR toggle button</description>
                         <posx>200</posx>
                         <posy>40</posy>
-			<width>200</width>
+			<width>150</width>
                         <align>left</align>
                         <label>$LOCALIZE[30101]</label>
-                        <font>special13</font>
+                        <font>special12</font>
+			<onright>111</onright>
+			<onleft>115</onleft>
                 </control>
-                <control type="button" id="111">
-                        <description>Settings</description>
-                        <posx>450</posx>
+                <control type="radiobutton" id="111">
+                        <description>VM toggle button</description>
+                        <posx>370</posx>
                         <posy>40</posy>
-			<width>200</width>
+			<width>150</width>
+                        <align>left</align>
+                        <label>$LOCALIZE[30102]</label>
+                        <font>special12</font>
+			<onright>115</onright>
+			<onleft>110</onleft>
+                </control>
+                <control type="button" id="115">
+                        <description>Settings button</description>
+                        <posx>550</posx>
+                        <posy>40</posy>
+			<width>100</width>
                         <align>left</align>
                         <label>$LOCALIZE[30103]</label>
-                        <font>special13</font>
+                        <font>special12</font>
+			<onright>110</onright>
+			<onleft>111</onleft>
                 </control>
 	        <control type="list" id="120">
                         <description>CDR List Container</description>
@@ -54,7 +69,7 @@
                         <onup>120</onup>
                         <ondown>120</ondown>
                         <onright>150</onright>
-                        <onleft>111</onleft>
+                        <onleft>150</onleft>
                         <pagecontrol>150</pagecontrol>
                         <itemlayout height="30">
                                 <control type="image">
@@ -314,7 +329,7 @@
                         <onup>121</onup>
                         <ondown>121</ondown>
                         <onright>151</onright>
-                        <onleft>111</onleft>
+                        <onleft>151</onleft>
                         <pagecontrol>151</pagecontrol>
                         <itemlayout height="30">
                                 <control type="image">
