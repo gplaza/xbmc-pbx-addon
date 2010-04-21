@@ -2,31 +2,44 @@
 <strings>
 	<string id="30000">XBMC PBX Addon</string>
 
-	<!-- Asterisk Manager related strings -->
-	<string id="30010">Asterisk Manager</string>
-	<string id="30011">Hostname or IP Address</string>
-	<string id="30012">Port</string>
-	<string id="30013">Username</string>
-	<string id="30014">Password</string>
+	<!-- First time use instructions -->
+	<string id="30001">First time use</string>
+	<string id="30002">1. Copy the autoexec.py file to XBMC's scripts folder</string>
+	<string id="30003">2. Customize and then copy the manager_custom.conf file to /etc/asterisk on your Asterisk server</string>
+	<string id="30004">3. Copy the xbmc-pbx-addon.php file to your Asterisk web server root directory</string>
+	<string id="30005">4. Customize this script settings using the GUI</string>
+	<string id="30006">5. Reboot your Asterisk server and XBMC</string>
+	<string id="30007">6. Everything should be working now</string>
+	<string id="30008">7. Provide feedback</string>
 
-	<!-- Asterisk Inbound Calls related strings -->
+	<!-- Script Settings related strings -->
+	<!-- Asterisk Manager Interface -->
+	<string id="30010">Asterisk Manager Interface</string>
+	<string id="30011">Define here the connection information to AMI</string>
+	<string id="30012">Hostname or IP Address</string>
+	<string id="30013">Port</string>
+	<string id="30014">Username</string>
+	<string id="30015">Password</string>
+	<!-- Asterisk Inbound Calls -->
 	<string id="30020">Asterisk Inbound Calls</string>
-	<string id="30021">Show Caller ID notification on XBMC</string>
-	<string id="30022">Caller ID notification timeout</string>
-	<string id="30023">Pause playing media</string>
-
-	<!-- Asterisk Outbound Calls related strings -->
+	<string id="30021">Define here what to do on inbound calls</string>
+	<string id="30022">Show Caller ID notification on XBMC</string>
+	<string id="30023">Caller ID notification timeout</string>
+	<string id="30024">Pause playing media</string>
+	<!-- Asterisk Outbound Calls -->
 	<string id="30030">Asterisk Outbound Calls</string>
-	<string id="30031">Using extension</string>
-	<string id="30032">Using context</string>
-
-	<!-- CDR & VoiceMail related strings -->
+	<string id="30031">Define here what to do with outbound calls</string>
+	<string id="30032">Use extension</string>
+	<string id="30033">Use context</string>
+	<!-- CDR & VoiceMail -->
 	<string id="30040">CDR &amp; VoiceMail</string>
-	<string id="30041">URL to XBMC PBX Addon PHP</string>
+	<string id="30041">Define here how to retrieve CDR and VoiceMail</string>
+	<string id="30042">URL to xbmc-pbx-addon.php</string>
 
 	<!-- GUI related strings -->
 	<!-- Notification popup -->
 	<string id="30050">Incoming Call</string>
+	<string id="30051">XBMC PBX Addon Error</string>
 	<!-- Dialog Progress -->
 	<string id="30061">Starting...</string>
 	<string id="30062">Reading config...</string>
