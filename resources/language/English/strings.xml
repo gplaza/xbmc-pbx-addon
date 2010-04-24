@@ -35,6 +35,8 @@
 	<string id="30040">CDR &amp; VoiceMail</string>
 	<string id="30041">Define here how to retrieve CDR and VoiceMail</string>
 	<string id="30042">URL to xbmc-pbx-addon.php</string>
+	<string id="30043">Mailbox (number)</string>
+	<string id="30044">Audio Format</string>
 
 	<!-- GUI related strings -->
 	<!-- Notification popup -->
@@ -47,8 +49,8 @@
 	<string id="30064">Displaying Asterisk Info...</string>
 	<string id="30065">Done...</string>
 	<!-- Buttons and Labels -->
-	<string id="30101">Showing CDR</string>
-	<string id="30102">Showing Voice Mail</string>
+	<string id="30101">Show CDR</string>
+	<string id="30102">Show Voice Mail</string>
 	<string id="30103">Settings</string>
 	<string id="30104">Initiate outgoing call to</string>
 	<string id="30105">Play Voice Mail?</string>

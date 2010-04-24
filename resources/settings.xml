@@ -28,5 +28,7 @@
 	<setting id="separator" type="lsep" label="30040"/>
 	<setting id="asterisk_info" type="text" label="30041" default="" enable="false"/>
 	<setting id="asterisk_info_url" type="text" label="30042" default="http://asterisk/xbmc-pbx-addon.php"/>
+	<setting id="asterisk_vm_mailbox" type="integer" label="30043" default="000"/>
+	<setting id="asterisk_vm_format" type="enum" label="30044" values="wav|gsm|mp3" default="0"/>
 </settings>
 
