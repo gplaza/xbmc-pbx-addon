@@ -21,8 +21,7 @@ sys.path.append(BASE_RESOURCE_PATH)
 __language__ = xbmc.Language(os.getcwd()).getLocalizedString
 
 import urllib, urlparse, urllib2
-import re
-import traceback
+import re, traceback, time
 import xml.dom.minidom
 from Asterisk.Manager import Manager
 import Asterisk.Manager, Asterisk.Util
@@ -66,7 +65,7 @@ class get_incoming_call(object):
 		log("__init__()")
                 global xbmc_player
                 xbmc_player = xbmc.Player(xbmc.PLAYER_CORE_AUTO)
-		xbmc_player_paused = False
+		self.xbmc_player_paused = False
                 self.ast_uniqid = 0
                 self.events = Asterisk.Util.EventCollection()
                 self.events.clear()
@@ -77,18 +76,25 @@ class get_incoming_call(object):
 	#####################################################################################################
         def Newchannel(self,pbx,event):
 		#log("> NewChannel()")
-                if (event.ChannelStateDesc == 'Ring' and self.ast_uniqid == 0):
+		#log(">> " + event.Uniqueid)
+		#log(">> " + event.ChannelStateDesc)
+		# May use "Down" or "Ring" state.
+                if (event.ChannelStateDesc == 'Down' and self.ast_uniqid == 0):
                         self.ast_uniqid = event.Uniqueid
+			#log(">> Using: " + self.ast_uniqid)
 
 	#####################################################################################################
         def NewCallerid(self,pbx,event):
 		#log("> NewCallerid()")
+		#log(">> " + event.Uniqueid)
+		#log(">> " + event.CallerIDName + " <" + event.CallerIDNum + ">")
                 if (event.Uniqueid == self.ast_uniqid and event.CallerIDName != "" and event.CallerIDNum != ""):
                         self.newcall_actions(event)
 
 	#####################################################################################################
         def Hangup(self,pbx,event):
 		#log("> Hangup()")
+		#log(">> " + event.Uniqueid)
                 if (event.Uniqueid == self.ast_uniqid):
                         self.ast_uniqid = 0
                         self.hangup_actions(event)
@@ -98,39 +104,47 @@ class get_incoming_call(object):
                 log("> hangup_actions()")
                 if (xbmc_player.isPlaying() == 1):
 			# Resume media
-			if (self.xbmc_player_paused):
+			xbmc_remaining_time = xbmc_player.getTotalTime() - xbmc_player.getTime()
+			time.sleep(1)
+			xbmc_new_remaining_time = xbmc_player.getTotalTime() - xbmc_player.getTime()
+			if (self.xbmc_player_paused and xbmc_remaining_time == xbmc_new_remaining_time):
+				log(">> Resume media...")
                         	xbmc_player.pause()
+				self.xbmc_player_paused = False
 
 	#####################################################################################################
         def newcall_actions(self,event):
 		log("> newcall_actions()")
-		self.xbmc_player_paused = False
-                str_callerid = str(event.CallerIDName + "<"+ event.CallerIDNum +">")
+                str_callerid = str(event.CallerIDName + " <"+ event.CallerIDNum +">")
                 log(">> CallerID: " + str_callerid)
+		arr_timeout = [5,10,15,20,25,30]
                 settings = xbmc.Settings(path=os.getcwd())
                 xbmc_oncall_notification = settings.getSetting("xbmc_oncall_notification")
-		arr_timeout = [5,10,15,20,25,30]
                 xbmc_oncall_notification_timeout = int(arr_timeout[int(settings.getSetting("xbmc_oncall_notification_timeout"))])
                 xbmc_oncall_pause_media = settings.getSetting("xbmc_oncall_pause_media")
                 del settings
                 if (xbmc_player.isPlaying() == 1):
                         log(">> XBMC is playing content...")
-                        log("Remaining time: " + str(xbmc_player.getTotalTime() - xbmc_player.getTime()))
                         if (xbmc_player.isPlayingAudio() == 1):
                                 info_tag = xbmc_player.getMusicInfoTag(object)
-                                log("Music title: " + info_tag.getTitle())
+                                log(">> Music title: " + info_tag.getTitle())
                         if (xbmc_player.isPlayingVideo() == 1):
                                 info_tag = xbmc_player.getVideoInfoTag(object)
-                                log("Video title: " + info_tag.getTitle() + ", Rating: " + str(info_tag.getRating()))
+                                log(">> Video title: " + info_tag.getTitle())
+				log(">> Rating: " + str(info_tag.getRating()))
 			# Pause Media
-			if (xbmc_oncall_pause_media == "true"):
-				log("Pause media...")
+			xbmc_remaining_time = xbmc_player.getTotalTime() - xbmc_player.getTime()
+			time.sleep(1)
+			xbmc_new_remaining_time = xbmc_player.getTotalTime() - xbmc_player.getTime()
+                        log(">> Remaining time: " + str(xbmc_remaining_time))
+			if (xbmc_oncall_pause_media == "true" and xbmc_remaining_time > xbmc_new_remaining_time):
+				log(">> Pause media...")
                         	xbmc_player.pause()
 				self.xbmc_player_paused = True
 		# Show Incoming Call Notification Popup
 		if (xbmc_oncall_notification == "true"):
 			str_to_execute = "XBMC.Notification(" + __language__(30050) + "," + str_callerid +"," + str(xbmc_oncall_notification_timeout * 1000) + ")"
-			log(str_to_execute)
+			log(">> " + str_to_execute)
                 	xbmc.executebuiltin(str_to_execute)
 
 
@@ -143,6 +157,7 @@ class MainGUI(xbmcgui.WindowXML):
 
 	#####################################################################################################
         def onInit(self):
+		log("> onInit()")
 		dialog = xbmcgui.DialogProgress()
 		# Starting...
 		dialog.create(__scriptname__,__language__(30061))
@@ -159,11 +174,12 @@ class MainGUI(xbmcgui.WindowXML):
 		dialog.update(100,__language__(30065))
 		dialog.close()
 		del dialog
-		log("Done.")
+		log(">> Done.")
 
 	#####################################################################################################
         def getConfig(self):
                 log("> getConfig()")
+		audio_format = ["wav","gsm","mp3"]
 		settings = xbmc.Settings(path=os.getcwd())
 		self.asterisk_manager_host = settings.getSetting("asterisk_manager_host")
 		self.asterisk_manager_port = int(settings.getSetting("asterisk_manager_port"))
@@ -173,14 +189,13 @@ class MainGUI(xbmcgui.WindowXML):
 		self.asterisk_outbound_context = settings.getSetting("asterisk_outbound_context")
 		self.asterisk_info_url = settings.getSetting("asterisk_info_url")
 		self.asterisk_vm_mailbox = settings.getSetting("asterisk_vm_mailbox")
-		audio_format = ["wav","gsm","mp3"]
 		self.asterisk_vm_format = audio_format[int(settings.getSetting("asterisk_vm_format"))]
 		del settings
 
 	#####################################################################################################
 	def getInfo(self):
 		log("> getInfo()")
-		#log(self.asterisk_info_url)
+		log(">> " + self.asterisk_info_url)
 		f = urllib.urlopen(self.asterisk_info_url + "?vm&cdr&mailbox=" + self.asterisk_vm_mailbox)
 		self.dom = xml.dom.minidom.parse(f)
 		#log(self.dom.toxml())
@@ -210,10 +225,11 @@ class MainGUI(xbmcgui.WindowXML):
 				i = i + 1
 			xbmcgui.unlock()
 		except:
-			log("ERROR: %s::%s (%d) - %s" % (self.__class__.__name__,sys.exc_info()[2].tb_frame.f_code.co_name,sys.exc_info()[2].tb_lineno,sys.exc_info()[1],))
+			log(">> ERROR: %s::%s (%d) - %s" % (self.__class__.__name__,sys.exc_info()[2].tb_frame.f_code.co_name,sys.exc_info()[2].tb_lineno,sys.exc_info()[1],))
 
 	#####################################################################################################
 	def onAction(self,action):
+		#log("> onAction()")
 		if (action in ACTION_EXIT_SCRIPT):
 			self.close()
 
@@ -252,7 +268,7 @@ class MainGUI(xbmcgui.WindowXML):
         	pbx = Manager((self.asterisk_manager_host,self.asterisk_manager_port),self.asterisk_manager_user,self.asterisk_manager_pass)
         	pbx.Originate(self.asterisk_outbound_extension,self.asterisk_outbound_context,number_to_call,1)
 		del pbx
-		log("done.")
+		log(">> Done.")
 
 
 #############################################################################################################
@@ -266,9 +282,11 @@ class FirstTimeGUI(xbmcgui.Window):
 			msg = msg + __language__(30000 + i) + "\n"
 		self.addControl(dialog)
 		dialog.setText(msg)
+		log(">> Done.")
 
 	#####################################################################################################
 	def onAction(self,action):
+		#log("> onAction()")
 		settings = xbmc.Settings(path=os.getcwd())
 		settings.openSettings()
 		del settings
