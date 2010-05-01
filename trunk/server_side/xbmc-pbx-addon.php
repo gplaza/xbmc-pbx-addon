@@ -74,6 +74,13 @@ else {
 			fclose($handle);
 			}
 		}
+		else {
+			$node = $xmldoc->createElement("cdr_error");
+			$element = $xmldoc->createElement("msg");
+			$element->appendChild($xmldoc->createTextNode("Unable to read file: " . $cdr_filename));
+			$node->appendChild($element);
+			$xmlroot->appendChild($node);
+		}
 		// Filter, resize and reverse
 		$cdr = array_slice($cdr,-50);
 		$cdr = array_reverse($cdr);
@@ -92,27 +99,38 @@ else {
 	if (isset($_GET["vm"]) && isset($_GET['mailbox'])) {
 		// VoiceMail
 		$vm_path = $vm_path  . $_GET['mailbox'] . "/INBOX/";
-		if ($handle = opendir($vm_path)) {
-			$vm = array();
-			while (false !== ($file = readdir($handle))) {
-				if ($file != "." && $file != ".." && strpos($file,".txt")) {
-					$vm[str_replace(".txt","",str_replace("msg","",$file))] = parse_ini_file($vm_path . $file);
+		if (is_readable($vm_path)) {
+			if ($handle = opendir($vm_path)) {
+				$vm = array();
+				while (false !== ($file = readdir($handle))) {
+					if ($file != "." && $file != ".." && strpos($file,".txt")) {
+						$vm[str_replace(".txt","",str_replace("msg","",$file))] = parse_ini_file($vm_path . $file);
+					}
 				}
+			closedir($handle);
 			}
-		closedir($handle);
+		}
+		else {
+			$node = $xmldoc->createElement("vm_error");
+			$element = $xmldoc->createElement("msg");
+			$element->appendChild($xmldoc->createTextNode("Unable to read directory: " . $vm_path));
+			$node->appendChild($element);
+			$xmlroot->appendChild($node);
 		}
 		// Convert VM Array into XML
-		foreach ($vm as $i => $c) {
-			$node = $xmldoc->createElement("vm");
-			$element = $xmldoc->createElement(recindex);
-			$element->appendChild($xmldoc->createTextNode($i));
-			$node->appendChild($element);
-			foreach ($c as $key => $val) {
-				$element = $xmldoc->createElement($key);
-				$element->appendChild($xmldoc->createTextNode($val));
+		if (count($vm) > 0) {
+			foreach ($vm as $i => $c) {
+				$node = $xmldoc->createElement("vm");
+				$element = $xmldoc->createElement(recindex);
+				$element->appendChild($xmldoc->createTextNode($i));
 				$node->appendChild($element);
+				foreach ($c as $key => $val) {
+					$element = $xmldoc->createElement($key);
+					$element->appendChild($xmldoc->createTextNode($val));
+					$node->appendChild($element);
+				}
+				$xmlroot->appendChild($node);
 			}
-			$xmlroot->appendChild($node);
 		}
 		unset($vm);
 	}
