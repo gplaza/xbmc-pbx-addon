@@ -296,7 +296,9 @@ class BaseManager(object):
             #self.log.io('_read_response_follows: recv %r', line)
             line_nr += 1
 
-            if line_nr == 1 and line.startswith('ActionID: '):
+            # In some case, ActionID is the line 2 the first starting with
+            # 'Privilege:'
+            if line_nr in [1, 2] and line.startswith('ActionID: '):
                 # Asterisk is a pile of shite!!!!!!!!!
                 packet.ActionID = line[10:]
 

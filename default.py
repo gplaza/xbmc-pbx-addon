@@ -18,7 +18,6 @@ __version__ = "0.0.1"
 xbmc.output(__scriptname__ + " Version: " + __version__  + "\n")
 BASE_RESOURCE_PATH = xbmc.translatePath(os.path.join(os.getcwd(),'resources','lib'))
 sys.path.append(BASE_RESOURCE_PATH)
-__language__ = xbmc.Language(os.getcwd()).getLocalizedString
 
 import urllib, urlparse, urllib2
 import re, traceback, time
@@ -26,20 +25,9 @@ import xml.dom.minidom
 from Asterisk.Manager import Manager
 import Asterisk.Manager, Asterisk.Util
 
-#############################################################################################################
-def log(msg):
-	try:
-		xbmc.output("[%s]: %s\n" % (__scriptname__,msg))
-	except:
-		pass
+__language__ = xbmc.Language(os.getcwd()).getLocalizedString
 
-# check if build is special:// aware - set roots paths accordingly
-XBMC_HOME = 'special://home'
-if not os.path.isdir(xbmc.translatePath(XBMC_HOME)):	# if fails to convert to Q:, old builds
-	XBMC_HOME = 'Q:'
-log("XBMC_HOME=%s" % XBMC_HOME)
-
-ACTION_MOVE_LEFT = 1    
+ACTION_MOVE_LEFT = 1
 ACTION_MOVE_RIGHT = 2
 ACTION_MOVE_UP = 3
 ACTION_MOVE_DOWN = 4
@@ -50,13 +38,24 @@ ACTION_HIGHLIGHT_ITEM = 8
 ACTION_PARENT_DIR = 9
 ACTION_PREVIOUS_MENU = 10
 ACTION_SHOW_INFO = 11
-
 ACTION_PAUSE = 12
 ACTION_STOP = 13
 ACTION_NEXT_ITEM = 14
 ACTION_PREV_ITEM = 15
-
 ACTION_EXIT_SCRIPT = (9, 10)
+
+# check if build is special:// aware - set roots paths accordingly
+XBMC_HOME = 'special://home'
+if not os.path.isdir(xbmc.translatePath(XBMC_HOME)):
+	# if fails to convert to Q:, old builds
+        XBMC_HOME = 'Q:'
+
+#############################################################################################################
+def log(msg):
+	try:
+		xbmc.output("[%s]: %s\n" % (__scriptname__,msg))
+	except:
+		pass
 
 #############################################################################################################
 class get_incoming_call(object):
@@ -79,9 +78,12 @@ class get_incoming_call(object):
 		#log(">> " + event.Uniqueid)
 		#log(">> " + event.ChannelStateDesc)
 		# May use "Down" or "Ring" state.
-                if (event.ChannelStateDesc == 'Down' and self.ast_uniqid == 0):
+		arr_chan_states = ['Down','Ring']
+		asterisk_chan_state = str(arr_chan_states[int(settings.getSetting("asterisk_chan_state"))])
+                if (event.ChannelStateDesc == asterisk_chan_state and self.ast_uniqid == 0):
                         self.ast_uniqid = event.Uniqueid
-			#log(">> Using: " + self.ast_uniqid)
+			#log(">> " + self.ast_uniqid)
+			#log(">> " + asterisk_chan_state)
 
 	#####################################################################################################
         def NewCallerid(self,pbx,event):
@@ -115,37 +117,44 @@ class get_incoming_call(object):
 	#####################################################################################################
         def newcall_actions(self,event):
 		log("> newcall_actions()")
+		log(">> Channel: " + str(event.Channel))
+		#log(">> Unique ID: " + self.ast_uniqid)
                 str_callerid = str(event.CallerIDName + " <"+ event.CallerIDNum +">")
                 log(">> CallerID: " + str_callerid)
-		arr_timeout = [5,10,15,20,25,30]
-                settings = xbmc.Settings(path=os.getcwd())
-                xbmc_oncall_notification = settings.getSetting("xbmc_oncall_notification")
-                xbmc_oncall_notification_timeout = int(arr_timeout[int(settings.getSetting("xbmc_oncall_notification_timeout"))])
-                xbmc_oncall_pause_media = settings.getSetting("xbmc_oncall_pause_media")
-                del settings
                 if (xbmc_player.isPlaying() == 1):
                         log(">> XBMC is playing content...")
                         if (xbmc_player.isPlayingAudio() == 1):
                                 info_tag = xbmc_player.getMusicInfoTag(object)
                                 log(">> Music title: " + info_tag.getTitle())
                         if (xbmc_player.isPlayingVideo() == 1):
+				xbmc_remaining_time = xbmc_player.getTotalTime() - xbmc_player.getTime()
                                 info_tag = xbmc_player.getVideoInfoTag(object)
                                 log(">> Video title: " + info_tag.getTitle())
 				log(">> Rating: " + str(info_tag.getRating()))
-			# Pause Media
-			xbmc_remaining_time = xbmc_player.getTotalTime() - xbmc_player.getTime()
-			time.sleep(1)
-			xbmc_new_remaining_time = xbmc_player.getTotalTime() - xbmc_player.getTime()
-                        log(">> Remaining time: " + str(xbmc_remaining_time))
-			if (xbmc_oncall_pause_media == "true" and xbmc_remaining_time > xbmc_new_remaining_time):
-				log(">> Pause media...")
-                        	xbmc_player.pause()
-				self.xbmc_player_paused = True
+				log(">> Remaining time (minutes): " + str(round(xbmc_remaining_time/60)))
+				# Pause Video
+				if (settings.getSetting("xbmc_oncall_pause_media") == "true"):
+					time.sleep(1)
+					xbmc_new_remaining_time = xbmc_player.getTotalTime() - xbmc_player.getTime()
+					if(xbmc_remaining_time > xbmc_new_remaining_time):
+						log(">> Pause media...")
+       			                 	xbmc_player.pause()
+						self.xbmc_player_paused = True
+				# Redirect Incoming Call
+				if (settings.getSetting("asterisk_now_playing_enabled") == "true"):
+					log(">> Redirect call...")
+					try:
+						pbx.Setvar(event.Channel,"xbmc_remaining_time",round(xbmc_remaining_time/60))
+						pbx.Redirect(event.Channel,settings.getSetting("asterisk_now_playing_context"))
+					except:
+						log(">> ERROR: %s::%s (%d) - %s" % (self.__class__.__name__,sys.exc_info()[2].tb_frame.f_code.co_name,sys.exc_info()[2].tb_lineno,sys.exc_info()[1],))
 		# Show Incoming Call Notification Popup
-		if (xbmc_oncall_notification == "true"):
-			str_to_execute = "XBMC.Notification(" + __language__(30050) + "," + str_callerid +"," + str(xbmc_oncall_notification_timeout * 1000) + ")"
-			log(">> " + str_to_execute)
-                	xbmc.executebuiltin(str_to_execute)
+		if (settings.getSetting("xbmc_oncall_notification") == "true"):
+			arr_timeout = [5,10,15,20,25,30]
+			xbmc_oncall_notification_timeout = int(arr_timeout[int(settings.getSetting("xbmc_oncall_notification_timeout"))])
+			xbmc_notification = str_callerid
+			log(">> Notification: " + xbmc_notification)
+			xbmc.executebuiltin("XBMC.Notification("+ __language__(30050) +","+ xbmc_notification +","+ str(xbmc_oncall_notification_timeout*1000) +")")
 
 
 #############################################################################################################
@@ -161,9 +170,6 @@ class MainGUI(xbmcgui.WindowXML):
 		dialog = xbmcgui.DialogProgress()
 		# Starting...
 		dialog.create(__scriptname__,__language__(30061))
-		# Reading Config...
-		dialog.update(0,__language__(30062))
-		self.getConfig()
 		# Fetching Asterisk Info...
 		dialog.update(25,__language__(30063))
 		self.getInfo()
@@ -177,26 +183,13 @@ class MainGUI(xbmcgui.WindowXML):
 		log(">> Done.")
 
 	#####################################################################################################
-        def getConfig(self):
-                log("> getConfig()")
-		audio_format = ["wav","gsm","mp3"]
-		settings = xbmc.Settings(path=os.getcwd())
-		self.asterisk_manager_host = settings.getSetting("asterisk_manager_host")
-		self.asterisk_manager_port = int(settings.getSetting("asterisk_manager_port"))
-		self.asterisk_manager_user = settings.getSetting("asterisk_manager_user")
-		self.asterisk_manager_pass = settings.getSetting("asterisk_manager_pass")
-		self.asterisk_outbound_extension = settings.getSetting("asterisk_outbound_extension")
-		self.asterisk_outbound_context = settings.getSetting("asterisk_outbound_context")
-		self.asterisk_info_url = settings.getSetting("asterisk_info_url")
-		self.asterisk_vm_mailbox = settings.getSetting("asterisk_vm_mailbox")
-		self.asterisk_vm_format = audio_format[int(settings.getSetting("asterisk_vm_format"))]
-		del settings
-
-	#####################################################################################################
 	def getInfo(self):
 		log("> getInfo()")
-		log(">> " + self.asterisk_info_url)
-		f = urllib.urlopen(self.asterisk_info_url + "?vm&cdr&mailbox=" + self.asterisk_vm_mailbox)
+		str_url = settings.getSetting("asterisk_info_url")
+		str_url = str_url +"?vm&cdr&mailbox="+ settings.getSetting("asterisk_vm_mailbox")
+		str_url = str_url +"&vmcontext="+ settings.getSetting("asterisk_vm_context")
+		#log(">> " + str_url)
+		f = urllib.urlopen(str_url)
 		self.dom = xml.dom.minidom.parse(f)
 		#log(self.dom.toxml())
 		f.close()
@@ -249,14 +242,11 @@ class MainGUI(xbmcgui.WindowXML):
 			if (recindex != ""):
 				dialog = xbmcgui.Dialog()
 				if (dialog.yesno(__scriptname__,__language__(30105))):
-					url_vm = self.asterisk_info_url +"?recindex="+ recindex +"&mailbox="+ self.asterisk_vm_mailbox +"&format="+ self.asterisk_vm_format
-					xbmc.Player(xbmc.PLAYER_CORE_MPLAYER).play(url_vm)
+					self.play_voice_mail(recindex)
 				del dialog
 		# Settings
 		elif (controlId == 115):
-			settings = xbmc.Settings(path=os.getcwd())
 			settings.openSettings()
-			del settings
 			self.onInit()
 
 	def onFocus(self,controlId):
@@ -265,10 +255,22 @@ class MainGUI(xbmcgui.WindowXML):
 	#####################################################################################################
 	def make_outgoing_call(self,number_to_call):
 		log("> make_outgoing_call()")
-        	pbx = Manager((self.asterisk_manager_host,self.asterisk_manager_port),self.asterisk_manager_user,self.asterisk_manager_pass)
-        	pbx.Originate(self.asterisk_outbound_extension,self.asterisk_outbound_context,number_to_call,1)
+		manager_host_port = settings.getSetting("asterisk_manager_host"),int(settings.getSetting("asterisk_manager_port"))
+		pbx = Manager(manager_host_port,settings.getSetting("asterisk_manager_user"),settings.getSetting("asterisk_manager_pass"))
+        	pbx.Originate(settings.getSetting("asterisk_outbound_extension"),settings.getSetting("asterisk_outbound_context"),number_to_call,1)
 		del pbx
 		log(">> Done.")
+
+	#####################################################################################################
+	def play_voice_mail(self,recindex):
+		log("> play_voice_mail()")
+		audio_format = ["wav","gsm","mp3"]
+		asterisk_vm_format = audio_format[int(settings.getSetting("asterisk_vm_format"))]
+		url_vm = settings.getSetting("asterisk_info_url") +"?recindex="+ recindex
+		url_vm = url_vm +"&mailbox="+ settings.getSetting("asterisk_vm_mailbox")
+		url_vm = url_vm +"&vmcontext="+ settings.getSetting("asterisk_vm_context")
+		url_vm = url_vm +"&format="+ asterisk_vm_format
+		xbmc.Player(xbmc.PLAYER_CORE_MPLAYER).play(url_vm)
 
 
 #############################################################################################################
@@ -287,9 +289,7 @@ class FirstTimeGUI(xbmcgui.Window):
 	#####################################################################################################
 	def onAction(self,action):
 		#log("> onAction()")
-		settings = xbmc.Settings(path=os.getcwd())
 		settings.openSettings()
-		del settings
 		self.close()
 
 
@@ -297,6 +297,9 @@ class FirstTimeGUI(xbmcgui.Window):
 #################################################################################################################
  # Starts here
 #################################################################################################################
+
+log("XBMC_HOME=%s" % XBMC_HOME)
+settings = xbmc.Settings(path=os.getcwd())
 
 RUNMODE_NORMAL = "NORMAL"
 RUNMODE_SILENT = "SILENT"
@@ -307,19 +310,17 @@ except:
 if (run_mode != RUNMODE_SILENT):
 	try:
 		log("Launching GUI...")
-                settings = xbmc.Settings(path=os.getcwd())
-                first_time_use = settings.getSetting("first_time_use")
+		first_time_use = settings.getSetting("first_time_use")
 		settings.setSetting("first_time_use","false")
-                del settings
 		if (first_time_use == "true"):
 			ui = FirstTimeGUI()
 		else:
 			ui = MainGUI("script_xbmc-pbx-addon_main.xml",os.getcwd(),"Default")
 		ui.doModal()
 	except:
-		str_to_execute = "XBMC.Notification(" + __language__(30051) + "," + str(sys.exc_info()[1]) + "," + str(15 * 1000) + ")"
-		log(str_to_execute)
-		xbmc.executebuiltin(str_to_execute)
+		xbmc_notification = str(sys.exc_info()[1])
+		log(">> " + xbmc_notification)
+		xbmc.executebuiltin("XBMC.Notification("+ __language__(30051) +","+ xbmc_notification +","+ str(15*1000) +")")
 	try:
 		del ui
 		self.dom.unlink()
@@ -330,24 +331,28 @@ if (run_mode != RUNMODE_SILENT):
 else:
 	try:
 		log("Running in background...")
-                settings = xbmc.Settings(path=os.getcwd())
-                asterisk_manager_host = settings.getSetting("asterisk_manager_host")
-                asterisk_manager_port = int(settings.getSetting("asterisk_manager_port"))
-                asterisk_manager_user = settings.getSetting("asterisk_manager_user")
-                asterisk_manager_pass = settings.getSetting("asterisk_manager_pass")
-                del settings
-		pbx = Manager((asterisk_manager_host,asterisk_manager_port),asterisk_manager_user,asterisk_manager_pass)
+		manager_host_port = settings.getSetting("asterisk_manager_host"),int(settings.getSetting("asterisk_manager_port"))
+		pbx = Manager(manager_host_port,settings.getSetting("asterisk_manager_user"),settings.getSetting("asterisk_manager_pass"))
+		vm = settings.getSetting("asterisk_vm_mailbox")+"@"+settings.getSetting("asterisk_vm_context")
+		vm_count = tuple(pbx.MailboxCount(vm))
+		xbmc_notification = __language__(30053) + str(vm_count[0])
+		log(">> " + xbmc_notification)
+		xbmc.executebuiltin("XBMC.Notification("+ __language__(30052) +","+ xbmc_notification +","+ str(15*1000) +")")
 		grab = get_incoming_call()
 		pbx.events += grab.events
 		pbx.serve_forever()
 	except:
-		str_to_execute = "XBMC.Notification(" + __language__(30051) + "," + str(sys.exc_info()[1]) + "," + str(15 * 1000) + ")"
-		log(str_to_execute)
-		xbmc.executebuiltin(str_to_execute)
+		xbmc_notification = str(sys.exc_info()[1])
+		log(">> " + xbmc_notification)
+		xbmc.executebuiltin("XBMC.Notification("+ __language__(30051) +","+ xbmc_notification +","+ str(15*1000) +")")
 	try:
 		del grab
 		del pbx
 		sys.modules.clear()
 	except:
 		pass
+try:
+	del settings
+except:
+	pass
 
