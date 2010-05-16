@@ -15,13 +15,13 @@ $__version__ = "0.0.1";
 
 // YOU MAY WANT TO CUSTOMIZE THIS:
 $cdr_filename = "/var/log/asterisk/cdr-csv/Master.csv";
-$vm_path  = '/var/spool/asterisk/voicemail/default/';
+$vm_path  = '/var/spool/asterisk/voicemail/';
 
 //#############################################################################################################
-if (isset($_GET['recindex']) && isset($_GET['mailbox']) && isset($_GET['format'])) {
+if (isset($_GET['recindex']) && isset($_GET['mailbox']) && isset($_GET['vmcontext']) && isset($_GET['format'])) {
 	// VoiceMail Audio Download
 	// Based on http://www.freepbx.org/trac/browser/freepbx/branches/2.7/amp_conf/htdocs/recordings/misc/audio.php
-	$vm_path = $vm_path . $_GET['mailbox'] . "/INBOX/";
+	$vm_path = $vm_path . $_GET['vmcontext'] . "/" . $_GET['mailbox'] . "/INBOX/";
 	$path = $vm_path . "msg" . $_GET['recindex'] . "." . $_GET['format'];
 	// See if the file exists
 	if (!is_file($path)) { die("<b>404 File not found!</b>"); }
@@ -96,9 +96,9 @@ else {
 		}
 		unset($cdr);
 	}
-	if (isset($_GET["vm"]) && isset($_GET['mailbox'])) {
+	if (isset($_GET["vm"]) && isset($_GET['mailbox']) && isset($_GET['vmcontext'])) {
 		// VoiceMail
-		$vm_path = $vm_path  . $_GET['mailbox'] . "/INBOX/";
+		$vm_path = $vm_path . $_GET['vmcontext'] . "/" . $_GET['mailbox'] . "/INBOX/";
 		if (is_readable($vm_path)) {
 			if ($handle = opendir($vm_path)) {
 				$vm = array();
@@ -117,6 +117,9 @@ else {
 			$node->appendChild($element);
 			$xmlroot->appendChild($node);
 		}
+                // Filter, resize and reverse
+                $vm = array_slice($vm,-50);
+                $vm = array_reverse($vm);
 		// Convert VM Array into XML
 		if (count($vm) > 0) {
 			foreach ($vm as $i => $c) {
