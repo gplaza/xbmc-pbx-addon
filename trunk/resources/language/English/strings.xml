@@ -16,31 +16,31 @@
 	<!-- Asterisk Manager Interface -->
 	<string id="30010">Asterisk Manager Interface</string>
 	<string id="30011">Define here the connection information to AMI</string>
-	<string id="30012">Hostname or IP Address</string>
-	<string id="30013">Port</string>
-	<string id="30014">Username</string>
-	<string id="30015">Password</string>
+	<string id="30012">Asterisk: AMI Hostname or IP Address</string>
+	<string id="30013">Asterisk: AMI Port</string>
+	<string id="30014">Asterisk: AMI Username</string>
+	<string id="30015">Asterisk: AMI Password</string>
 	<!-- Asterisk Inbound Calls -->
 	<string id="30020">Asterisk Inbound Calls</string>
 	<string id="30021">Define here what to do on inbound calls</string>
-	<string id="30022">Asterisk NewChannel State for action</string>
-	<string id="30023">Show Caller ID notification on XBMC</string>
-	<string id="30024">Caller ID notification timeout</string>
-	<string id="30025">Pause playing Video</string>
-	<string id="30026">Redirect calls if XBMC is playing Video</string>
-	<string id="30027">Redirect to Asterisk context (name)</string>
+	<string id="30022">XBMC: Initiate upon Asterisk NewChannel State</string>
+	<string id="30023">XBMC: Show Caller ID notification</string>
+	<string id="30024">XBMC: Caller ID notification timeout</string>
+	<string id="30025">XBMC: Pause playing Video</string>
+	<string id="30026">Asterisk: Redirect calls if XBMC is playing Video</string>
+	<string id="30027">Asterisk: Redirect calls to context (name)</string>
 	<!-- Asterisk Outbound Calls -->
 	<string id="30030">Asterisk Outbound Calls</string>
 	<string id="30031">Define here what to do with outbound calls</string>
-	<string id="30032">Use extension</string>
-	<string id="30033">Use context</string>
+	<string id="30032">Asterisk: Use extension</string>
+	<string id="30033">Asterisk: Use context</string>
 	<!-- CDR & VoiceMail -->
 	<string id="30040">CDR &amp; VoiceMail</string>
 	<string id="30041">Define here how to retrieve CDR and VoiceMail</string>
-	<string id="30042">URL to xbmc-pbx-addon.php</string>
-	<string id="30043">Mailbox number</string>
-	<string id="30044">VoiceMail Context</string>
-	<string id="30045">Audio Format</string>
+	<string id="30042">XBMC: URL to xbmc-pbx-addon.php</string>
+	<string id="30043">Asterisk: Mailbox number</string>
+	<string id="30044">Asterisk: VoiceMail Context</string>
+	<string id="30045">Asterisk: Audio Format</string>
 
 	<!-- GUI related strings -->
 	<!-- Notification popup -->
