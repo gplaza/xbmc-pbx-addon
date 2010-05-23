@@ -11,7 +11,7 @@ $__author__ = "hmronline";
 $__url__ = "http://code.google.com/p/xbmc-pbx-addon/";
 $__svn_url__ = "http://xbmc-pbx-addon.googlecode.com/svn/trunk/xbmc-pbx-addon";
 $__credits__ = "XBMC Team, py-Asterisk";
-$__version__ = "0.0.4";
+$__version__ = "0.0.5";
 
 // YOU MAY WANT TO CUSTOMIZE THIS:
 $cdr_filename = "/var/log/asterisk/cdr-csv/Master.csv";

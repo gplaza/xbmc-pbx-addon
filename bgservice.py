@@ -13,7 +13,7 @@ __author__ = "hmronline"
 __url__ = "http://code.google.com/p/xbmc-pbx-addon/"
 __svn_url__ = "http://xbmc-pbx-addon.googlecode.com/svn/trunk/xbmc-pbx-addon"
 __credits__ = "XBMC Team, py-Asterisk"
-__version__ = "0.0.4"
+__version__ = "0.0.5"
 
 xbmc.output(__scriptname__ + " Version: " + __version__  + "\n")
 BASE_RESOURCE_PATH = xbmc.translatePath(os.path.join(os.getcwd(),'resources','lib'))
@@ -110,11 +110,15 @@ class get_incoming_call(object):
                         if (xbmc_player.isPlayingAudio() == 1):
                                 info_tag = xbmc_player.getMusicInfoTag(object)
                                 log(">> Music title: " + info_tag.getTitle())
+				del info_tag
                         if (xbmc_player.isPlayingVideo() == 1):
 				xbmc_remaining_time = xbmc_player.getTotalTime() - xbmc_player.getTime()
                                 info_tag = xbmc_player.getVideoInfoTag(object)
-                                log(">> Video title: " + info_tag.getTitle())
-				log(">> Rating: " + str(info_tag.getRating()))
+				xbmc_video_title = info_tag.getTitle()
+				xbmc_video_rating = info_tag.getRating()
+				del info_tag
+                                log(">> Video title: " + xbmc_video_title)
+				log(">> Rating: " + str(xbmc_video_rating))
 				log(">> Remaining time (minutes): " + str(round(xbmc_remaining_time/60)))
 				# Pause Video
 				if (settings.getSetting("xbmc_oncall_pause_media") == "true"):
@@ -128,6 +132,7 @@ class get_incoming_call(object):
 				if (settings.getSetting("asterisk_now_playing_enabled") == "true"):
 					log(">> Redirect call...")
 					try:
+						pbx.Setvar(event.Channel,"xbmc_video_title",xbmc_video_title)
 						pbx.Setvar(event.Channel,"xbmc_remaining_time",round(xbmc_remaining_time/60))
 						pbx.Redirect(event.Channel,settings.getSetting("asterisk_now_playing_context"))
 					except:
@@ -137,8 +142,9 @@ class get_incoming_call(object):
 			arr_timeout = [5,10,15,20,25,30]
 			xbmc_oncall_notification_timeout = int(arr_timeout[int(settings.getSetting("xbmc_oncall_notification_timeout"))])
 			xbmc_notification = str_callerid
+			xbmc_img = xbmc.translatePath(os.path.join(os.getcwd(),'resources','images','xbmc-pbx-addon.png'))
 			log(">> Notification: " + xbmc_notification)
-			xbmc.executebuiltin("XBMC.Notification("+ __language__(30050) +","+ xbmc_notification +","+ str(xbmc_oncall_notification_timeout*1000) +")")
+			xbmc.executebuiltin("XBMC.Notification("+ __language__(30050) +","+ xbmc_notification +","+ str(xbmc_oncall_notification_timeout*1000) +","+ xbmc_img +")")
 		del settings
 		del xbmc_player
 
@@ -158,15 +164,17 @@ try:
 	del settings
 	vm_count = tuple(pbx.MailboxCount(vm))
 	xbmc_notification = __language__(30053) + str(vm_count[0])
+	xbmc_img = xbmc.translatePath(os.path.join(os.getcwd(),'resources','images','xbmc-pbx-addon.png'))
 	log(">> " + xbmc_notification)
-	xbmc.executebuiltin("XBMC.Notification("+ __language__(30052) +","+ xbmc_notification +","+ str(15*1000) +")")
+	xbmc.executebuiltin("XBMC.Notification("+ __language__(30052) +","+ xbmc_notification +","+ str(15*1000) +","+ xbmc_img +")")
 	grab = get_incoming_call()
 	pbx.events += grab.events
 	pbx.serve_forever()
 except:
 	xbmc_notification = str(sys.exc_info()[1])
+	xbmc_img = xbmc.translatePath(os.path.join(os.getcwd(),'resources','images','xbmc-pbx-addon.png'))
 	log(">> " + xbmc_notification)
-	xbmc.executebuiltin("XBMC.Notification("+ __language__(30051) +","+ xbmc_notification +","+ str(15*1000) +")")
+	xbmc.executebuiltin("XBMC.Notification("+ __language__(30051) +","+ xbmc_notification +","+ str(15*1000) +","+ xbmc_img +")")
 try:
 	del grab
 	del pbx

@@ -13,7 +13,7 @@ __author__ = "hmronline"
 __url__ = "http://code.google.com/p/xbmc-pbx-addon/"
 __svn_url__ = "http://xbmc-pbx-addon.googlecode.com/svn/trunk/xbmc-pbx-addon"
 __credits__ = "XBMC Team, py-Asterisk"
-__version__ = "0.0.4"
+__version__ = "0.0.5"
 
 xbmc.output(__scriptname__ + " Version: " + __version__  + "\n")
 BASE_RESOURCE_PATH = xbmc.translatePath(os.path.join(os.getcwd(),'resources','lib'))
@@ -225,13 +225,15 @@ try:
 	ui.doModal()
 except:
 	xbmc_notification = str(sys.exc_info()[1])
+	xbmc_img = xbmc.translatePath(os.path.join(os.getcwd(),'resources','images','xbmc-pbx-addon.png'))
 	log(">> " + xbmc_notification)
-	xbmc.executebuiltin("XBMC.Notification("+ __language__(30051) +","+ xbmc_notification +","+ str(15*1000) +")")
+	xbmc.executebuiltin("XBMC.Notification("+ __language__(30051) +","+ xbmc_notification +","+ str(15*1000) +","+ xbmc_img +")")
 try:
 	del ui
 	self.dom.unlink()
 	del self.dom
 	sys.modules.clear()
+	sys.exit()
 except:
 	pass
 
