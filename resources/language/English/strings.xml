@@ -29,6 +29,7 @@
 	<string id="30025">XBMC: Pause playing Video</string>
 	<string id="30026">Asterisk: Redirect calls if XBMC is playing Video</string>
 	<string id="30027">Asterisk: Redirect calls to context (name)</string>
+	<string id="30028">Asterisk: Redirect only if ALERT_INFO equals to:</string>
 	<!-- Asterisk Outbound Calls -->
 	<string id="30030">Asterisk Outbound Calls</string>
 	<string id="30031">Define here what to do with outbound calls</string>

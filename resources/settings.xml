@@ -20,6 +20,7 @@
 	<setting id="xbmc_oncall_pause_media" type="bool" label="30025" default="true"/>
 	<setting id="asterisk_now_playing_enabled" type="bool" label="30026" default="false"/>
 	<setting id="asterisk_now_playing_context" type="text" label="30027" default="xbmc-now-playing"/>
+	<setting id="asterisk_alert_info" type="text" label="30028" default=""/>
 
 	<!-- Asterisk Outbound calls related settings -->
 	<setting id="separator" type="lsep" label="30030"/>

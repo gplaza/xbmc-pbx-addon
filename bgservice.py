@@ -124,7 +124,7 @@ class get_incoming_call(object):
 				if (settings.getSetting("xbmc_oncall_pause_media") == "true"):
 					time.sleep(1)
 					xbmc_new_remaining_time = xbmc_player.getTotalTime() - xbmc_player.getTime()
-					if(xbmc_remaining_time > xbmc_new_remaining_time):
+					if (xbmc_remaining_time > xbmc_new_remaining_time):
 						log(">> Pause media...")
        			                 	xbmc_player.pause()
 						self.xbmc_player_paused = True
@@ -132,9 +132,12 @@ class get_incoming_call(object):
 				if (settings.getSetting("asterisk_now_playing_enabled") == "true"):
 					log(">> Redirect call...")
 					try:
-						pbx.Setvar(event.Channel,"xbmc_video_title",xbmc_video_title)
-						pbx.Setvar(event.Channel,"xbmc_remaining_time",round(xbmc_remaining_time/60))
-						pbx.Redirect(event.Channel,settings.getSetting("asterisk_now_playing_context"))
+						asterisk_alert_info = str(pbx.Getvar(event.Channel,"ALERT_INFO",""))
+						log(">> ALERT_INFO: " + asterisk_alert_info)
+						if (asterisk_alert_info == settings.getSetting("asterisk_alert_info")):
+							pbx.Setvar(event.Channel,"xbmc_video_title",xbmc_video_title)
+							pbx.Setvar(event.Channel,"xbmc_remaining_time",round(xbmc_remaining_time/60))
+							pbx.Redirect(event.Channel,settings.getSetting("asterisk_now_playing_context"))
 					except:
 						log(">> ERROR: %s::%s (%d) - %s" % (self.__class__.__name__,sys.exc_info()[2].tb_frame.f_code.co_name,sys.exc_info()[2].tb_lineno,sys.exc_info()[1],))
 		# Show Incoming Call Notification Popup
