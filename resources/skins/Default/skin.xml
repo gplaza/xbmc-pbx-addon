@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"/>
 <skin>
   <defaultresolution>pal</defaultresolution>
   <defaultresolutionwide>pal</defaultresolutionwide>
@@ -9,4 +10,3 @@
     <name>XBMC PBX Addon</name>
   </credits>
 </skin>
-

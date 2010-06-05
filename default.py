@@ -4,56 +4,56 @@
 
 '''
 
-import sys, os, os.path
-import xbmc, xbmcgui
-
 # Script constants
-__scriptname__ = "XBMC PBX Addon"
-__author__ = "hmronline"
-__url__ = "http://code.google.com/p/xbmc-pbx-addon/"
-__svn_url__ = "http://xbmc-pbx-addon.googlecode.com/svn/trunk/xbmc-pbx-addon"
-__credits__ = "XBMC Team, py-Asterisk"
-__version__ = "0.0.5"
+__script__ 		= "XBMC PBX Addon"
+__scriptID__ 		= "script.xbmc-pbx-addon"
+__author__ 		= "hmronline"
+__url__ 		= "http://code.google.com/p/xbmc-pbx-addon/"
+__svn_url__ 		= "http://xbmc-pbx-addon.googlecode.com/svn/trunk/xbmc-pbx-addon"
+__platform__ 		= "xbmc media center, [ALL]"
+__credits__ 		= "Team XBMC, py-Asterisk"
+__started__ 		= "04-03-2010"
+__date__ 		= "05-06-2010"
+__version__ 		= "0.0.5"
+__svn_revision__ 	= "$Revision$".replace("Revision","").strip("$: ")
+__XBMC_Revision__ 	= "20000"
 
-xbmc.output(__scriptname__ + " Version: " + __version__  + "\n")
-BASE_RESOURCE_PATH = xbmc.translatePath(os.path.join(os.getcwd(),'resources','lib'))
-sys.path.append(BASE_RESOURCE_PATH)
+xbmc.output(__script__ + " Version: " + __version__  + "\n")
 
-import urllib, urlparse, urllib2
+# Modules
+import sys, os
+import xbmc, xbmcgui
 import re, traceback, time
-import xml.dom.minidom
+import urllib, urlparse, urllib2, xml.dom.minidom
+
+sys.path.append(xbmc.translatePath(os.path.join(os.getcwd(),'resources','lib')))
 from Asterisk.Manager import Manager
 import Asterisk.Manager, Asterisk.Util
 
-__language__ = xbmc.Language(os.getcwd()).getLocalizedString
+ROOTDIR = os.getcwd().replace(";","")
+__language__ = xbmc.Language(ROOTDIR,"English").getLocalizedString
 
-ACTION_MOVE_LEFT = 1
-ACTION_MOVE_RIGHT = 2
-ACTION_MOVE_UP = 3
-ACTION_MOVE_DOWN = 4
-ACTION_PAGE_UP = 5
-ACTION_PAGE_DOWN = 6
-ACTION_SELECT_ITEM = 7
-ACTION_HIGHLIGHT_ITEM = 8
-ACTION_PARENT_DIR = 9
-ACTION_PREVIOUS_MENU = 10
-ACTION_SHOW_INFO = 11
-ACTION_PAUSE = 12
-ACTION_STOP = 13
-ACTION_NEXT_ITEM = 14
-ACTION_PREV_ITEM = 15
-ACTION_EXIT_SCRIPT = (9, 10)
-
-# check if build is special:// aware - set roots paths accordingly
-XBMC_HOME = 'special://home'
-if not os.path.isdir(xbmc.translatePath(XBMC_HOME)):
-	# if fails to convert to Q:, old builds
-        XBMC_HOME = 'Q:'
+ACTION_MOVE_LEFT 	= 1
+ACTION_MOVE_RIGHT 	= 2
+ACTION_MOVE_UP 		= 3
+ACTION_MOVE_DOWN 	= 4
+ACTION_PAGE_UP 		= 5
+ACTION_PAGE_DOWN 	= 6
+ACTION_SELECT_ITEM 	= 7
+ACTION_HIGHLIGHT_ITEM 	= 8
+ACTION_PARENT_DIR 	= 9
+ACTION_PREVIOUS_MENU 	= 10
+ACTION_SHOW_INFO 	= 11
+ACTION_PAUSE 		= 12
+ACTION_STOP 		= 13
+ACTION_NEXT_ITEM 	= 14
+ACTION_PREV_ITEM 	= 15
+ACTION_EXIT_SCRIPT 	= (9, 10)
 
 #############################################################################################################
 def log(msg):
 	try:
-		xbmc.output("[%s]: %s\n" % (__scriptname__,msg))
+		xbmc.output("[%s]: %s\n" % (__script__,msg))
 	except:
 		pass
 
@@ -69,7 +69,7 @@ class MainGUI(xbmcgui.WindowXML):
 		log("> onInit()")
 		dialog = xbmcgui.DialogProgress()
 		# Starting...
-		dialog.create(__scriptname__,__language__(30061))
+		dialog.create(__script__,__language__(30061))
 		# Fetching Asterisk Info...
 		dialog.update(25,__language__(30063))
 		self.getInfo()
@@ -135,7 +135,7 @@ class MainGUI(xbmcgui.WindowXML):
 			number_to_call = self.getControl(120).getSelectedItem().getProperty("src")
 			if (number_to_call != ""):
 				dialog = xbmcgui.Dialog()
-				if (dialog.yesno(__scriptname__,__language__(30104) + " '" + number_to_call + "'?")):
+				if (dialog.yesno(__script__,__language__(30104) + " '" + number_to_call + "'?")):
 					self.make_outgoing_call(number_to_call)
 				del dialog
 		# Play Voice Mail
@@ -143,7 +143,7 @@ class MainGUI(xbmcgui.WindowXML):
 			recindex = self.getControl(121).getSelectedItem().getProperty("recindex")
 			if (recindex != ""):
 				dialog = xbmcgui.Dialog()
-				if (dialog.yesno(__scriptname__,__language__(30105))):
+				if (dialog.yesno(__script__,__language__(30105))):
 					self.play_voice_mail(recindex)
 				del dialog
 		# Settings
@@ -209,8 +209,6 @@ class FirstTimeGUI(xbmcgui.Window):
 #################################################################################################################
  # Starts here
 #################################################################################################################
-
-log("XBMC_HOME=%s" % XBMC_HOME)
 
 try:
 	log("Launching GUI...")
