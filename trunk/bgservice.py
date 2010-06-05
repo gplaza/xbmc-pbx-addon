@@ -4,37 +4,40 @@
 
 '''
 
-import sys, os, os.path
-import xbmc
-
 # Script constants
-__scriptname__ = "XBMC PBX Addon"
-__author__ = "hmronline"
-__url__ = "http://code.google.com/p/xbmc-pbx-addon/"
-__svn_url__ = "http://xbmc-pbx-addon.googlecode.com/svn/trunk/xbmc-pbx-addon"
-__credits__ = "XBMC Team, py-Asterisk"
-__version__ = "0.0.5"
+__script__              = "XBMC PBX Addon"
+__scriptID__            = "script.xbmc-pbx-addon"
+__author__              = "hmronline"
+__url__                 = "http://code.google.com/p/xbmc-pbx-addon/"
+__svn_url__             = "http://xbmc-pbx-addon.googlecode.com/svn/trunk/xbmc-pbx-addon"
+__platform__            = "xbmc media center, [ALL]"
+__credits__             = "Team XBMC, py-Asterisk"
+__started__             = "04-03-2010"
+__date__                = "05-06-2010"
+__version__             = "0.0.5"
+__svn_revision__        = "$Revision$".replace("Revision","").strip("$: ")
+__XBMC_Revision__       = "20000"
 
-xbmc.output(__scriptname__ + " Version: " + __version__  + "\n")
-BASE_RESOURCE_PATH = xbmc.translatePath(os.path.join(os.getcwd(),'resources','lib'))
-sys.path.append(BASE_RESOURCE_PATH)
+xbmc.output(__script__ + " Version: " + __version__  + "\n")
 
+# Modules
+import sys, os
+import xbmc
 import re, traceback, time
+
+
+sys.path.append(xbmc.translatePath(os.path.join(os.getcwd(),'resources','lib')))
 from Asterisk.Manager import Manager
 import Asterisk.Manager, Asterisk.Util
 
-__language__ = xbmc.Language(os.getcwd()).getLocalizedString
+ROOTDIR = os.getcwd().replace(";","")
+__language__ = xbmc.Language(ROOTDIR,"English").getLocalizedString
 
-# check if build is special:// aware - set roots paths accordingly
-XBMC_HOME = 'special://home'
-if not os.path.isdir(xbmc.translatePath(XBMC_HOME)):
-	# if fails to convert to Q:, old builds
-        XBMC_HOME = 'Q:'
 
 #############################################################################################################
 def log(msg):
 	try:
-		xbmc.output("[%s]: %s\n" % (__scriptname__,msg))
+		xbmc.output("[%s]: %s\n" % (__script__,msg))
 	except:
 		pass
 
@@ -155,8 +158,6 @@ class get_incoming_call(object):
 #################################################################################################################
  # Starts here
 #################################################################################################################
-
-log("XBMC_HOME=%s" % XBMC_HOME)
 
 try:
 	log("Running in background...")

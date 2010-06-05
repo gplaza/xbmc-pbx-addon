@@ -36,4 +36,3 @@
 	<setting id="asterisk_vm_context" type="text" label="30044" default="default"/>
 	<setting id="asterisk_vm_format" type="enum" label="30045" values="wav|gsm|mp3" default="0"/>
 </settings>
-
