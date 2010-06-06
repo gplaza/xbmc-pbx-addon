@@ -26,12 +26,12 @@ import xbmc, xbmcgui
 import re, traceback, time
 import urllib, urlparse, urllib2, xml.dom.minidom
 
-sys.path.append(xbmc.translatePath(os.path.join(os.getcwd(),'resources','lib')))
+CWD = os.getcwd().rstrip(";")
+__language__ = xbmc.Language(CWD).getLocalizedString
+
+sys.path.append(xbmc.translatePath(os.path.join(CWD,'resources','lib')))
 from Asterisk.Manager import Manager
 import Asterisk.Manager, Asterisk.Util
-
-ROOTDIR = os.getcwd().replace(";","")
-__language__ = xbmc.Language(ROOTDIR,"English").getLocalizedString
 
 ACTION_MOVE_LEFT 	= 1
 ACTION_MOVE_RIGHT 	= 2
@@ -85,7 +85,7 @@ class MainGUI(xbmcgui.WindowXML):
 	#####################################################################################################
 	def getInfo(self):
 		log("> getInfo()")
-		settings = xbmc.Settings(path=os.getcwd())
+		settings = xbmc.Settings(CWD)
 		str_url = settings.getSetting("asterisk_info_url")
 		str_url = str_url +"?vm&cdr&mailbox="+ settings.getSetting("asterisk_vm_mailbox")
 		str_url = str_url +"&vmcontext="+ settings.getSetting("asterisk_vm_context")
@@ -148,7 +148,7 @@ class MainGUI(xbmcgui.WindowXML):
 				del dialog
 		# Settings
 		elif (controlId == 115):
-			settings = xbmc.Settings(path=os.getcwd())
+			settings = xbmc.Settings(CWD)
 			settings.openSettings()
 			del settings
 			self.onInit()
@@ -159,7 +159,7 @@ class MainGUI(xbmcgui.WindowXML):
 	#####################################################################################################
 	def make_outgoing_call(self,number_to_call):
 		log("> make_outgoing_call()")
-		settings = xbmc.Settings(path=os.getcwd())
+		settings = xbmc.Settings(CWD)
 		manager_host_port = settings.getSetting("asterisk_manager_host"),int(settings.getSetting("asterisk_manager_port"))
 		pbx = Manager(manager_host_port,settings.getSetting("asterisk_manager_user"),settings.getSetting("asterisk_manager_pass"))
         	pbx.Originate(settings.getSetting("asterisk_outbound_extension"),settings.getSetting("asterisk_outbound_context"),number_to_call,1)
@@ -170,7 +170,7 @@ class MainGUI(xbmcgui.WindowXML):
 	#####################################################################################################
 	def play_voice_mail(self,recindex):
 		log("> play_voice_mail()")
-		settings = xbmc.Settings(path=os.getcwd())
+		settings = xbmc.Settings(CWD)
 		audio_format = ["wav","gsm","mp3"]
 		asterisk_vm_format = audio_format[int(settings.getSetting("asterisk_vm_format"))]
 		url_vm = settings.getSetting("asterisk_info_url") +"?recindex="+ recindex
@@ -199,7 +199,7 @@ class FirstTimeGUI(xbmcgui.Window):
 	#####################################################################################################
 	def onAction(self,action):
 		#log("> onAction()")
-		settings = xbmc.Settings(path=os.getcwd())
+		settings = xbmc.Settings(CWD)
 		settings.openSettings()
 		del settings
 		self.close()
@@ -212,18 +212,18 @@ class FirstTimeGUI(xbmcgui.Window):
 
 try:
 	log("Launching GUI...")
-	settings = xbmc.Settings(path=os.getcwd())
+	settings = xbmc.Settings(CWD)
 	first_time_use = settings.getSetting("first_time_use")
 	settings.setSetting("first_time_use","false")
 	del settings
 	if (first_time_use == "true"):
 		ui = FirstTimeGUI()
 	else:
-		ui = MainGUI("script_xbmc-pbx-addon_main.xml",os.getcwd(),"Default")
+		ui = MainGUI("script_xbmc-pbx-addon_main.xml",CWD)
 	ui.doModal()
 except:
 	xbmc_notification = str(sys.exc_info()[1])
-	xbmc_img = xbmc.translatePath(os.path.join(os.getcwd(),'resources','images','xbmc-pbx-addon.png'))
+	xbmc_img = xbmc.translatePath(os.path.join(CWD,'resources','images','xbmc-pbx-addon.png'))
 	log(">> " + xbmc_notification)
 	xbmc.executebuiltin("XBMC.Notification("+ __language__(30051) +","+ xbmc_notification +","+ str(15*1000) +","+ xbmc_img +")")
 try:
