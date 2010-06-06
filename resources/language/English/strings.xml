@@ -3,14 +3,15 @@
 	<string id="30000">XBMC PBX Addon</string>
 
 	<!-- First time use instructions -->
-	<string id="30001">First time use</string>
+	<string id="30001">-== First time use instructions ==-</string>
 	<string id="30002">1. Copy the autoexec.py file to XBMC's scripts folder</string>
 	<string id="30003">2. Customize and then copy the manager_custom.conf file to /etc/asterisk on your Asterisk server</string>
-	<string id="30004">3. Copy the xbmc-pbx-addon.php file to your Asterisk web server root directory</string>
+	<string id="30004">3. Copy the xbmc-pbx-addon.php file to your Asterisk web server (Apache?) root directory</string>
 	<string id="30005">4. Customize this script settings using the GUI</string>
 	<string id="30006">5. Reboot your Asterisk server and XBMC</string>
 	<string id="30007">6. Everything should be working now</string>
-	<string id="30008">7. Provide feedback</string>
+	<string id="30008">7. Provide feedback on XBMC Forums</string>
+	<string id="30009">8. For more information go to http://code.google.com/p/xbmc-pbx-addon/</string>
 
 	<!-- Script Settings related strings -->
 	<!-- Asterisk Manager Interface -->
