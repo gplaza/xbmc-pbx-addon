@@ -13,7 +13,7 @@ __svn_url__ 		= "http://xbmc-pbx-addon.googlecode.com/svn/trunk/xbmc-pbx-addon"
 __platform__ 		= "xbmc media center, [ALL]"
 __credits__ 		= "Team XBMC, py-Asterisk"
 __started__ 		= "04-03-2010"
-__date__ 		= "05-06-2010"
+__date__ 		= "13-06-2010"
 __version__ 		= "0.0.5"
 __svn_revision__ 	= "$Revision$".replace("Revision","").strip("$: ")
 __XBMC_Revision__ 	= "20000"
@@ -53,7 +53,7 @@ ACTION_EXIT_SCRIPT 	= (9, 10)
 #############################################################################################################
 def log(msg):
 	try:
-		xbmc.output("[%s]: %s\n" % (__script__,msg))
+		xbmc.output("[%s]: %s\n" % (__script__,str(msg)))
 	except:
 		pass
 
@@ -177,7 +177,7 @@ class MainGUI(xbmcgui.WindowXML):
 		url_vm = url_vm +"&mailbox="+ settings.getSetting("asterisk_vm_mailbox")
 		url_vm = url_vm +"&vmcontext="+ settings.getSetting("asterisk_vm_context")
 		url_vm = url_vm +"&format="+ asterisk_vm_format
-		xbmc_player = xbmc.Player(xbmc.PLAYER_CORE_MPLAYER)
+		xbmc_player = xbmc.Player(xbmc.PLAYER_CORE_DVDPLAYER)
 		xbmc_player.play(url_vm)
 		del xbmc_player
 		del settings

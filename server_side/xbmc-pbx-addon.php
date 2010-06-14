@@ -6,17 +6,21 @@
 */
 
 // Script constants
-$__scriptname__ = "XBMC PBX Addon";
-$__author__ = "hmronline";
-$__url__ = "http://code.google.com/p/xbmc-pbx-addon/";
-$__svn_url__ = "http://xbmc-pbx-addon.googlecode.com/svn/trunk/xbmc-pbx-addon";
-$__credits__ = "XBMC Team, py-Asterisk";
-$__version__ = "0.0.5";
+$__script__              = "XBMC PBX Addon";
+$__scriptID__            = "script.xbmc-pbx-addon";
+$__author__              = "hmronline";
+$__url__                 = "http://code.google.com/p/xbmc-pbx-addon/";
+$__svn_url__             = "http://xbmc-pbx-addon.googlecode.com/svn/trunk/xbmc-pbx-addon";
+$__credits__             = "Team XBMC, py-Asterisk";
+$__started__             = "04-03-2010";
+$__date__                = "13-06-2010";
+$__version__             = "0.0.5";
 
 // YOU MAY WANT TO CUSTOMIZE THIS:
 $cdr_filename = "/var/log/asterisk/cdr-csv/Master.csv";
 $vm_path  = '/var/spool/asterisk/voicemail/';
 
+// Make sure php-xml is installed in your system!
 //#############################################################################################################
 if (isset($_GET['recindex']) && isset($_GET['mailbox']) && isset($_GET['vmcontext']) && isset($_GET['format'])) {
 	// VoiceMail Audio Download
@@ -54,6 +58,7 @@ if (isset($_GET['recindex']) && isset($_GET['mailbox']) && isset($_GET['vmcontex
 	} 
 }
 else {
+	header ("content-type: text/xml");
 	$xmldoc = new DOMDocument();
 	$xmldoc->formatOutput = true;
 	$xmlroot = $xmldoc->createElement("pbx");
@@ -138,8 +143,8 @@ else {
 		unset($vm);
 	}
 	// Print XML
-	header ("content-type: text/xml");
 	echo $xmldoc->saveXML();
+	echo "<!-- ". $__script__ . $__version__ ." -->";
 	unset($xmldoc);
 }
 ?>
