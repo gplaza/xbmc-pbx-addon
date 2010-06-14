@@ -18,13 +18,13 @@
                         <height>480</height>
                         <texture>ContentPanel.png</texture>
                 </control>
-                <control type="label">
+                <control type="image">
                         <description>XBMC PBX Addon</description>
-                        <posx>120</posx>
-                        <posy>40</posy>
-                        <align>right</align>
-                        <label>$LOCALIZE[30000]</label>
-                        <font>special14</font>
+                        <posx>5</posx>
+                        <posy>0</posy>
+			<width>90</width>
+			<height>110</height>
+			<texture>xbmc-pbx-addon.png</texture>
                 </control>
                 <control type="radiobutton" id="110">
                         <description>CDR toggle button</description>
