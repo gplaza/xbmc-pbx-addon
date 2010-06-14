@@ -86,6 +86,11 @@ class MainGUI(xbmcgui.WindowXML):
 	def getInfo(self):
 		log("> getInfo()")
 		settings = xbmc.Settings(CWD)
+                manager_host_port = settings.getSetting("asterisk_manager_host"),int(settings.getSetting("asterisk_manager_port"))
+                pbx = Manager(manager_host_port,settings.getSetting("asterisk_manager_user"),settings.getSetting("asterisk_manager_pass"))
+                asterisk_version = str(pbx.Command("core show version")[1])
+                del pbx
+		log(">> " + asterisk_version)
 		str_url = settings.getSetting("asterisk_info_url")
 		str_url = str_url +"?vm&cdr&mailbox="+ settings.getSetting("asterisk_vm_mailbox")
 		str_url = str_url +"&vmcontext="+ settings.getSetting("asterisk_vm_context")

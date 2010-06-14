@@ -167,8 +167,10 @@ try:
 	pbx = Manager(manager_host_port,settings.getSetting("asterisk_manager_user"),settings.getSetting("asterisk_manager_pass"))
 	vm = settings.getSetting("asterisk_vm_mailbox") +"@"+ settings.getSetting("asterisk_vm_context")
 	del settings
-	vm_count = tuple(pbx.MailboxCount(vm))
-	xbmc_notification = __language__(30053) + str(vm_count[0])
+	asterisk_version = str(pbx.Command("core show version")[1])
+	log(">> " + asterisk_version)
+	vm_count = str(pbx.MailboxCount(vm)[0])
+	xbmc_notification = __language__(30053) + vm_count
 	xbmc_img = xbmc.translatePath(os.path.join(CWD,'resources','images','xbmc-pbx-addon.png'))
 	log(">> " + xbmc_notification)
 	xbmc.executebuiltin("XBMC.Notification("+ __language__(30052) +","+ xbmc_notification +","+ str(15*1000) +","+ xbmc_img +")")
