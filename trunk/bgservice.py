@@ -47,9 +47,10 @@ class get_incoming_call(object):
 
         def __init__(self):
 		log("__init__()")
+		self.DEBUG = True
 		global asterisk_series
 		self.asterisk_series = asterisk_series
-		#log(">> " + self.asterisk_series)
+		if (self.DEBUG): log(">> Asterisk: " + self.asterisk_series)
 		self.xbmc_player_paused = False
                 self.ast_uniqid = 0
 		self.event_callerid = ""
@@ -61,43 +62,48 @@ class get_incoming_call(object):
 
 	#####################################################################################################
         def Newchannel(self,pbx,event):
-		#log("> NewChannel()")
-		#log(">> " + event.Uniqueid)
+		if (self.DEBUG):
+			log("> NewChannel()")
+			log(">> UniqueID: " + event.Uniqueid)
 		if (self.asterisk_series == "1.4"):
 			# Asterisk 1.4
 			event_state = str(event.State)
 		else:
 			# Asterisk 1.6+
 			event_state = str(event.ChannelStateDesc)
-		#log(">> " + event_state)
+		if (self.DEBUG): log(">> State: " + event_state)
 		arr_chan_states = ['Down','Ring']
 		settings = xbmc.Settings(CWD)
 		asterisk_chan_state = str(arr_chan_states[int(settings.getSetting("asterisk_chan_state"))])
 		del settings
                 if (event_state == asterisk_chan_state and self.ast_uniqid == 0):
                         self.ast_uniqid = event.Uniqueid
-			#log(">> " + self.ast_uniqid)
-			#log(">> " + asterisk_chan_state)
+			if (self.DEBUG):
+				log(">>> Uniqueid: " + self.ast_uniqid)
+				log(">>> State: " + asterisk_chan_state)
 
 	#####################################################################################################
         def NewCallerid(self,pbx,event):
-		#log("> NewCallerid()")
-		#log(">> " + event.Uniqueid)
+		if (self.DEBUG):
+			log("> NewCallerid()")
+			log(">> UniqueID: " + event.Uniqueid)
 		if (self.asterisk_series == "1.4"):
 			# Asterisk 1.4
-			self.event_callerid = str(event.CallerID)
+			event_callerid_num = str(event.CallerID)
 		else:
 			# Asterisk 1.6+
-			if (event.CallerIDName != "" and event.CallerIDNum != ""):
-				self.event_callerid = str(event.CallerIDName + " <" + event.CallerIDNum + ">")
-		#log(">> " + self.event_callerid)
+			event_callerid_num = str(event.CallerIDNum)
+		if (event.CallerIDName != "" and event_callerid_num != ""):
+			self.event_callerid = str(event.CallerIDName + " <" + event_callerid_num + ">")
+		if (self.DEBUG): log(">> CallerID: " + self.event_callerid)
                 if (event.Uniqueid == self.ast_uniqid and self.event_callerid != ""):
                         self.newcall_actions(event)
 
 	#####################################################################################################
         def Hangup(self,pbx,event):
-		#log("> Hangup()")
-		#log(">> " + event.Uniqueid)
+		if (self.DEBUG):
+			log("> Hangup()")
+			log(">> UniqueID: " + event.Uniqueid)
                 if (event.Uniqueid == self.ast_uniqid):
                         self.ast_uniqid = 0
                         self.hangup_actions(event)
@@ -121,7 +127,7 @@ class get_incoming_call(object):
         def newcall_actions(self,event):
 		log("> newcall_actions()")
 		log(">> Channel: " + str(event.Channel))
-		#log(">> Unique ID: " + self.ast_uniqid)
+		if (self.DEBUG): log(">> UniqueID: " + self.ast_uniqid)
                 log(">> CallerID: " + self.event_callerid)
 		xbmc_player = xbmc.Player(xbmc.PLAYER_CORE_AUTO)
 		settings = xbmc.Settings(CWD)
