@@ -13,8 +13,8 @@ __svn_url__ 		= "http://xbmc-pbx-addon.googlecode.com/svn/trunk/xbmc-pbx-addon"
 __platform__ 		= "xbmc media center, [ALL]"
 __credits__ 		= "Team XBMC, py-Asterisk"
 __started__ 		= "04-03-2010"
-__date__ 		= "13-06-2010"
-__version__ 		= "0.0.5"
+__date__ 		= "15-06-2010"
+__version__ 		= "0.0.6"
 __svn_revision__ 	= "$Revision$".replace("Revision","").strip("$: ")
 __XBMC_Revision__ 	= "20000"
 

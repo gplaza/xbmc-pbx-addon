@@ -47,7 +47,7 @@ class get_incoming_call(object):
 
         def __init__(self):
 		log("__init__()")
-		self.DEBUG = True
+		self.DEBUG = False
 		global asterisk_series
 		self.asterisk_series = asterisk_series
 		if (self.DEBUG): log(">> Asterisk: " + self.asterisk_series)
