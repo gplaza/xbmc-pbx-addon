@@ -4,7 +4,7 @@
 
 	<!-- First time use instructions -->
 	<string id="30001">-== First time use instructions ==-</string>
-	<string id="30002">1. Copy the autoexec.py file to XBMC's scripts folder</string>
+	<string id="30002">1. Edit then copy the autoexec.py file to XBMC's scripts folder</string>
 	<string id="30003">2. Customize and then copy the manager_custom.conf file to /etc/asterisk on your Asterisk server</string>
 	<string id="30004">3. Copy the xbmc-pbx-addon.php file to your Asterisk web server (Apache?) root directory</string>
 	<string id="30005">4. Customize this script settings using the GUI</string>
