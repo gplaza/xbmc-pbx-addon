@@ -13,8 +13,8 @@ __svn_url__             = "http://xbmc-pbx-addon.googlecode.com/svn/trunk/xbmc-p
 __platform__            = "xbmc media center, [ALL]"
 __credits__             = "Team XBMC, py-Asterisk"
 __started__             = "04-03-2010"
-__date__                = "13-06-2010"
-__version__             = "0.0.5"
+__date__                = "15-06-2010"
+__version__             = "0.0.6"
 __svn_revision__        = "$Revision$".replace("Revision","").strip("$: ")
 __XBMC_Revision__       = "20000"
 
@@ -47,8 +47,12 @@ class get_incoming_call(object):
 
         def __init__(self):
 		log("__init__()")
+		global asterisk_series
+		self.asterisk_series = asterisk_series
+		#log(">> " + self.asterisk_series)
 		self.xbmc_player_paused = False
                 self.ast_uniqid = 0
+		self.event_callerid = ""
                 self.events = Asterisk.Util.EventCollection()
                 self.events.clear()
                 self.events.subscribe('Newchannel',self.Newchannel)
@@ -59,12 +63,18 @@ class get_incoming_call(object):
         def Newchannel(self,pbx,event):
 		#log("> NewChannel()")
 		#log(">> " + event.Uniqueid)
-		#log(">> " + event.ChannelStateDesc)
+		if (self.asterisk_series == "1.4"):
+			# Asterisk 1.4
+			event_state = str(event.State)
+		else:
+			# Asterisk 1.6+
+			event_state = str(event.ChannelStateDesc)
+		#log(">> " + event_state)
 		arr_chan_states = ['Down','Ring']
 		settings = xbmc.Settings(CWD)
 		asterisk_chan_state = str(arr_chan_states[int(settings.getSetting("asterisk_chan_state"))])
 		del settings
-                if (event.ChannelStateDesc == asterisk_chan_state and self.ast_uniqid == 0):
+                if (event_state == asterisk_chan_state and self.ast_uniqid == 0):
                         self.ast_uniqid = event.Uniqueid
 			#log(">> " + self.ast_uniqid)
 			#log(">> " + asterisk_chan_state)
@@ -73,8 +83,15 @@ class get_incoming_call(object):
         def NewCallerid(self,pbx,event):
 		#log("> NewCallerid()")
 		#log(">> " + event.Uniqueid)
-		#log(">> " + event.CallerIDName + " <" + event.CallerIDNum + ">")
-                if (event.Uniqueid == self.ast_uniqid and event.CallerIDName != "" and event.CallerIDNum != ""):
+		if (self.asterisk_series == "1.4"):
+			# Asterisk 1.4
+			self.event_callerid = str(event.CallerID)
+		else:
+			# Asterisk 1.6+
+			if (event.CallerIDName != "" and event.CallerIDNum != ""):
+				self.event_callerid = str(event.CallerIDName + " <" + event.CallerIDNum + ">")
+		#log(">> " + self.event_callerid)
+                if (event.Uniqueid == self.ast_uniqid and self.event_callerid != ""):
                         self.newcall_actions(event)
 
 	#####################################################################################################
@@ -105,8 +122,7 @@ class get_incoming_call(object):
 		log("> newcall_actions()")
 		log(">> Channel: " + str(event.Channel))
 		#log(">> Unique ID: " + self.ast_uniqid)
-                str_callerid = str(event.CallerIDName + " <"+ event.CallerIDNum +">")
-                log(">> CallerID: " + str_callerid)
+                log(">> CallerID: " + self.event_callerid)
 		xbmc_player = xbmc.Player(xbmc.PLAYER_CORE_AUTO)
 		settings = xbmc.Settings(CWD)
                 if (xbmc_player.isPlaying() == 1):
@@ -148,7 +164,7 @@ class get_incoming_call(object):
 		if (settings.getSetting("xbmc_oncall_notification") == "true"):
 			arr_timeout = [5,10,15,20,25,30]
 			xbmc_oncall_notification_timeout = int(arr_timeout[int(settings.getSetting("xbmc_oncall_notification_timeout"))])
-			xbmc_notification = str_callerid
+			xbmc_notification = self.event_callerid
 			xbmc_img = xbmc.translatePath(os.path.join(CWD,'resources','images','xbmc-pbx-addon.png'))
 			log(">> Notification: " + xbmc_notification)
 			xbmc.executebuiltin("XBMC.Notification("+ __language__(30050) +","+ xbmc_notification +","+ str(xbmc_oncall_notification_timeout*1000) +","+ xbmc_img +")")
@@ -168,6 +184,7 @@ try:
 	vm = settings.getSetting("asterisk_vm_mailbox") +"@"+ settings.getSetting("asterisk_vm_context")
 	del settings
 	asterisk_version = str(pbx.Command("core show version")[1])
+	asterisk_series = asterisk_version[9:12]
 	log(">> " + asterisk_version)
 	vm_count = str(pbx.MailboxCount(vm)[0])
 	xbmc_notification = __language__(30053) + vm_count
