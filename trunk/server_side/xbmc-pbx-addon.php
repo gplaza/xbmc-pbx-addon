@@ -13,7 +13,7 @@ $__url__                 = "http://code.google.com/p/xbmc-pbx-addon/";
 $__svn_url__             = "http://xbmc-pbx-addon.googlecode.com/svn/trunk/xbmc-pbx-addon";
 $__credits__             = "Team XBMC, py-Asterisk";
 $__started__             = "04-03-2010";
-$__date__                = "15-06-2010";
+$__date__                = "20-06-2010";
 $__version__             = "0.0.6";
 
 // YOU MAY WANT TO CUSTOMIZE THIS:
@@ -23,39 +23,56 @@ $vm_path  = '/var/spool/asterisk/voicemail/';
 // Make sure php-xml is installed in your system!
 //#############################################################################################################
 if (isset($_GET['recindex']) && isset($_GET['mailbox']) && isset($_GET['vmcontext']) && isset($_GET['format'])) {
-	// VoiceMail Audio Download
-	// Based on http://www.freepbx.org/trac/browser/freepbx/branches/2.7/amp_conf/htdocs/recordings/misc/audio.php
 	$vm_path = $vm_path . $_GET['vmcontext'] . "/" . $_GET['mailbox'] . "/INBOX/";
-	$path = $vm_path . "msg" . $_GET['recindex'] . "." . $_GET['format'];
-	// See if the file exists
-	if (!is_file($path)) { die("<b>404 File not found!</b>"); }
-	// Gather relevent info about file
-	$size = filesize($path);
-	$name = basename($path);
-	$extension = strtolower(substr(strrchr($name,"."),1));
-	// This will set the Content-Type to the appropriate setting for the file
-	$ctype ='';
-	switch($extension) {
-		case "mp3": $ctype="audio/mpeg"; break;
-		case "wav": $ctype="audio/x-wav"; break;
-		case "gsm": $ctype="audio/x-gsm"; break;
-		// not downloadable
-		default: die("<b>404 File not found!</b>"); break ;
+	if (isset($_GET['delete'])) {
+		// VoiceMail Delete
+		if (is_dir($vm_path)) {
+			if ($dirhandle = @opendir($vm_path)) {
+				while (false !== ($filename = readdir($dirhandle))) {
+					if (strpos($filename,"msg". $_GET['recindex'] .".") === 0) {
+						$file_to_delete = $vm_path . $filename;
+						echo "<br/>Deleting: ". $file_to_delete;
+						unlink($file_to_delete);
+					}
+				}
+			}
+			closedir($dirhandle);
+		}
 	}
-	// need to check if file is mislabeled or a liar.
-	$fp=fopen($path, "rb");
-	if ($size && $ctype && $fp) {
-		header("Pragma: public");
-		header("Expires: 0");
-		header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-		header("Cache-Control: public");
-		header("Content-Description: wav file");
-		header("Content-Type: " . $ctype);
-		header("Content-Disposition: attachment; filename=" . $name);
-		header("Content-Transfer-Encoding: binary");
-		header("Content-length: " . $size);
-		fpassthru($fp);
-	} 
+	else {
+		// VoiceMail Audio Download
+		// Based on http://www.freepbx.org/trac/browser/freepbx/branches/2.7/amp_conf/htdocs/recordings/misc/audio.php
+		$path = $vm_path . "msg" . $_GET['recindex'] . "." . $_GET['format'];
+		// See if the file exists
+		if (!is_file($path)) { die("<b>404 File not found!</b>"); }
+		// Gather relevent info about file
+		$size = filesize($path);
+		$name = basename($path);
+		$extension = strtolower(substr(strrchr($name,"."),1));
+		// This will set the Content-Type to the appropriate setting for the file
+		$ctype ='';
+		switch($extension) {
+			case "mp3": $ctype="audio/mpeg"; break;
+			case "wav": $ctype="audio/x-wav"; break;
+			case "gsm": $ctype="audio/x-gsm"; break;
+			// not downloadable
+			default: die("<b>404 File not found!</b>"); break ;
+		}
+		// need to check if file is mislabeled or a liar.
+		$fp=fopen($path, "rb");
+		if ($size && $ctype && $fp) {
+			header("Pragma: public");
+			header("Expires: 0");
+			header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+			header("Cache-Control: public");
+			header("Content-Description: wav file");
+			header("Content-Type: " . $ctype);
+			header("Content-Disposition: attachment; filename=" . $name);
+			header("Content-Transfer-Encoding: binary");
+			header("Content-length: " . $size);
+			fpassthru($fp);
+		} 
+	}
 }
 else {
 	header ("content-type: text/xml");
@@ -144,7 +161,7 @@ else {
 	}
 	// Print XML
 	echo $xmldoc->saveXML();
-	echo "<!-- ". $__script__ . $__version__ ." -->";
+	echo "<!-- ". $__script__ ." ". $__version__ ." -->";
 	unset($xmldoc);
 }
 ?>

@@ -13,7 +13,7 @@ __svn_url__             = "http://xbmc-pbx-addon.googlecode.com/svn/trunk/xbmc-p
 __platform__            = "xbmc media center, [ALL]"
 __credits__             = "Team XBMC, py-Asterisk"
 __started__             = "04-03-2010"
-__date__                = "19-06-2010"
+__date__                = "20-06-2010"
 __version__             = "0.0.6"
 __svn_revision__        = "$Revision$".replace("Revision","").strip("$: ")
 __XBMC_Revision__       = "20000"
@@ -196,7 +196,7 @@ try:
 	vm_count = str(pbx.MailboxCount(vm)[0])
 	xbmc_notification = __language__(30053) + vm_count
 	xbmc_img = xbmc.translatePath(os.path.join(CWD,'resources','images','xbmc-pbx-addon.png'))
-	log(">> " + xbmc_notification)
+	log(">> Notification: " + xbmc_notification)
 	xbmc.executebuiltin("XBMC.Notification("+ __language__(30052) +","+ xbmc_notification +","+ str(15*1000) +","+ xbmc_img +")")
 	grab = get_incoming_call()
 	pbx.events += grab.events
@@ -204,7 +204,7 @@ try:
 except:
 	xbmc_notification = str(sys.exc_info()[1])
 	xbmc_img = xbmc.translatePath(os.path.join(CWD,'resources','images','xbmc-pbx-addon.png'))
-	log(">> " + xbmc_notification)
+	log(">> Notification: " + xbmc_notification)
 	xbmc.executebuiltin("XBMC.Notification("+ __language__(30051) +","+ xbmc_notification +","+ str(15*1000) +","+ xbmc_img +")")
 try:
 	del grab

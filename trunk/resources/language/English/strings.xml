@@ -62,6 +62,7 @@
 	<string id="30103">Settings</string>
 	<string id="30104">Initiate outgoing call to</string>
 	<string id="30105">Play Voice Mail?</string>
+	<string id="30106">Delete Voice Mail?</string>
 	<!-- CDR -->
 	<string id="30110">Call Detail Record</string>
 	<string id="30111">Account Code</string>
