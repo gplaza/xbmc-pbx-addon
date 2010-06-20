@@ -13,7 +13,7 @@ __svn_url__ 		= "http://xbmc-pbx-addon.googlecode.com/svn/trunk/xbmc-pbx-addon"
 __platform__ 		= "xbmc media center, [ALL]"
 __credits__ 		= "Team XBMC, py-Asterisk"
 __started__ 		= "04-03-2010"
-__date__ 		= "15-06-2010"
+__date__ 		= "20-06-2010"
 __version__ 		= "0.0.6"
 __svn_revision__ 	= "$Revision$".replace("Revision","").strip("$: ")
 __XBMC_Revision__ 	= "20000"
@@ -182,10 +182,42 @@ class MainGUI(xbmcgui.WindowXML):
 		url_vm = url_vm +"&mailbox="+ settings.getSetting("asterisk_vm_mailbox")
 		url_vm = url_vm +"&vmcontext="+ settings.getSetting("asterisk_vm_context")
 		url_vm = url_vm +"&format="+ asterisk_vm_format
-		xbmc_player = xbmc.Player(xbmc.PLAYER_CORE_DVDPLAYER)
-		xbmc_player.play(url_vm)
-		del xbmc_player
+		self.vm_player = VoiceMailPlayer(xbmc.PLAYER_CORE_DVDPLAYER,function=self.delete_voice_mail)
+		self.xbmc_player = xbmc.Player(xbmc.PLAYER_CORE_DVDPLAYER)
+		self.xbmc_player.play(url_vm)
+		self.url_vm = url_vm
 		del settings
+
+	#####################################################################################################
+	def delete_voice_mail(self):
+		log("> delete_voice_mail()")
+		del self.xbmc_player
+		del self.vm_player
+		if (self.url_vm != ""):
+			dialog = xbmcgui.Dialog()
+			if (dialog.yesno(__script__,__language__(30106))):
+				self.url_vm = self.url_vm +"&delete"
+				log("> " + self.url_vm)
+				f = urllib.urlopen(self.url_vm)
+				self.url_vm = ""
+				f.close()
+				del f
+			del dialog
+
+
+#############################################################################################################
+class VoiceMailPlayer(xbmc.Player):
+	def __init__(self,*args,**kwargs):
+		xbmc.Player.__init__(self)
+		self.function = kwargs["function"]
+
+	#####################################################################################################
+	def onPlayBackStopped(self):
+		self.function()
+
+	#####################################################################################################
+	def onPlayBackEnded(self):
+		self.function()
 
 
 #############################################################################################################
@@ -229,7 +261,7 @@ try:
 except:
 	xbmc_notification = str(sys.exc_info()[1])
 	xbmc_img = xbmc.translatePath(os.path.join(CWD,'resources','images','xbmc-pbx-addon.png'))
-	log(">> " + xbmc_notification)
+	log(">> Notification: " + xbmc_notification)
 	xbmc.executebuiltin("XBMC.Notification("+ __language__(30051) +","+ xbmc_notification +","+ str(15*1000) +","+ xbmc_img +")")
 try:
 	del ui
