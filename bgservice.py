@@ -13,7 +13,7 @@ __svn_url__             = "http://xbmc-pbx-addon.googlecode.com/svn/trunk/xbmc-p
 __platform__            = "xbmc media center, [ALL]"
 __credits__             = "Team XBMC, py-Asterisk"
 __started__             = "04-03-2010"
-__date__                = "15-06-2010"
+__date__                = "19-06-2010"
 __version__             = "0.0.6"
 __svn_revision__        = "$Revision$".replace("Revision","").strip("$: ")
 __XBMC_Revision__       = "20000"
@@ -56,12 +56,13 @@ class get_incoming_call(object):
 		self.event_callerid = ""
                 self.events = Asterisk.Util.EventCollection()
                 self.events.clear()
-                self.events.subscribe('Newchannel',self.Newchannel)
-                self.events.subscribe('NewCallerid',self.NewCallerid)
+                self.events.subscribe('Newchannel',self.NewChannel)
+                self.events.subscribe('Newcallerid',self.NewCallerID)		# Asterisk 1.4
+                self.events.subscribe('NewCallerid',self.NewCallerID)		# Asterisk 1.6
                 self.events.subscribe('Hangup',self.Hangup)
 
 	#####################################################################################################
-        def Newchannel(self,pbx,event):
+        def NewChannel(self,pbx,event):
 		if (self.DEBUG):
 			log("> NewChannel()")
 			log(">> UniqueID: " + event.Uniqueid)
@@ -83,9 +84,9 @@ class get_incoming_call(object):
 				log(">>> State: " + asterisk_chan_state)
 
 	#####################################################################################################
-        def NewCallerid(self,pbx,event):
+        def NewCallerID(self,pbx,event):
 		if (self.DEBUG):
-			log("> NewCallerid()")
+			log("> NewCallerID()")
 			log(">> UniqueID: " + event.Uniqueid)
 		if (self.asterisk_series == "1.4"):
 			# Asterisk 1.4
