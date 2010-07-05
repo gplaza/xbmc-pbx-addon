@@ -52,7 +52,7 @@
 	<string id="30053">New messages: </string>
 	<!-- Dialog Progress -->
 	<string id="30061">Starting...</string>
-	<string id="30062">Reading config...</string>
+	<string id="30062">Skin Setup...</string>
 	<string id="30063">Fetching Asterisk Info...</string>
 	<string id="30064">Displaying Asterisk Info...</string>
 	<string id="30065">Done...</string>

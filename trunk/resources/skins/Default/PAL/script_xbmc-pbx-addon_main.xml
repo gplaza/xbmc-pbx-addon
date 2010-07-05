@@ -10,14 +10,6 @@
                         <height>576</height>
                         <texture>background.png</texture>
                 </control>
-                <control type="image" id="0">
-                        <description>contentpanel slice</description>
-                        <posx>0</posx>
-                        <posy>88</posy>
-                        <width>720</width>
-                        <height>480</height>
-                        <texture>ContentPanel.png</texture>
-                </control>
                 <control type="image">
                         <description>XBMC PBX Addon</description>
                         <posx>5</posx>
@@ -32,11 +24,11 @@
                         <posy>40</posy>
 			<width>150</width>
                         <align>left</align>
-                        <label>$LOCALIZE[30101]</label>
+                        <!--<label>$LOCALIZE[30101]</label>-->
                         <font>special12</font>
-			<onleft>115</onleft>
+			<onleft>112</onleft>
 			<onright>111</onright>
-			<ondown>130</ondown>
+			<ondown>113</ondown>
 			<onclick>SetProperty(show_info,cdr)</onclick>
 			<selected>stringcompare(Window.Property(show_info),cdr) | Control.IsVisible(120)</selected>
                 </control>
@@ -46,109 +38,224 @@
                         <posy>40</posy>
 			<width>150</width>
                         <align>left</align>
-                        <label>$LOCALIZE[30102]</label>
+                        <!--<label>$LOCALIZE[30102]</label>-->
                         <font>special12</font>
 			<onleft>110</onleft>
-			<onright>115</onright>
-			<ondown>130</ondown>
+			<onright>112</onright>
+			<ondown>113</ondown>
 			<onclick>SetProperty(show_info,vm)</onclick>
 			<selected>stringcompare(Window.Property(show_info),vm) | Control.IsVisible(121)</selected>
                 </control>
-                <control type="button" id="115">
+                <control type="button" id="112">
                         <description>Settings button</description>
                         <posx>550</posx>
                         <posy>40</posy>
 			<width>100</width>
                         <align>left</align>
-                        <label>$LOCALIZE[30103]</label>
+                        <!--<label>$LOCALIZE[30103]</label>-->
                         <font>special12</font>
 			<onleft>111</onleft>
 			<onright>110</onright>
-			<ondown>130</ondown>
+			<ondown>113</ondown>
                 </control>
-	        <control type="group" id="130">
+                <control type="image" id="0">
+                        <description>contentpanel slice</description>
+                        <posx>0</posx>
+                        <posy>88</posy>
+                        <width>720</width>
+                        <height>480</height>
+                        <texture>ContentPanel.png</texture>
+                </control>
+	        <control type="group">
+			<description>CDR labels</description>
                         <posx>10</posx>
-                        <posy>105</posy>
+                        <posy>100</posy>
                         <width>675</width>
-                        <height>440</height>
+                        <height>20</height>
+			<visible>stringcompare(Window.Property(show_info),cdr) | stringcompare(Window.Property(show_info),)</visible>
+                        <control type="label" id="140">
+                                <posx>5</posx>
+                                <posy>0</posy>
+                                <width>105</width>
+                                <height>20</height>
+                                <font>font12</font>
+                                <textcolor>FFe2ff43</textcolor>
+                                <aligny>center</aligny>
+                                <align>left</align>
+                                <!--<label>$LOCALIZE[30130]</label>-->
+                        </control>
+                        <control type="label" id="141">
+                                <posx>115</posx>
+                                <posy>0</posy>
+                                <width>95</width>
+                                <height>20</height>
+                                <font>font12</font>
+                                <textcolor>FFe2ff43</textcolor>
+                                <aligny>center</aligny>
+                                <align>left</align>
+                                <!--<label>$LOCALIZE[30116]</label>-->
+                        </control>
+                        <control type="label" id="142">
+                                <posx>215</posx>
+                                <posy>0</posy>
+                                <width>70</width>
+                                <height>20</height>
+                                <font>font12</font>
+                                <textcolor>FFe2ff43</textcolor>
+                                <aligny>center</aligny>
+                                <align>left</align>
+                                <!--<label>$LOCALIZE[30112]</label>-->
+                        </control>
+                        <control type="label" id="143">
+                                <posx>290</posx>
+                                <posy>0</posy>
+                                <width>195</width>
+                                <height>20</height>
+                                <font>font12</font>
+                                <textcolor>FFe2ff43</textcolor>
+                                <aligny>center</aligny>
+                                <align>left</align>
+                                <!--<label>$LOCALIZE[30115]</label>-->
+                        </control>
+                        <control type="label" id="144">
+		                <posx>490</posx>
+		                <posy>0</posy>
+		                <width>65</width>
+		                <height>20</height>
+                                <font>font12</font>
+                                <textcolor>FFe2ff43</textcolor>
+                                <aligny>center</aligny>
+                                <align>left</align>
+                                <!--<label>$LOCALIZE[30113]</label>-->
+                        </control>
+                        <control type="label" id="145">
+		                <posx>570</posx>
+		                <posy>0</posy>
+		                <width>55</width>
+		                <height>20</height>
+                                <font>font12</font>
+                                <textcolor>FFe2ff43</textcolor>
+                                <aligny>center</aligny>
+                                <align>left</align>
+                                <!--<label>$LOCALIZE[30125]</label>-->
+                        </control>
+                        <control type="label" id="146">
+		                <posx>630</posx>
+		                <posy>0</posy>
+		                <width>45</width>
+		                <height>20</height>
+                                <font>font12</font>
+                                <textcolor>FFe2ff43</textcolor>
+                                <aligny>center</aligny>
+                                <align>left</align>
+                                <!--<label>$LOCALIZE[30123]</label>-->
+                        </control>
+		</control>
+	        <control type="group">
+			<description>VM labels</description>
+                        <posx>10</posx>
+                        <posy>100</posy>
+                        <width>675</width>
+                        <height>20</height>
+			<visible>stringcompare(Window.Property(show_info),vm)</visible>
+                        <control type="label" id="160">
+                                <posx>5</posx>
+                                <posy>0</posy>
+                                <width>165</width>
+                                <height>20</height>
+                                <font>font12</font>
+                                <textcolor>FFe2ff43</textcolor>
+                                <aligny>center</aligny>
+                                <align>left</align>
+                                <!--<label>$LOCALIZE[30158]</label>-->
+                        </control>
+                        <control type="label" id="161">
+                                <posx>175</posx>
+                                <posy>0</posy>
+                                <width>65</width>
+                                <height>20</height>
+                                <font>font12</font>
+                                <textcolor>FFe2ff43</textcolor>
+                                <aligny>center</aligny>
+                                <align>left</align>
+                                <!--<label>$LOCALIZE[30159]</label>-->
+                        </control>
+                        <control type="label" id="162">
+                                <posx>245</posx>
+                                <posy>0</posy>
+                                <width>260</width>
+                                <height>20</height>
+                                <font>font12</font>
+                                <textcolor>FFe2ff43</textcolor>
+                                <aligny>center</aligny>
+                                <align>left</align>
+                                <!--<label>$LOCALIZE[30157]</label>-->
+                        </control>
+                        <control type="label" id="163">
+                                <posx>510</posx>
+                                <posy>0</posy>
+                                <width>45</width>
+                                <height>20</height>
+                                <font>font12</font>
+                                <textcolor>FFe2ff43</textcolor>
+                                <aligny>center</aligny>
+                                <align>left</align>
+                                <!--<label>$LOCALIZE[30155]</label>-->
+                        </control>
+                        <control type="label" id="164">
+                                <posx>560</posx>
+                                <posy>0</posy>
+                                <width>65</width>
+                                <height>20</height>
+                                <font>font12</font>
+                                <textcolor>FFe2ff43</textcolor>
+                                <aligny>center</aligny>
+                                <align>left</align>
+                                <!--<label>$LOCALIZE[30151]</label>-->
+                        </control>
+                        <control type="label" id="165">
+		                <posx>630</posx>
+		                <posy>0</posy>
+		                <width>45</width>
+		                <height>20</height>
+                                <font>font12</font>
+                                <textcolor>FFe2ff43</textcolor>
+                                <aligny>center</aligny>
+                                <align>left</align>
+                                <!--<label>$LOCALIZE[30162]</label>-->
+                        </control>
+		</control>
+	        <control type="group" id="113">
+                        <posx>10</posx>
+                        <posy>135</posy>
+                        <width>675</width>
+                        <height>410</height>
 			<defaultcontrol>120</defaultcontrol>
 			<control type="list" id="120">
 		                <description>CDR List Container</description>
 				<posx>0</posx>
 				<posy>0</posy>
                         	<width>675</width>
-                        	<height>440</height>
+                        	<height>410</height>
 		                <scrolltime>200</scrolltime>
 		                <onup>120</onup>
 		                <ondown>120</ondown>
-		                <onright>150</onright>
+		                <onright>190</onright>
 		                <onleft>110</onleft>
-		                <pagecontrol>150</pagecontrol>
+		                <pagecontrol>190</pagecontrol>
 				<visible>stringcompare(Window.Property(show_info),cdr) | stringcompare(Window.Property(show_info),)</visible>
-		                <itemlayout height="30">
+		                <itemlayout height="22">
 		                        <control type="image">
-		                                <width>675</width>
-		                                <height>23</height>
 		                                <posx>0</posx>
 		                                <posy>0</posy>
+		                                <width>675</width>
+		                                <height>24</height>
 		                                <texture border="5">MenuItemNF.png</texture>
 		                        </control>
 		                        <control type="label">
 		                                <posx>5</posx>
-		                                <posy>2</posy>
-		                                <width>250</width>
-		                                <height>20</height>
-		                                <font>font12</font>
-		                                <textcolor>FFFFFFFF</textcolor>
-		                                <aligny>center</aligny>
-		                                <align>left</align>
-		                                <info>ListItem.Property(clid)</info>
-		                        </control>
-		                        <control type="label">
-		                                <posx>670</posx>
-		                                <posy>2</posy>
-		                                <width>250</width>
-		                                <height>20</height>
-		                                <font>font12</font>
-		                                <textcolor>60FFFFFF</textcolor>
-		                                <selectedcolor>FFFF0000</selectedcolor>
-		                                <aligny>center</aligny>
-		                                <align>right</align>
-		                                <info>ListItem.Property(start)</info>
-		                        </control>
-		                </itemlayout>
-		                <focusedlayout height="60">
-		                        <control type="image">
-		                                <width>675</width>
-		                                <height>53</height>
-		                                <posx>0</posx>
 		                                <posy>0</posy>
-		                                <texture border="5">MenuItemNF.png</texture>
-		                                <visible>!Control.HasFocus(120)</visible>
-		                        </control>
-		                        <control type="image">
-		                                <width>675</width>
-		                                <height>53</height>
-		                                <posx>0</posx>
-		                                <posy>0</posy>
-		                                <texture border="5">MenuItemFO.png</texture>
-		                                <visible>Control.HasFocus(120)</visible>
-		                        </control>
-		                        <control type="label">
-		                                <posx>5</posx>
-		                                <posy>2</posy>
-		                                <width>95</width>
-		                                <height>20</height>
-		                                <font>font12</font>
-		                                <textcolor>FFe2ff43</textcolor>
-		                                <aligny>center</aligny>
-		                                <align>left</align>
-		                                <label>$LOCALIZE[30130]</label>
-		                        </control>
-		                        <control type="label">
-		                                <posx>5</posx>
-		                                <posy>22</posy>
-		                                <width>95</width>
+		                                <width>105</width>
 		                                <height>20</height>
 		                                <font>font12</font>
 		                                <textcolor>FFFFFFFF</textcolor>
@@ -157,19 +264,8 @@
 		                                <info>ListItem.Property(start)</info>
 		                        </control>
 		                        <control type="label">
-		                                <posx>105</posx>
-		                                <posy>2</posy>
-		                                <width>95</width>
-		                                <height>20</height>
-		                                <font>font12</font>
-		                                <textcolor>FFe2ff43</textcolor>
-		                                <aligny>center</aligny>
-		                                <align>left</align>
-		                                <label>$LOCALIZE[30116]</label>
-		                        </control>
-		                        <control type="label">
-		                                <posx>105</posx>
-		                                <posy>22</posy>
+		                                <posx>115</posx>
+		                                <posy>0</posy>
 		                                <width>95</width>
 		                                <height>20</height>
 		                                <font>font12</font>
@@ -179,20 +275,9 @@
 		                                <info>ListItem.Property(channel)</info>
 		                        </control>
 		                        <control type="label">
-		                                <posx>200</posx>
-		                                <posy>2</posy>
-		                                <width>95</width>
-		                                <height>20</height>
-		                                <font>font12</font>
-		                                <textcolor>FFe2ff43</textcolor>
-		                                <aligny>center</aligny>
-		                                <align>left</align>
-		                                <label>$LOCALIZE[30112]</label>
-		                        </control>
-		                        <control type="label">
-		                                <posx>200</posx>
-		                                <posy>22</posy>
-		                                <width>95</width>
+		                                <posx>215</posx>
+		                                <posy>0</posy>
+		                                <width>70</width>
 		                                <height>20</height>
 		                                <font>font12</font>
 		                                <textcolor>FFFFFFFF</textcolor>
@@ -201,20 +286,9 @@
 		                                <info>ListItem.Property(src)</info>
 		                        </control>
 		                        <control type="label">
-		                                <posx>295</posx>
-		                                <posy>2</posy>
-		                                <width>95</width>
-		                                <height>20</height>
-		                                <font>font12</font>
-		                                <textcolor>FFe2ff43</textcolor>
-		                                <aligny>center</aligny>
-		                                <align>left</align>
-		                                <label>$LOCALIZE[30115]</label>
-		                        </control>
-		                        <control type="label">
-		                                <posx>295</posx>
-		                                <posy>22</posy>
-		                                <width>95</width>
+		                                <posx>290</posx>
+		                                <posy>0</posy>
+		                                <width>195</width>
 		                                <height>20</height>
 		                                <font>font12</font>
 		                                <textcolor>FFFFFFFF</textcolor>
@@ -223,20 +297,9 @@
 		                                <info>ListItem.Property(clid)</info>
 		                        </control>
 		                        <control type="label">
-		                                <posx>390</posx>
-		                                <posy>2</posy>
-		                                <width>95</width>
-		                                <height>20</height>
-		                                <font>font12</font>
-		                                <textcolor>FFe2ff43</textcolor>
-		                                <aligny>center</aligny>
-		                                <align>left</align>
-		                                <label>$LOCALIZE[30113]</label>
-		                        </control>
-		                        <control type="label">
-		                                <posx>390</posx>
-		                                <posy>22</posy>
-		                                <width>95</width>
+		                                <posx>490</posx>
+		                                <posy>0</posy>
+		                                <width>65</width>
 		                                <height>20</height>
 		                                <font>font12</font>
 		                                <textcolor>FFFFFFFF</textcolor>
@@ -245,20 +308,9 @@
 		                                <info>ListItem.Property(dst)</info>
 		                        </control>
 		                        <control type="label">
-		                                <posx>485</posx>
-		                                <posy>2</posy>
-		                                <width>95</width>
-		                                <height>20</height>
-		                                <font>font12</font>
-		                                <textcolor>FFe2ff43</textcolor>
-		                                <aligny>center</aligny>
-		                                <align>left</align>
-		                                <label>$LOCALIZE[30125]</label>
-		                        </control>
-		                        <control type="label">
-		                                <posx>485</posx>
-		                                <posy>22</posy>
-		                                <width>95</width>
+		                                <posx>560</posx>
+		                                <posy>0</posy>
+		                                <width>60</width>
 		                                <height>20</height>
 		                                <font>font12</font>
 		                                <textcolor>FFFFFFFF</textcolor>
@@ -267,20 +319,9 @@
 		                                <info>ListItem.Property(disposition)</info>
 		                        </control>
 		                        <control type="label">
-		                                <posx>580</posx>
-		                                <posy>2</posy>
-		                                <width>95</width>
-		                                <height>20</height>
-		                                <font>font12</font>
-		                                <textcolor>FFe2ff43</textcolor>
-		                                <aligny>center</aligny>
-		                                <align>left</align>
-		                                <label>$LOCALIZE[30123]</label>
-		                        </control>
-		                        <control type="label">
-		                                <posx>580</posx>
-		                                <posy>22</posy>
-		                                <width>95</width>
+		                                <posx>630</posx>
+		                                <posy>0</posy>
+		                                <width>45</width>
 		                                <height>20</height>
 		                                <font>font12</font>
 		                                <textcolor>FFFFFFFF</textcolor>
@@ -288,86 +329,129 @@
 		                                <align>left</align>
 		                                <info>ListItem.Property(duration)</info>
 		                        </control>
-		                </focusedlayout>
+				</itemlayout>
+		                <focusedlayout height="22">
+		                        <control type="image">
+		                                <posx>0</posx>
+		                                <posy>0</posy>
+		                                <width>675</width>
+		                                <height>24</height>
+		                                <texture border="5">MenuItemNF.png</texture>
+		                                <visible>!Control.HasFocus(120)</visible>
+		                        </control>
+		                        <control type="image">
+		                                <posx>0</posx>
+		                                <posy>0</posy>
+		                                <width>675</width>
+		                                <height>24</height>
+		                                <texture border="5">MenuItemFO.png</texture>
+		                                <visible>Control.HasFocus(120)</visible>
+		                        </control>
+		                        <control type="label">
+		                                <posx>5</posx>
+		                                <posy>0</posy>
+		                                <width>105</width>
+		                                <height>20</height>
+		                                <font>font12</font>
+		                                <textcolor>FFFFFFFF</textcolor>
+		                                <aligny>center</aligny>
+		                                <align>left</align>
+		                                <info>ListItem.Property(start)</info>
+		                        </control>
+		                        <control type="label">
+		                                <posx>115</posx>
+		                                <posy>0</posy>
+		                                <width>95</width>
+		                                <height>20</height>
+		                                <font>font12</font>
+		                                <textcolor>FFFFFFFF</textcolor>
+		                                <aligny>center</aligny>
+		                                <align>left</align>
+		                                <info>ListItem.Property(channel)</info>
+		                        </control>
+		                        <control type="label">
+		                                <posx>215</posx>
+		                                <posy>0</posy>
+		                                <width>70</width>
+		                                <height>20</height>
+		                                <font>font12</font>
+		                                <textcolor>FFFFFFFF</textcolor>
+		                                <aligny>center</aligny>
+		                                <align>left</align>
+		                                <info>ListItem.Property(src)</info>
+		                        </control>
+		                        <control type="label">
+		                                <posx>290</posx>
+		                                <posy>0</posy>
+		                                <width>195</width>
+		                                <height>20</height>
+		                                <font>font12</font>
+		                                <textcolor>FFFFFFFF</textcolor>
+		                                <aligny>center</aligny>
+		                                <align>left</align>
+		                                <info>ListItem.Property(clid)</info>
+		                        </control>
+		                        <control type="label">
+		                                <posx>490</posx>
+		                                <posy>0</posy>
+		                                <width>65</width>
+		                                <height>20</height>
+		                                <font>font12</font>
+		                                <textcolor>FFFFFFFF</textcolor>
+		                                <aligny>center</aligny>
+		                                <align>left</align>
+		                                <info>ListItem.Property(dst)</info>
+		                        </control>
+		                        <control type="label">
+		                                <posx>560</posx>
+		                                <posy>0</posy>
+		                                <width>60</width>
+		                                <height>20</height>
+		                                <font>font12</font>
+		                                <textcolor>FFFFFFFF</textcolor>
+		                                <aligny>center</aligny>
+		                                <align>left</align>
+		                                <info>ListItem.Property(disposition)</info>
+		                        </control>
+		                        <control type="label">
+		                                <posx>630</posx>
+		                                <posy>0</posy>
+		                                <width>45</width>
+		                                <height>20</height>
+		                                <font>font12</font>
+		                                <textcolor>FFFFFFFF</textcolor>
+		                                <aligny>center</aligny>
+		                                <align>left</align>
+		                                <info>ListItem.Property(duration)</info>
+		                        </control>
+				</focusedlayout>
 			</control>
 			<control type="list" id="121">
 		                <description>VM List Container</description>
                                 <posx>0</posx>
                                 <posy>0</posy>
                                 <width>675</width>
-                                <height>440</height>
+                                <height>410</height>
 		                <scrolltime>200</scrolltime>
 		                <onup>121</onup>
 		                <ondown>121</ondown>
-		                <onright>150</onright>
+		                <onright>190</onright>
 		                <onleft>110</onleft>
-		                <pagecontrol>150</pagecontrol>
+		                <pagecontrol>190</pagecontrol>
 				<visible>stringcompare(Window.Property(show_info),vm)</visible>
-		                <itemlayout height="30">
+		                <itemlayout height="22">
 		                        <control type="image">
 		                                <width>675</width>
-		                                <height>23</height>
+		                                <height>24</height>
 		                                <posx>0</posx>
 		                                <posy>0</posy>
 		                                <texture border="5">MenuItemNF.png</texture>
 		                        </control>
 		                        <control type="label">
-		                                <posx>5</posx>
-		                                <posy>2</posy>
-		                                <width>250</width>
-		                                <height>20</height>
-		                                <font>font12</font>
-		                                <textcolor>FFFFFFFF</textcolor>
-		                                <aligny>center</aligny>
-		                                <align>left</align>
-		                                <info>ListItem.Property(callerid)</info>
-		                        </control>
-		                        <control type="label">
-		                                <posx>670</posx>
-		                                <posy>2</posy>
-		                                <width>250</width>
-		                                <height>20</height>
-		                                <font>font12</font>
-		                                <textcolor>60FFFFFF</textcolor>
-		                                <selectedcolor>FFFF0000</selectedcolor>
-		                                <aligny>center</aligny>
-		                                <align>right</align>
-		                                <info>ListItem.Property(origdate)</info>
-		                        </control>
-		                </itemlayout>
-		                <focusedlayout height="60">
-		                        <control type="image">
-		                                <width>675</width>
-		                                <height>53</height>
-		                                <posx>0</posx>
-		                                <posy>0</posy>
-		                                <texture border="5">MenuItemNF.png</texture>
-		                                <visible>!Control.HasFocus(121)</visible>
-		                        </control>
-		                        <control type="image">
-		                                <width>675</width>
-		                                <height>53</height>
-		                                <posx>0</posx>
-		                                <posy>0</posy>
-		                                <texture border="5">MenuItemFO.png</texture>
-		                                <visible>Control.HasFocus(121)</visible>
-		                        </control>
-		                        <control type="label">
-		                                <posx>5</posx>
-		                                <posy>2</posy>
-		                                <width>95</width>
-		                                <height>20</height>
-		                                <font>font12</font>
-		                                <textcolor>FFe2ff43</textcolor>
-		                                <aligny>center</aligny>
-		                                <align>left</align>
-		                                <label>$LOCALIZE[30158]</label>
-		                        </control>
-		                        <control type="label">
-		                                <posx>5</posx>
-		                                <posy>22</posy>
-		                                <width>95</width>
-		                                <height>20</height>
+				                <posx>5</posx>
+				                <posy>0</posy>
+				                <width>165</width>
+				                <height>20</height>
 		                                <font>font12</font>
 		                                <textcolor>FFFFFFFF</textcolor>
 		                                <aligny>center</aligny>
@@ -375,20 +459,9 @@
 		                                <info>ListItem.Property(origdate)</info>
 		                        </control>
 		                        <control type="label">
-		                                <posx>100</posx>
-		                                <posy>2</posy>
-		                                <width>95</width>
-		                                <height>20</height>
-		                                <font>font12</font>
-		                                <textcolor>FFe2ff43</textcolor>
-		                                <aligny>center</aligny>
-		                                <align>left</align>
-		                                <label>$LOCALIZE[30159]</label>
-		                        </control>
-		                        <control type="label">
-		                                <posx>100</posx>
-		                                <posy>22</posy>
-		                                <width>95</width>
+		                                <posx>175</posx>
+		                                <posy>0</posy>
+		                                <width>65</width>
 		                                <height>20</height>
 		                                <font>font12</font>
 		                                <textcolor>FFFFFFFF</textcolor>
@@ -397,20 +470,9 @@
 		                                <info>ListItem.Property(origtime)</info>
 		                        </control>
 		                        <control type="label">
-		                                <posx>195</posx>
-		                                <posy>2</posy>
-		                                <width>95</width>
-		                                <height>20</height>
-		                                <font>font12</font>
-		                                <textcolor>FFe2ff43</textcolor>
-		                                <aligny>center</aligny>
-		                                <align>left</align>
-		                                <label>$LOCALIZE[30157]</label>
-		                        </control>
-		                        <control type="label">
-		                                <posx>195</posx>
-		                                <posy>22</posy>
-		                                <width>95</width>
+		                                <posx>245</posx>
+		                                <posy>0</posy>
+		                                <width>260</width>
 		                                <height>20</height>
 		                                <font>font12</font>
 		                                <textcolor>FFFFFFFF</textcolor>
@@ -419,20 +481,9 @@
 		                                <info>ListItem.Property(callerid)</info>
 		                        </control>
 		                        <control type="label">
-		                                <posx>290</posx>
-		                                <posy>2</posy>
-		                                <width>95</width>
-		                                <height>20</height>
-		                                <font>font12</font>
-		                                <textcolor>FFe2ff43</textcolor>
-		                                <aligny>center</aligny>
-		                                <align>left</align>
-		                                <label>$LOCALIZE[30155]</label>
-		                        </control>
-		                        <control type="label">
-		                                <posx>290</posx>
-		                                <posy>22</posy>
-		                                <width>95</width>
+		                                <posx>510</posx>
+		                                <posy>0</posy>
+		                                <width>45</width>
 		                                <height>20</height>
 		                                <font>font12</font>
 		                                <textcolor>FFFFFFFF</textcolor>
@@ -441,20 +492,9 @@
 		                                <info>ListItem.Property(priority)</info>
 		                        </control>
 		                        <control type="label">
-		                                <posx>385</posx>
-		                                <posy>2</posy>
-		                                <width>95</width>
-		                                <height>20</height>
-		                                <font>font12</font>
-		                                <textcolor>FFe2ff43</textcolor>
-		                                <aligny>center</aligny>
-		                                <align>left</align>
-		                                <label>$LOCALIZE[30151]</label>
-		                        </control>
-		                        <control type="label">
-		                                <posx>385</posx>
-		                                <posy>22</posy>
-		                                <width>95</width>
+		                                <posx>560</posx>
+		                                <posy>0</posy>
+		                                <width>65</width>
 		                                <height>20</height>
 		                                <font>font12</font>
 		                                <textcolor>FFFFFFFF</textcolor>
@@ -463,20 +503,93 @@
 		                                <info>ListItem.Property(origmailbox)</info>
 		                        </control>
 		                        <control type="label">
-		                                <posx>480</posx>
-		                                <posy>2</posy>
-		                                <width>95</width>
+		                                <posx>630</posx>
+		                                <posy>0</posy>
+		                                <width>45</width>
 		                                <height>20</height>
 		                                <font>font12</font>
-		                                <textcolor>FFe2ff43</textcolor>
+		                                <textcolor>FFFFFFFF</textcolor>
 		                                <aligny>center</aligny>
 		                                <align>left</align>
-		                                <label>$LOCALIZE[30162]</label>
+		                                <info>ListItem.Property(duration)</info>
+		                        </control>
+		                </itemlayout>
+		                <focusedlayout height="22">
+		                        <control type="image">
+		                                <width>675</width>
+		                                <height>24</height>
+		                                <posx>0</posx>
+		                                <posy>0</posy>
+		                                <texture border="5">MenuItemNF.png</texture>
+		                                <visible>!Control.HasFocus(121)</visible>
+		                        </control>
+		                        <control type="image">
+		                                <width>675</width>
+		                                <height>24</height>
+		                                <posx>0</posx>
+		                                <posy>0</posy>
+		                                <texture border="5">MenuItemFO.png</texture>
+		                                <visible>Control.HasFocus(121)</visible>
 		                        </control>
 		                        <control type="label">
-		                                <posx>480</posx>
-		                                <posy>22</posy>
-		                                <width>95</width>
+				                <posx>5</posx>
+				                <posy>0</posy>
+				                <width>165</width>
+				                <height>20</height>
+		                                <font>font12</font>
+		                                <textcolor>FFFFFFFF</textcolor>
+		                                <aligny>center</aligny>
+		                                <align>left</align>
+		                                <info>ListItem.Property(origdate)</info>
+		                        </control>
+		                        <control type="label">
+		                                <posx>175</posx>
+		                                <posy>0</posy>
+		                                <width>65</width>
+		                                <height>20</height>
+		                                <font>font12</font>
+		                                <textcolor>FFFFFFFF</textcolor>
+		                                <aligny>center</aligny>
+		                                <align>left</align>
+		                                <info>ListItem.Property(origtime)</info>
+		                        </control>
+		                        <control type="label">
+		                                <posx>245</posx>
+		                                <posy>0</posy>
+		                                <width>260</width>
+		                                <height>20</height>
+		                                <font>font12</font>
+		                                <textcolor>FFFFFFFF</textcolor>
+		                                <aligny>center</aligny>
+		                                <align>left</align>
+		                                <info>ListItem.Property(callerid)</info>
+		                        </control>
+		                        <control type="label">
+		                                <posx>510</posx>
+		                                <posy>0</posy>
+		                                <width>45</width>
+		                                <height>20</height>
+		                                <font>font12</font>
+		                                <textcolor>FFFFFFFF</textcolor>
+		                                <aligny>center</aligny>
+		                                <align>left</align>
+		                                <info>ListItem.Property(priority)</info>
+		                        </control>
+		                        <control type="label">
+		                                <posx>560</posx>
+		                                <posy>0</posy>
+		                                <width>65</width>
+		                                <height>20</height>
+		                                <font>font12</font>
+		                                <textcolor>FFFFFFFF</textcolor>
+		                                <aligny>center</aligny>
+		                                <align>left</align>
+		                                <info>ListItem.Property(origmailbox)</info>
+		                        </control>
+		                        <control type="label">
+		                                <posx>630</posx>
+		                                <posy>0</posy>
+		                                <width>45</width>
 		                                <height>20</height>
 		                                <font>font12</font>
 		                                <textcolor>FFFFFFFF</textcolor>
@@ -490,22 +603,22 @@
 	        <control type="group">
                         <posx>690</posx>
                         <posy>100</posy>
-                        <control type="scrollbar" id="150">
+                        <control type="scrollbar" id="190">
                                 <description>Scrollbar</description>
                                 <posx>0</posx>
-                                <posy>0</posy>
+                                <posy>30</posy>
                                 <width>20</width>
-                                <height>460</height>
+                                <height>430</height>
                                 <texturesliderbackground border="0,14,0,14">ScrollBarV.png</texturesliderbackground>
                                 <texturesliderbar border="0,14,0,14">ScrollBarV_bar.png</texturesliderbar>
                                 <texturesliderbarfocus border="0,14,0,14">ScrollBarV_bar_Focus.png</texturesliderbarfocus>
                                 <textureslidernib>ScrollBarV_Nib.png</textureslidernib>
                                 <textureslidernibfocus>ScrollBarV_Nib_Focus.png</textureslidernibfocus>
-                                <onleft>130</onleft>
-                                <onright>130</onright>
+                                <onleft>113</onleft>
+                                <onright>113</onright>
                                 <showonepage>false</showonepage>
                                 <orientation>vertical</orientation>
-				<visible>Control.IsVisible(130)</visible>
+				<visible>Control.IsVisible(113)</visible>
                         </control>
                 </control>
 	</controls>
