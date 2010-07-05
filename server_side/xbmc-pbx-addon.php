@@ -13,7 +13,7 @@ $__url__                 = "http://code.google.com/p/xbmc-pbx-addon/";
 $__svn_url__             = "http://xbmc-pbx-addon.googlecode.com/svn/trunk/xbmc-pbx-addon";
 $__credits__             = "Team XBMC, py-Asterisk";
 $__started__             = "04-03-2010";
-$__date__                = "20-06-2010";
+$__date__                = "05-07-2010";
 $__version__             = "0.0.6";
 
 // YOU MAY WANT TO CUSTOMIZE THIS:
