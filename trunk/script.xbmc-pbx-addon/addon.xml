@@ -4,11 +4,15 @@
     version="0.0.7" 
     provider-name="hmronline">
     <requires>
-        <import addon="xbmc.gui" version="2.11"/>
+        <import addon="xbmc.python" version="1.0"/>
     </requires>
     <extension point="xbmc.python.script" library="default.py">
         <provides>executable</provides>
     </extension>
+    <!--
+    <extension point="xbmc.service" library="bgservice.py" start="startup">
+    </extension>
+    -->
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
         <summary lang="en">XBMC PBX Addon aims to provide a completely new Home Telephony Experience by integrating Asterisk into XBMC.</summary>
