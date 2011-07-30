@@ -1,17 +1,18 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<addon id="xbmc-pbx-addon"
-       name="XBMC PBX Addon" 
-       version="0.0.6" 
-       provider="hmronline">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<addon id="script.xbmc-pbx-addon"
+    name="XBMC PBX Addon" 
+    version="0.0.7" 
+    provider-name="hmronline">
     <requires>
-        <import addon="xbmc.python" version="1.0"/>
+        <import addon="xbmc.gui" version="2.11"/>
     </requires>
-    <extension point="xbmc.python.script"
-               library="default.py"/>
+    <extension point="xbmc.python.script" library="default.py">
+        <provides>executable</provides>
+    </extension>
     <extension point="xbmc.addon.metadata">
         <platform>all</platform>
-	<minversion>20000</minversion>
-        <summary>XBMC PBX Addon aims to provide a completely new Home Telephony Experience by integrating Asterisk into XBMC.</summary>
-        <description>This script was intened to integrate Asterisk with XBMC by using it as a front-end for certain functionality (like playing voicemail) and to automate some tasks (like pausing video on incoming calls), among other features.</description>
+        <summary lang="en">XBMC PBX Addon aims to provide a completely new Home Telephony Experience by integrating Asterisk into XBMC.</summary>
+        <description lang="en">This script is intened to integrate Asterisk with XBMC by using it as a front-end for certain functionality (like playing voicemail) and to automate some tasks (like pausing video on incoming calls), among other features.</description>
+        <disclaimer lang="en">You have to have a properly set-up and running Asterisk server.</disclaimer>
     </extension>
 </addon>

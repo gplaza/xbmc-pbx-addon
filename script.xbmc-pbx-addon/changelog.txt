@@ -1,0 +1,7 @@
+Version 0.0.7
+- Added support to Dharma XBMC releases
+
+TODO
+- Enable Fanart
+- Fix integer settings not showing
+

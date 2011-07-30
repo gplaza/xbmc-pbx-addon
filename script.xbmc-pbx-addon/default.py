@@ -6,30 +6,18 @@
 
 # Script constants
 __script__ 		= "XBMC PBX Addon"
-__scriptID__ 		= "script.xbmc-pbx-addon"
-__author__ 		= "hmronline"
-__url__ 		= "http://code.google.com/p/xbmc-pbx-addon/"
-__svn_url__ 		= "http://xbmc-pbx-addon.googlecode.com/svn/trunk/xbmc-pbx-addon"
-__platform__ 		= "xbmc media center, [ALL]"
-__credits__ 		= "Team XBMC, py-Asterisk"
-__started__ 		= "04-03-2010"
-__date__ 		= "05-07-2010"
-__version__ 		= "0.0.6"
-__svn_revision__ 	= "$Revision$".replace("Revision","").strip("$: ")
-__XBMC_Revision__ 	= "20000"
-
-xbmc.output(__script__ + " Version: " + __version__  + "\n")
+__script_id__   = "script.xbmc-pbx-addon"
 
 # Modules
 import sys, os
-import xbmc, xbmcgui
+import xbmc, xbmcgui, xbmcaddon
 import re, traceback, time
 import urllib, urlparse, urllib2, xml.dom.minidom
 
-CWD = os.getcwd().rstrip(";")
-__language__ = xbmc.Language(CWD).getLocalizedString
+__language__    = xbmcaddon.Addon(__script_id__).getLocalizedString
+CWD             = os.getcwd().rstrip(";")
 
-sys.path.append(xbmc.translatePath(os.path.join(CWD,'resources','lib')))
+sys.path.append(xbmc.translatePath(os.path.join(os.getcwd(),'resources','lib')))
 from Asterisk.Manager import Manager
 import Asterisk.Manager, Asterisk.Util
 
@@ -69,7 +57,7 @@ class MainGUI(xbmcgui.WindowXML):
 			dialog.update(100,__language__(30065))
 		except:
 			xbmc_notification = str(sys.exc_info()[1])
-			xbmc_img = xbmc.translatePath(os.path.join(CWD,'resources','images','xbmc-pbx-addon.png'))
+			xbmc_img = xbmc.translatePath(os.path.join(CWD,'resources','media','xbmc-pbx-addon.png'))
 			log(">> Notification: " + xbmc_notification)
 			xbmc.executebuiltin("XBMC.Notification("+ __language__(30051) +","+ xbmc_notification +","+ str(15*1000) +","+ xbmc_img +")")
 		dialog.close()
@@ -101,7 +89,7 @@ class MainGUI(xbmcgui.WindowXML):
 	#####################################################################################################
 	def getInfo(self):
 		log("> getInfo()")
-		settings = xbmc.Settings(CWD)
+		settings = xbmcaddon.Addon(__script_id__)
                 manager_host_port = settings.getSetting("asterisk_manager_host"),int(settings.getSetting("asterisk_manager_port"))
                 pbx = Manager(manager_host_port,settings.getSetting("asterisk_manager_user"),settings.getSetting("asterisk_manager_pass"))
                 asterisk_version = str(pbx.Command("core show version")[1])
@@ -169,7 +157,7 @@ class MainGUI(xbmcgui.WindowXML):
 				del dialog
 		# Settings
 		elif (controlId == 112):
-			settings = xbmc.Settings(CWD)
+			settings = xbmcaddon.Addon(__script_id__)
 			settings.openSettings()
 			del settings
 			self.onInit()
@@ -180,7 +168,7 @@ class MainGUI(xbmcgui.WindowXML):
 	#####################################################################################################
 	def make_outgoing_call(self,number_to_call):
 		log("> make_outgoing_call()")
-		settings = xbmc.Settings(CWD)
+		settings = xbmcaddon.Addon(__script_id__)
 		manager_host_port = settings.getSetting("asterisk_manager_host"),int(settings.getSetting("asterisk_manager_port"))
 		pbx = Manager(manager_host_port,settings.getSetting("asterisk_manager_user"),settings.getSetting("asterisk_manager_pass"))
         	pbx.Originate(settings.getSetting("asterisk_outbound_extension"),settings.getSetting("asterisk_outbound_context"),number_to_call,1)
@@ -191,7 +179,7 @@ class MainGUI(xbmcgui.WindowXML):
 	#####################################################################################################
 	def play_voice_mail(self,recindex):
 		log("> play_voice_mail()")
-		settings = xbmc.Settings(CWD)
+		settings = xbmcaddon.Addon(__script_id__)
 		audio_format = ["wav","gsm","mp3"]
 		asterisk_vm_format = audio_format[int(settings.getSetting("asterisk_vm_format"))]
 		self.url_vm = settings.getSetting("asterisk_info_url") +"?recindex="+ recindex
@@ -254,7 +242,7 @@ class FirstTimeGUI(xbmcgui.Window):
 		dialog = xbmcgui.ControlTextBox(1,1,600,600,"font12","0xFFFFFFFF")
 		msg = ""
 		for i in range(1,10):
-			msg = msg + __language__(30000 + i) + "\n"
+			msg = msg + __language__(30170 + i) + "\n"
 		self.addControl(dialog)
 		dialog.setText(msg)
 		log(">> Done.")
@@ -262,7 +250,7 @@ class FirstTimeGUI(xbmcgui.Window):
 	#####################################################################################################
 	def onAction(self,action):
 		#log("> onAction()")
-		settings = xbmc.Settings(CWD)
+		settings = xbmcaddon.Addon(__script_id__)
 		settings.openSettings()
 		del settings
 		self.close()
@@ -275,7 +263,7 @@ class FirstTimeGUI(xbmcgui.Window):
 
 try:
 	log("Launching GUI...")
-	settings = xbmc.Settings(CWD)
+	settings = xbmcaddon.Addon(__script_id__)
 	first_time_use = settings.getSetting("first_time_use")
 	settings.setSetting("first_time_use","false")
 	del settings
@@ -286,7 +274,7 @@ try:
 	ui.doModal()
 except:
 	xbmc_notification = str(sys.exc_info()[1])
-	xbmc_img = xbmc.translatePath(os.path.join(CWD,'resources','images','xbmc-pbx-addon.png'))
+	xbmc_img = xbmc.translatePath(os.path.join(CWD,'resources','media','xbmc-pbx-addon.png'))
 	log(">> Notification: " + xbmc_notification)
 	xbmc.executebuiltin("XBMC.Notification("+ __language__(30051) +","+ xbmc_notification +","+ str(15*1000) +","+ xbmc_img +")")
 try:
