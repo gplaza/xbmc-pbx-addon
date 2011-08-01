@@ -6,15 +6,11 @@
 */
 
 // Script constants
-$__script__              = "XBMC PBX Addon";
-$__scriptID__            = "script.xbmc-pbx-addon";
+$__addon__               = "XBMC PBX Addon";
+$__addon_id__            = "script.xbmc-pbx-addon";
 $__author__              = "hmronline";
 $__url__                 = "http://code.google.com/p/xbmc-pbx-addon/";
-$__svn_url__             = "http://xbmc-pbx-addon.googlecode.com/svn/trunk/xbmc-pbx-addon";
-$__credits__             = "Team XBMC, py-Asterisk";
-$__started__             = "04-03-2010";
-$__date__                = "05-07-2010";
-$__version__             = "0.0.6";
+$__version__             = "0.0.7";
 
 // YOU MAY WANT TO CUSTOMIZE THIS:
 $cdr_filename = "/var/log/asterisk/cdr-csv/Master.csv";
@@ -161,7 +157,7 @@ else {
 	}
 	// Print XML
 	echo $xmldoc->saveXML();
-	echo "<!-- ". $__script__ ." ". $__version__ ." -->";
+	echo "<!-- ". $__addon__ ." ". $__version__ ." -->";
 	unset($xmldoc);
 }
 ?>
