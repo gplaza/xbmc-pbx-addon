@@ -12,11 +12,13 @@ $__author__              = "hmronline";
 $__url__                 = "http://code.google.com/p/xbmc-pbx-addon/";
 $__version__             = "0.0.7";
 
+// Make sure php-xml is installed in your system!
+// ************************************************************************************************************
 // YOU MAY WANT TO CUSTOMIZE THIS:
 $cdr_filename = "/var/log/asterisk/cdr-csv/Master.csv";
 $vm_path  = '/var/spool/asterisk/voicemail/';
+// ************************************************************************************************************
 
-// Make sure php-xml is installed in your system!
 //#############################################################################################################
 if (isset($_GET['recindex']) && isset($_GET['mailbox']) && isset($_GET['vmcontext']) && isset($_GET['format'])) {
 	$vm_path = $vm_path . $_GET['vmcontext'] . "/" . $_GET['mailbox'] . "/INBOX/";
@@ -70,7 +72,7 @@ if (isset($_GET['recindex']) && isset($_GET['mailbox']) && isset($_GET['vmcontex
 		} 
 	}
 }
-else {
+elseif (isset($_GET["cdr"]) || isset($_GET["vm"])) {
 	header ("content-type: text/xml");
 	$xmldoc = new DOMDocument();
 	$xmldoc->formatOutput = true;
@@ -159,6 +161,27 @@ else {
 	echo $xmldoc->saveXML();
 	echo "<!-- ". $__addon__ ." ". $__version__ ." -->";
 	unset($xmldoc);
+}
+else {
+	// No arguments supplied, show instructions
+	header ("content-type: text/plain");
+	echo "Addon: $__addon__\n";
+	echo "Version: $__version__\n";
+	echo "Server Side Setup\n";
+	if (!is_dir($vm_path)) {
+		echo "\nNot able to access VoiceMail (VM) directory: $vm_path";
+		$found_err = true;
+	}
+	if (!is_readable($cdr_filename)) {
+		echo "\nNot able to read Call Detail Record (CDR) file: $cdr_filename";
+		$found_err = true;
+	}
+	if ($found_err) {
+		echo "\nErrors found. Please check this file and update paths accordingly.";
+	}
+	else {
+		echo "\nSeems everything is ok on server-side. Please continue the setup on XBMC side.";
+	}
 }
 ?>
 
