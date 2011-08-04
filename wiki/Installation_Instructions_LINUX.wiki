@@ -33,7 +33,8 @@ Using your favorite FTP program move the folder server_side to your PBX.
 ==4. Reboot XBMC==
 
 ==5. Setup Values in XBMC==
-1. Be very careful to put the correct values for AMI (the ones you put in manager.conf) and set the server to the correct IP address, as well as the correct web address.
+1. This should be under "Programs" and then "Addons"
+2. Be very careful to put the correct values for AMI (the ones you put in manager.conf) and set the server to the correct IP address, as well as the correct web address.
 
 ==6. Reboot PBX ==
 Alternatively:
