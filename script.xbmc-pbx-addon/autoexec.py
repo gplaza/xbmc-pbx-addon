@@ -1,7 +1,8 @@
-# Put this file into the scripts folder to be executed when XBMC starts.
-# That is Q:\scripts on XBMC4Xbox
+# Put this file into the scripts (addons) folder to be executed when XBMC starts.
+# That is Q:\scripts on XBMC4Xbox.
 # Or /home/<username>/.xbmc/scripts on Linux XBMC pre-Dharma versions.
-# Or /home/<username>/.xbmc/userdata on Linux XBMC Dharma versions
+# Or /home/<username>/.xbmc/userdata on Linux XBMC Dharma versions.
+# If you already have an autoexec.py file there, just append this file contents to the existing one.
 
 import os
 import xbmc
