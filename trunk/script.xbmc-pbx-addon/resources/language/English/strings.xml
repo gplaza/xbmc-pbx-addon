@@ -3,6 +3,7 @@
     <string id="30000">XBMC PBX Addon</string>
     <string id="30001">Info</string>
     <string id="30002">URL</string>
+    <string id="30003">Debug</string>
 
     <!-- Script Settings related strings -->
     <!-- Connection -->
@@ -18,12 +19,13 @@
     <string id="30020">Inbound Calls</string>
     <string id="30021">Define here what to do on inbound calls</string>
     <string id="30022">XBMC: Initiate upon Asterisk NewChannel State</string>
-    <string id="30023">XBMC: Show Caller ID notification</string>
-    <string id="30024">XBMC: Caller ID notification timeout</string>
-    <string id="30025">XBMC: Pause playing Video</string>
-    <string id="30026">Asterisk: Redirect calls if XBMC is playing Video</string>
-    <string id="30027">Asterisk: Redirect calls to context (name)</string>
-    <string id="30028">Asterisk: Redirect only if ALERT_INFO equals to:</string>
+    <string id="30023">XBMC: Initiate only if ALERT_INFO equals to:</string>
+    <string id="30024">XBMC: Show Caller ID notification</string>
+    <string id="30025">XBMC: Caller ID notification timeout</string>
+    <string id="30026">XBMC: Pause playing Video</string>
+    <string id="30027">Asterisk: Redirect calls if XBMC is playing Video</string>
+    <string id="30028">Asterisk: Redirect calls to context (name)</string>
+    <string id="30029">Asterisk: Redirect only if ALERT_INFO equals to:</string>
     <!-- Asterisk Outbound Calls -->
     <string id="30030">Outbound Calls</string>
     <string id="30031">Define here what to do with outbound calls</string>
@@ -33,9 +35,10 @@
     <string id="30040">CDR &amp; VoiceMail</string>
     <string id="30041">Define here how to retrieve CDR and VoiceMail</string>
     <string id="30042">XBMC: URL to xbmc-pbx-addon.php</string>
-    <string id="30043">Asterisk: Mailbox number</string>
-    <string id="30044">Asterisk: VoiceMail Context</string>
-    <string id="30045">Asterisk: Audio Format</string>
+    <string id="30043">XBMC: VoiceMail notification timeout</string>
+    <string id="30044">Asterisk: Mailbox number</string>
+    <string id="30045">Asterisk: VoiceMail Context</string>
+    <string id="30046">Asterisk: Audio Format</string>
 
     <!-- GUI related strings -->
     <!-- Notification popup -->
