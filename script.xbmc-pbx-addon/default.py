@@ -104,8 +104,10 @@ class MainGUI(xbmcgui.WindowXML):
         del pbx
         log(">> " + asterisk_version)
         str_url = settings.getSetting("asterisk_info_url")
-        str_url = str_url +"?vm&cdr&mailbox="+ settings.getSetting("asterisk_vm_mailbox")
-        str_url = str_url +"&vmcontext="+ settings.getSetting("asterisk_vm_context")
+        str_url = str_url +"?cdr"
+        #took these out for the time being, VM is still in the process.
+        #str_url = str_url +"?vm&cdr&mailbox="+ settings.getSetting("asterisk_vm_mailbox")
+        #str_url = str_url +"&vmcontext="+ settings.getSetting("asterisk_vm_context")
         del settings
         if (self.DEBUG):
             log(">> " + str_url)
