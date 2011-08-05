@@ -6,7 +6,7 @@
             <description>background image</description>
             <posx>0</posx>
             <posy>0</posy>
-            <width>720</width>
+            <width>1220</width>
             <height>576</height>
             <texture>background.png</texture>
         </control>
@@ -62,7 +62,7 @@
             <description>contentpanel slice</description>
             <posx>0</posx>
             <posy>88</posy>
-            <width>720</width>
+            <width>1220</width>
             <height>480</height>
             <texture>ContentPanel.png</texture>
         </control>
@@ -70,13 +70,13 @@
             <description>CDR labels</description>
             <posx>10</posx>
             <posy>100</posy>
-            <width>675</width>
+            <width>1220</width>
             <height>20</height>
             <visible>stringcompare(Window.Property(show_info),cdr) | stringcompare(Window.Property(show_info),)</visible>
             <control type="label" id="140">
                 <posx>5</posx>
                 <posy>0</posy>
-                <width>105</width>
+                <width>205</width>
                 <height>20</height>
                 <font>font12</font>
                 <textcolor>FFe2ff43</textcolor>
@@ -85,9 +85,9 @@
                 <!--<label>$LOCALIZE[30130]</label>-->
             </control>
             <control type="label" id="141">
-                <posx>115</posx>
+                <posx>215</posx>
                 <posy>0</posy>
-                <width>95</width>
+                <width>295</width>
                 <height>20</height>
                 <font>font12</font>
                 <textcolor>FFe2ff43</textcolor>
@@ -96,9 +96,9 @@
                 <!--<label>$LOCALIZE[30116]</label>-->
             </control>
             <control type="label" id="142">
-                <posx>215</posx>
+                <posx>415</posx>
                 <posy>0</posy>
-                <width>70</width>
+                <width>270</width>
                 <height>20</height>
                 <font>font12</font>
                 <textcolor>FFe2ff43</textcolor>
@@ -107,9 +107,9 @@
                 <!--<label>$LOCALIZE[30112]</label>-->
             </control>
             <control type="label" id="143">
-                <posx>290</posx>
+                <posx>590</posx>
                 <posy>0</posy>
-                <width>195</width>
+                <width>395</width>
                 <height>20</height>
                 <font>font12</font>
                 <textcolor>FFe2ff43</textcolor>
@@ -118,9 +118,9 @@
                 <!--<label>$LOCALIZE[30115]</label>-->
             </control>
             <control type="label" id="144">
-                <posx>490</posx>
+                <posx>790</posx>
                 <posy>0</posy>
-                <width>65</width>
+                <width>265</width>
                 <height>20</height>
                 <font>font12</font>
                 <textcolor>FFe2ff43</textcolor>
@@ -129,9 +129,9 @@
                 <!--<label>$LOCALIZE[30113]</label>-->
             </control>
             <control type="label" id="145">
-                <posx>570</posx>
+                <posx>970</posx>
                 <posy>0</posy>
-                <width>55</width>
+                <width>255</width>
                 <height>20</height>
                 <font>font12</font>
                 <textcolor>FFe2ff43</textcolor>
@@ -140,9 +140,9 @@
                 <!--<label>$LOCALIZE[30125]</label>-->
             </control>
             <control type="label" id="146">
-                <posx>630</posx>
+                <posx>1120</posx>
                 <posy>0</posy>
-                <width>45</width>
+                <width>245</width>
                 <height>20</height>
                 <font>font12</font>
                 <textcolor>FFe2ff43</textcolor>
@@ -155,13 +155,13 @@
             <description>VM labels</description>
             <posx>10</posx>
             <posy>100</posy>
-            <width>675</width>
+            <width>950</width>
             <height>20</height>
             <visible>stringcompare(Window.Property(show_info),vm)</visible>
             <control type="label" id="160">
                 <posx>5</posx>
                 <posy>0</posy>
-                <width>165</width>
+                <width>365</width>
                 <height>20</height>
                 <font>font12</font>
                 <textcolor>FFe2ff43</textcolor>
@@ -170,9 +170,9 @@
                 <!--<label>$LOCALIZE[30158]</label>-->
             </control>
             <control type="label" id="161">
-                <posx>175</posx>
+                <posx>375</posx>
                 <posy>0</posy>
-                <width>65</width>
+                <width>265</width>
                 <height>20</height>
                 <font>font12</font>
                 <textcolor>FFe2ff43</textcolor>
@@ -181,9 +181,9 @@
                 <!--<label>$LOCALIZE[30159]</label>-->
             </control>
             <control type="label" id="162">
-                <posx>245</posx>
+                <posx>545</posx>
                 <posy>0</posy>
-                <width>260</width>
+                <width>460</width>
                 <height>20</height>
                 <font>font12</font>
                 <textcolor>FFe2ff43</textcolor>
@@ -192,9 +192,9 @@
                 <!--<label>$LOCALIZE[30157]</label>-->
             </control>
             <control type="label" id="163">
-                <posx>510</posx>
+                <posx>810</posx>
                 <posy>0</posy>
-                <width>45</width>
+                <width>245</width>
                 <height>20</height>
                 <font>font12</font>
                 <textcolor>FFe2ff43</textcolor>
@@ -203,9 +203,9 @@
                 <!--<label>$LOCALIZE[30155]</label>-->
             </control>
             <control type="label" id="164">
-                <posx>560</posx>
+                <posx>860</posx>
                 <posy>0</posy>
-                <width>65</width>
+                <width>265</width>
                 <height>20</height>
                 <font>font12</font>
                 <textcolor>FFe2ff43</textcolor>
@@ -214,9 +214,9 @@
                 <!--<label>$LOCALIZE[30151]</label>-->
             </control>
             <control type="label" id="165">
-                <posx>630</posx>
+                <posx>1120</posx>
                 <posy>0</posy>
-                <width>45</width>
+                <width>245</width>
                 <height>20</height>
                 <font>font12</font>
                 <textcolor>FFe2ff43</textcolor>
@@ -228,14 +228,14 @@
         <control type="group" id="113">
             <posx>10</posx>
             <posy>135</posy>
-            <width>675</width>
+            <width>1220</width>
             <height>410</height>
             <defaultcontrol>120</defaultcontrol>
             <control type="list" id="120">
                 <description>CDR List Container</description>
                 <posx>0</posx>
                 <posy>0</posy>
-                <width>675</width>
+                <width>1220</width>
                 <height>410</height>
                 <scrolltime>200</scrolltime>
                 <onup>120</onup>
@@ -248,14 +248,14 @@
                     <control type="image">
                         <posx>0</posx>
                         <posy>0</posy>
-                        <width>675</width>
+                        <width>950</width>
                         <height>24</height>
                         <texture border="5">MenuItemNF.png</texture>
                     </control>
                     <control type="label">
                         <posx>5</posx>
                         <posy>0</posy>
-                        <width>105</width>
+                        <width>305</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -264,9 +264,9 @@
                         <info>ListItem.Property(start)</info>
                     </control>
                     <control type="label">
-                        <posx>115</posx>
+                        <posx>215</posx>
                         <posy>0</posy>
-                        <width>95</width>
+                        <width>150</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -275,9 +275,9 @@
                         <info>ListItem.Property(channel)</info>
                     </control>
                     <control type="label">
-                        <posx>215</posx>
+                        <posx>415</posx>
                         <posy>0</posy>
-                        <width>70</width>
+                        <width>100</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -286,7 +286,7 @@
                         <info>ListItem.Property(src)</info>
                     </control>
                     <control type="label">
-                        <posx>290</posx>
+                        <posx>565</posx>
                         <posy>0</posy>
                         <width>195</width>
                         <height>20</height>
@@ -297,9 +297,9 @@
                         <info>ListItem.Property(clid)</info>
                     </control>
                     <control type="label">
-                        <posx>490</posx>
+                        <posx>790</posx>
                         <posy>0</posy>
-                        <width>65</width>
+                        <width>265</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -308,9 +308,9 @@
                         <info>ListItem.Property(dst)</info>
                     </control>
                     <control type="label">
-                        <posx>560</posx>
+                        <posx>960</posx>
                         <posy>0</posy>
-                        <width>60</width>
+                        <width>260</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -319,9 +319,9 @@
                         <info>ListItem.Property(disposition)</info>
                     </control>
                     <control type="label">
-                        <posx>630</posx>
+                        <posx>1120</posx>
                         <posy>0</posy>
-                        <width>45</width>
+                        <width>245</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -334,7 +334,7 @@
                     <control type="image">
                         <posx>0</posx>
                         <posy>0</posy>
-                        <width>675</width>
+                        <width>1220</width>
                         <height>24</height>
                         <texture border="5">MenuItemNF.png</texture>
                         <visible>!Control.HasFocus(120)</visible>
@@ -342,7 +342,7 @@
                     <control type="image">
                         <posx>0</posx>
                         <posy>0</posy>
-                        <width>675</width>
+                        <width>1220</width>
                         <height>24</height>
                         <texture border="5">MenuItemFO.png</texture>
                         <visible>Control.HasFocus(120)</visible>
@@ -350,7 +350,7 @@
                     <control type="label">
                         <posx>5</posx>
                         <posy>0</posy>
-                        <width>105</width>
+                        <width>205</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -359,9 +359,9 @@
                         <info>ListItem.Property(start)</info>
                     </control>
                     <control type="label">
-                        <posx>115</posx>
+                        <posx>215</posx>
                         <posy>0</posy>
-                        <width>95</width>
+                        <width>150</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -370,9 +370,9 @@
                         <info>ListItem.Property(channel)</info>
                     </control>
                     <control type="label">
-                        <posx>215</posx>
+                        <posx>415</posx>
                         <posy>0</posy>
-                        <width>70</width>
+                        <width>100</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -381,7 +381,7 @@
                         <info>ListItem.Property(src)</info>
                     </control>
                     <control type="label">
-                        <posx>290</posx>
+                        <posx>565</posx>
                         <posy>0</posy>
                         <width>195</width>
                         <height>20</height>
@@ -392,9 +392,9 @@
                         <info>ListItem.Property(clid)</info>
                     </control>
                     <control type="label">
-                        <posx>490</posx>
+                        <posx>790</posx>
                         <posy>0</posy>
-                        <width>65</width>
+                        <width>265</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -403,9 +403,9 @@
                         <info>ListItem.Property(dst)</info>
                     </control>
                     <control type="label">
-                        <posx>560</posx>
+                        <posx>960</posx>
                         <posy>0</posy>
-                        <width>60</width>
+                        <width>260</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -414,9 +414,9 @@
                         <info>ListItem.Property(disposition)</info>
                     </control>
                     <control type="label">
-                        <posx>630</posx>
+                        <posx>1120</posx>
                         <posy>0</posy>
-                        <width>45</width>
+                        <width>245</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -430,7 +430,7 @@
                 <description>VM List Container</description>
                 <posx>0</posx>
                 <posy>0</posy>
-                <width>675</width>
+                <width>950</width>
                 <height>410</height>
                 <scrolltime>200</scrolltime>
                 <onup>121</onup>
@@ -441,7 +441,7 @@
                 <visible>stringcompare(Window.Property(show_info),vm)</visible>
                 <itemlayout height="22">
                     <control type="image">
-                        <width>675</width>
+                        <width>1220</width>
                         <height>24</height>
                         <posx>0</posx>
                         <posy>0</posy>
@@ -450,7 +450,7 @@
                     <control type="label">
                         <posx>5</posx>
                         <posy>0</posy>
-                        <width>165</width>
+                        <width>365</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -459,9 +459,9 @@
                         <info>ListItem.Property(origdate)</info>
                     </control>
                     <control type="label">
-                        <posx>175</posx>
+                        <posx>375</posx>
                         <posy>0</posy>
-                        <width>65</width>
+                        <width>265</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -470,9 +470,9 @@
                         <info>ListItem.Property(origtime)</info>
                     </control>
                     <control type="label">
-                        <posx>245</posx>
+                        <posx>445</posx>
                         <posy>0</posy>
-                        <width>260</width>
+                        <width>460</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -481,9 +481,9 @@
                         <info>ListItem.Property(callerid)</info>
                     </control>
                     <control type="label">
-                        <posx>510</posx>
+                        <posx>710</posx>
                         <posy>0</posy>
-                        <width>45</width>
+                        <width>245</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -492,9 +492,9 @@
                         <info>ListItem.Property(priority)</info>
                     </control>
                     <control type="label">
-                        <posx>560</posx>
+                        <posx>760</posx>
                         <posy>0</posy>
-                        <width>65</width>
+                        <width>265</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -503,9 +503,9 @@
                         <info>ListItem.Property(origmailbox)</info>
                     </control>
                     <control type="label">
-                        <posx>630</posx>
+                        <posx>1020</posx>
                         <posy>0</posy>
-                        <width>45</width>
+                        <width>245</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -516,7 +516,7 @@
                 </itemlayout>
                 <focusedlayout height="22">
                     <control type="image">
-                        <width>675</width>
+                        <width>1220</width>
                         <height>24</height>
                         <posx>0</posx>
                         <posy>0</posy>
@@ -524,7 +524,7 @@
                         <visible>!Control.HasFocus(121)</visible>
                     </control>
                     <control type="image">
-                        <width>675</width>
+                        <width>1220</width>
                         <height>24</height>
                         <posx>0</posx>
                         <posy>0</posy>
@@ -534,7 +534,7 @@
                     <control type="label">
                         <posx>5</posx>
                         <posy>0</posy>
-                        <width>165</width>
+                        <width>365</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -543,9 +543,9 @@
                         <info>ListItem.Property(origdate)</info>
                     </control>
                     <control type="label">
-                        <posx>175</posx>
+                        <posx>375</posx>
                         <posy>0</posy>
-                        <width>65</width>
+                        <width>265</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -554,7 +554,7 @@
                         <info>ListItem.Property(origtime)</info>
                     </control>
                     <control type="label">
-                        <posx>245</posx>
+                        <posx>445</posx>
                         <posy>0</posy>
                         <width>260</width>
                         <height>20</height>
@@ -565,9 +565,9 @@
                         <info>ListItem.Property(callerid)</info>
                     </control>
                     <control type="label">
-                        <posx>510</posx>
+                        <posx>710</posx>
                         <posy>0</posy>
-                        <width>45</width>
+                        <width>245</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -576,9 +576,9 @@
                         <info>ListItem.Property(priority)</info>
                     </control>
                     <control type="label">
-                        <posx>560</posx>
+                        <posx>760</posx>
                         <posy>0</posy>
-                        <width>65</width>
+                        <width>265</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -587,9 +587,9 @@
                         <info>ListItem.Property(origmailbox)</info>
                     </control>
                     <control type="label">
-                        <posx>630</posx>
+                        <posx>1020</posx>
                         <posy>0</posy>
-                        <width>45</width>
+                        <width>245</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -601,7 +601,7 @@
             </control>
         </control>
         <control type="group">
-            <posx>690</posx>
+            <posx>1190</posx>
             <posy>100</posy>
             <control type="scrollbar" id="190">
                 <description>Scrollbar</description>
