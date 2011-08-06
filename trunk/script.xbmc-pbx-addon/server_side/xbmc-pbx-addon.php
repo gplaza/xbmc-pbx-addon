@@ -155,7 +155,7 @@ elseif (isset($_GET["cdr"]) || isset($_GET["vm"])) {
             $xmlroot->appendChild($node);
         }
         // Order, filter, resize and reverse
-        asort($vm);
+        array_sort_by_column($vm, 'origtime');
         $vm = array_slice($vm,-50);
         $vm = array_reverse($vm);
         // Convert VM Array into XML
@@ -167,6 +167,9 @@ elseif (isset($_GET["cdr"]) || isset($_GET["vm"])) {
                 $node->appendChild($element);
                 foreach ($c as $key => $val) {
                     $element = $xmldoc->createElement($key);
+                    if ($key == 'origtime') {
+                        $val = date("Y-m-d H:i:s",$val);
+                    }
                     $element->appendChild($xmldoc->createTextNode($val));
                     $node->appendChild($element);
                 }
@@ -228,5 +231,12 @@ else {
     else {
         echo "\nSeems everything is ok on server-side. Please continue the setup on XBMC side.";
     }
+}
+function array_sort_by_column(&$arr, $col, $dir = SORT_ASC) {
+    $sort_col = array();
+    foreach ($arr as $key => $row) {
+        $sort_col[$key] = $row[$col];
+    }
+    array_multisort($sort_col, $dir, $arr);
 }
 ?>
