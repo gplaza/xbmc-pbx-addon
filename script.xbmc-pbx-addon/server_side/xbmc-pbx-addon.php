@@ -154,7 +154,8 @@ elseif (isset($_GET["cdr"]) || isset($_GET["vm"])) {
             $node->appendChild($element);
             $xmlroot->appendChild($node);
         }
-        // Filter, resize and reverse
+        // Order, filter, resize and reverse
+        asort($vm);
         $vm = array_slice($vm,-50);
         $vm = array_reverse($vm);
         // Convert VM Array into XML
