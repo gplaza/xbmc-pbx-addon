@@ -10,14 +10,14 @@
             <height>576</height>
             <texture>background.png</texture>
         </control>
-        <control type="image">
-            <description>XBMC PBX Addon</description>
-            <posx>5</posx>
-            <posy>0</posy>
-            <width>90</width>
-            <height>110</height>
-            <texture>xbmc-pbx-addon.png</texture>
-        </control>
+      	<control type="image">
+         <description>XBMC PBX Addon</description>
+        	<posx>05</posx>
+        	<posy>0</posy>
+        	<width>90</width>
+        	<height>90</height>
+        	<texture>xbmc-pbx-addon.png</texture>
+      	</control>
         <control type="radiobutton" id="110">
             <description>CDR toggle button</description>
             <posx>200</posx>
