@@ -11,13 +11,23 @@ __author__      = "hmronline"
 __url__         = "http://code.google.com/p/xbmc-pbx-addon/"
 __version__     = "0.0.7"
 
-xbmc.output(__addon__ + " Version: " + __version__  + "\n")
+xbmc.output("[%s]: Version %s\n" % (__addon__,__version__))
 
 # Modules
 import sys, os
-import xbmc, xbmcgui, xbmcaddon
+import xbmc, xbmcaddon, xbmcgui
 import re, traceback, time
 import urllib, urlparse, urllib2, xml.dom.minidom
+
+# Get environment OS
+__os__          = os.environ.get( "OS", "win32" )
+# Check to see if using a 64bit version of Linux
+if re.match("Linux", __os__):
+        import platform
+        env2 = platform.machine()
+        if(env2 == "x86_64"):
+                __os__ = "Linux64"
+xbmc.output("[%s]: XBMC for %s\n" % (__addon__,__os__))
 
 __language__    = xbmcaddon.Addon(__addon_id__).getLocalizedString
 CWD             = xbmcaddon.Addon(__addon_id__).getAddonInfo('path')
