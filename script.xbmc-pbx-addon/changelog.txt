@@ -1,17 +1,20 @@
 
 TODO
+- Continue improving the GUI;
 - Enable Fanart;
 - Fix integer settings not showing;
 - Update py-asterisk library;
 - Add support to Eden XBMC releases;
-- Try to continue working on pre-Dharma XBMC releases and XBMC4Xbox;
+- Try to continue working on pre-Dharma XBMC releases;
 
 0.0.7
 * Added support to Dharma XBMC releases;
+** Tested it on Linux and LiveCD;
+** Tested on XBMC4XBOX 3.0.1-r30893
 * Added some checks and instructions on server-side;
 * Added settings for VoiceMail notification timeout;
 * Added settings to display Caller ID and/or pause video only if ALERT_INFO matches;
-* Addes setting to enable/disable DEBUG;
+* Added setting to enable/disable DEBUG;
 
 0.0.6
 * Fixed support for both Asterisk 1.4 and Asterisk 1.6;

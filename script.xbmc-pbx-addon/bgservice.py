@@ -11,13 +11,23 @@ __author__      = "hmronline"
 __url__         = "http://code.google.com/p/xbmc-pbx-addon/"
 __version__     = "0.0.7"
 
-xbmc.output(__addon__ + " Version: " + __version__  + "\n")
+xbmc.output("[%s]: Version %s\n" % (__addon__,__version__))
 
 # Modules
 import sys, os
 import xbmc, xbmcaddon
 import re, traceback, time
 
+
+# Get environment OS
+__os__          = os.environ.get( "OS", "win32" )
+# Check to see if using a 64bit version of Linux
+if re.match("Linux", __os__):
+        import platform
+        env2 = platform.machine()
+        if(env2 == "x86_64"):
+                __os__ = "Linux64"
+xbmc.output("[%s]: XBMC for %s\n" % (__addon__,__os__))
 
 __language__    = xbmcaddon.Addon(__addon_id__).getLocalizedString
 CWD             = xbmcaddon.Addon(__addon_id__).getAddonInfo('path')
@@ -32,7 +42,7 @@ import Asterisk.Manager, Asterisk.Util
 #############################################################################################################
 def log(msg):
     try:
-        xbmc.output("[%s]: %s\n" % (__addon__,msg))
+        xbmc.output("[%s]: %s\n" % (__addon__,str(msg)))
     except:
         pass
 
@@ -177,36 +187,35 @@ class get_incoming_call(object):
 
 
 #################################################################################################################
- # Starts here
+# Starts here
 #################################################################################################################
 
-while (not xbmc.abortRequested):
-    try:
-        log("Running in background...")
-        settings = xbmcaddon.Addon(__addon_id__)
-        DEBUG = settings.getSetting("xbmc_debug")
-        manager_host_port = settings.getSetting("asterisk_manager_host"),int(settings.getSetting("asterisk_manager_port"))
-        pbx = Manager(manager_host_port,settings.getSetting("asterisk_manager_user"),settings.getSetting("asterisk_manager_pass"))
-        vm = settings.getSetting("asterisk_vm_mailbox") +"@"+ settings.getSetting("asterisk_vm_context")
-        arr_timeout = [5,10,15,20,25,30]
-        xbmc_vm_notification_timeout = int(arr_timeout[int(settings.getSetting("xbmc_vm_notification_timeout"))])
-        del settings
-        asterisk_version = str(pbx.Command("core show version")[1])
-        asterisk_series = asterisk_version[9:12]
-        log(">> " + asterisk_version)
-        vm_count = str(pbx.MailboxCount(vm)[0])
-        xbmc_notification = __language__(30053) + vm_count
-        xbmc_img = xbmc.translatePath(os.path.join(RESOURCE_PATH,'media','xbmc-pbx-addon.png'))
-        log(">> Notification: " + xbmc_notification)
-        xbmc.executebuiltin("XBMC.Notification("+ __language__(30052) +","+ xbmc_notification +","+ str(xbmc_vm_notification_timeout*1000) +","+ xbmc_img +")")
-        grab = get_incoming_call()
-        pbx.events += grab.events
-        pbx.serve_forever()
-    except:
-        xbmc_notification = str(sys.exc_info()[1])
-        xbmc_img = xbmc.translatePath(os.path.join(RESOURCE_PATH,'media','xbmc-pbx-addon.png'))
-        log(">> Notification: " + xbmc_notification)
-        xbmc.executebuiltin("XBMC.Notification("+ __language__(30051) +","+ xbmc_notification +","+ str(xbmc_vm_notification_timeout*1000) +","+ xbmc_img +")")
+try:
+    log("Running in background...")
+    settings = xbmcaddon.Addon(__addon_id__)
+    DEBUG = settings.getSetting("xbmc_debug")
+    manager_host_port = settings.getSetting("asterisk_manager_host"),int(settings.getSetting("asterisk_manager_port"))
+    pbx = Manager(manager_host_port,settings.getSetting("asterisk_manager_user"),settings.getSetting("asterisk_manager_pass"))
+    vm = settings.getSetting("asterisk_vm_mailbox") +"@"+ settings.getSetting("asterisk_vm_context")
+    arr_timeout = [5,10,15,20,25,30]
+    xbmc_vm_notification_timeout = int(arr_timeout[int(settings.getSetting("xbmc_vm_notification_timeout"))])
+    del settings
+    asterisk_version = str(pbx.Command("core show version")[1])
+    asterisk_series = asterisk_version[9:12]
+    log(">> " + asterisk_version)
+    vm_count = str(pbx.MailboxCount(vm)[0])
+    xbmc_notification = __language__(30053) + vm_count
+    xbmc_img = xbmc.translatePath(os.path.join(RESOURCE_PATH,'media','xbmc-pbx-addon.png'))
+    log(">> Notification: " + xbmc_notification)
+    xbmc.executebuiltin("XBMC.Notification("+ __language__(30052) +","+ xbmc_notification +","+ str(xbmc_vm_notification_timeout*1000) +","+ xbmc_img +")")
+    grab = get_incoming_call()
+    pbx.events += grab.events
+    pbx.serve_forever()
+except:
+    xbmc_notification = str(sys.exc_info()[1])
+    xbmc_img = xbmc.translatePath(os.path.join(RESOURCE_PATH,'media','xbmc-pbx-addon.png'))
+    log(">> Notification: " + xbmc_notification)
+    xbmc.executebuiltin("XBMC.Notification("+ __language__(30051) +","+ xbmc_notification +","+ str(xbmc_vm_notification_timeout*1000) +","+ xbmc_img +")")
 try:
     del grab
     del pbx
