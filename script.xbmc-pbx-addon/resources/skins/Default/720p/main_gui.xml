@@ -55,7 +55,7 @@
             <!--<label>$LOCALIZE[30103]</label>-->
             <font>special12</font>
             <onleft>111</onleft>
-            <onright>110</onright>
+            <onright>109</onright>
             <ondown>113</ondown>
         </control>
         <control type="button" id="109">
@@ -66,7 +66,7 @@
             <align>left</align>
             <!--<label>$LOCALIZE[30107]</label>-->
             <font>special12</font>
-            <onleft>111</onleft>
+            <onleft>112</onleft>
             <onright>110</onright>
             <ondown>113</ondown>
         </control>
