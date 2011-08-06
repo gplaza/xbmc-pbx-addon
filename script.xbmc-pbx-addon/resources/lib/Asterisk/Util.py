@@ -3,10 +3,11 @@ Asterisk/Util.py: utility classes.
 '''
 
 __author__ = 'David Wilson'
-__Id__ = '$Id: Util.py 165 2008-09-23 17:27:39Z dmw $'
+__Id__ = '$Id$'
 
 import sys, copy
 import Asterisk
+from Asterisk import Logging
 
 
 
@@ -45,7 +46,7 @@ class AttributeDict(dict):
 
 
 
-class EventCollection(object):
+class EventCollection(Logging.InstanceLogger):
     '''
     Utility class to allow grouping and automatic registration of event.
     '''
@@ -57,7 +58,7 @@ class EventCollection(object):
         '''
 
         self.subscriptions = {}
-        #self.log = self.getLogger()
+        self.log = self.getLogger()
 
         if initial is not None:
             for func in initial:
@@ -103,7 +104,7 @@ class EventCollection(object):
         return_value = None
 
         for subscription in self.subscriptions[name]:
-            #self.log.debug('calling %r(*%r, **%r)', subscription, args, kwargs)
+            self.log.debug('calling %r(*%r, **%r)', subscription, args, kwargs)
             return_value = subscription(*args, **kwargs)
 
         return return_value

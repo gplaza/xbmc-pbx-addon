@@ -1,8 +1,7 @@
 
 TODO
-- Continue improving the GUI;
+- Continue improving the GUI (there is one image missing);
 - Enable Fanart;
-- Fix integer settings not showing;
 - Update py-asterisk library;
 - Add support to Eden XBMC releases;
 - Try to continue working on pre-Dharma XBMC releases;
