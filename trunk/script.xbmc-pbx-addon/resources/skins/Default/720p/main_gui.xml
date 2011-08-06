@@ -6,8 +6,8 @@
             <description>background image</description>
             <posx>0</posx>
             <posy>0</posy>
-            <width>1220</width>
-            <height>576</height>
+            <width>1280</width>
+            <height>720</height>
             <texture>background.png</texture>
         </control>
       	<control type="image">
@@ -22,7 +22,7 @@
             <description>CDR toggle button</description>
             <posx>200</posx>
             <posy>40</posy>
-            <width>150</width>
+            <width>250</width>
             <align>left</align>
             <!--<label>$LOCALIZE[30101]</label>-->
             <font>special12</font>
@@ -34,9 +34,9 @@
         </control>
         <control type="radiobutton" id="111">
             <description>VM toggle button</description>
-            <posx>370</posx>
+            <posx>470</posx>
             <posy>40</posy>
-            <width>150</width>
+            <width>250</width>
             <align>left</align>
             <!--<label>$LOCALIZE[30102]</label>-->
             <font>special12</font>
@@ -46,27 +46,27 @@
             <onclick>SetProperty(show_info,vm)</onclick>
             <selected>stringcompare(Window.Property(show_info),vm) | Control.IsVisible(121)</selected>
         </control>
-        <control type="button" id="112">
-            <description>Settings button</description>
-            <posx>550</posx>
-            <posy>40</posy>
-            <width>100</width>
-            <align>left</align>
-            <!--<label>$LOCALIZE[30103]</label>-->
-            <font>special12</font>
-            <onleft>111</onleft>
-            <onright>109</onright>
-            <ondown>113</ondown>
-        </control>
         <control type="button" id="109">
-            <description>Refresh Button</description>
-            <posx>700</posx>
+            <description>Refresh button</description>
+            <posx>740</posx>
             <posy>40</posy>
-            <width>100</width>
+            <width>150</width>
             <align>left</align>
             <!--<label>$LOCALIZE[30107]</label>-->
             <font>special12</font>
-            <onleft>112</onleft>
+            <onleft>111</onleft>
+            <onright>112</onright>
+            <ondown>113</ondown>
+        </control>
+        <control type="button" id="112">
+            <description>Settings button</description>
+            <posx>950</posx>
+            <posy>40</posy>
+            <width>150</width>
+            <align>left</align>
+            <!--<label>$LOCALIZE[30103]</label>-->
+            <font>special12</font>
+            <onleft>109</onleft>
             <onright>110</onright>
             <ondown>113</ondown>
         </control>
