@@ -52,12 +52,17 @@ class MainGUI(xbmcgui.WindowXML):
     def __init__(self,*args,**kwargs):
         log("__init__()")
         xbmcgui.WindowXML.__init__(self,*args,**kwargs)
-        global DEBUG
-        self.DEBUG = DEBUG
 
     #####################################################################################################
     def onInit(self):
         log("> onInit()")
+        settings = xbmcaddon.Addon(__addon_id__)
+        DEBUG = settings.getSetting("xbmc_debug")
+        del settings
+        if (DEBUG == "true"):
+            self.DEBUG = True
+        else:
+            self.DEBUG = False
         dialog = xbmcgui.DialogProgress()
         # Starting...
         dialog.create(__addon__,__language__(30061))
@@ -265,8 +270,13 @@ class FirstTimeGUI(xbmcgui.Window):
 
     def __init__(self):
         log("__init__()")
-        global DEBUG
-        self.DEBUG = DEBUG
+        settings = xbmcaddon.Addon(__addon_id__)
+        DEBUG = settings.getSetting("xbmc_debug")
+        del settings
+        if (DEBUG == "true"):
+            self.DEBUG = True
+        else:
+            self.DEBUG = False
         dialog = xbmcgui.ControlTextBox(1,1,600,600,"font12","0xFFFFFFFF")
         msg = ""
         for i in range(1,10):
@@ -302,7 +312,7 @@ try:
         ui = FirstTimeGUI()
     else:
         ui = MainGUI("main_gui.xml",CWD,"Default")
-        ui.doModal()
+    ui.doModal()
 except:
     xbmc_notification = str(sys.exc_info()[1])
     xbmc_img = xbmc.translatePath(os.path.join(RESOURCE_PATH,'media','xbmc-pbx-addon.png'))
