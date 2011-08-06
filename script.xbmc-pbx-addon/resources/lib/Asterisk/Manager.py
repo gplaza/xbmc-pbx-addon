@@ -5,9 +5,9 @@ Asterisk Manager and Channel objects.
 __author__ = 'David Wilson'
 __id__ = '$Id$'
 
-import socket, time, logging, errno, os, re
+import socket, time, errno, os, re
 from new import instancemethod
-import Asterisk, Asterisk.Util, Asterisk.Logging
+import Asterisk, Asterisk.Util
 
 
 
@@ -60,7 +60,7 @@ class PermissionDenied(BaseException):
 
 
 
-class BaseChannel(Asterisk.Logging.InstanceLogger):
+class BaseChannel(object):
     '''
     Represents a living Asterisk channel, with shortcut methods for operating
     on it. The object acts as a mapping, ie. you may get and set items of it.
@@ -75,7 +75,7 @@ class BaseChannel(Asterisk.Logging.InstanceLogger):
 
         self.manager = manager
         self.id = id
-        self.log = self.getLogger()
+        #self.log = self.getLogger()
 
     def __eq__(self, other):
         'Return truth if <other> is equal to this object.'
@@ -176,7 +176,7 @@ class ZapChannel(BaseChannel):
 
 
 
-class BaseManager(Asterisk.Logging.InstanceLogger):
+class BaseManager(object):
     'Base protocol implementation for the Asterisk Manager API.'
 
     _AST_BANNERS = [
@@ -199,8 +199,8 @@ class BaseManager(Asterisk.Logging.InstanceLogger):
         self.events = Asterisk.Util.EventCollection()
 
         # Configure logging:
-        self.log = self.getLogger()
-        self.log.debug('Initialising.')
+        #self.log = self.getLogger()
+        #self.log.debug('Initialising.')
 
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.connect(address)
@@ -236,13 +236,13 @@ class BaseManager(Asterisk.Logging.InstanceLogger):
         if not self.listen_events:
             action['Events'] = 'off'
 
-        self.log.debug('Authenticating as %r/%r.', self.username, self.secret)
+        #self.log.debug('Authenticating as %r/%r.', self.username, self.secret)
         self._write_action('Login', action)
 
         if self._read_packet().Response == 'Error':
             raise AuthenticationFailure('authentication failed.')
 
-        self.log.debug('Authenticated as %r.', self.username)
+        #self.log.debug('Authenticated as %r.', self.username)
 
 
     def __repr__(self):
@@ -267,14 +267,14 @@ class BaseManager(Asterisk.Logging.InstanceLogger):
             [ lines.append('%s: %s' % item) for item in data.iteritems()
                 if item[1] is not None ]
 
-        self.log.packet('write_action: %r', lines)
+        #self.log.packet('write_action: %r', lines)
 
         for line in lines:
             self.file.write(line + '\r\n')
-            self.log.io('_write_action: send %r', line + '\r\n')
+            #self.log.io('_write_action: send %r', line + '\r\n')
 
         self.file.write('\r\n')
-        self.log.io('_write_action: send: %r', '\r\n')
+        #self.log.io('_write_action: send: %r', '\r\n')
         return id
 
 
@@ -284,7 +284,7 @@ class BaseManager(Asterisk.Logging.InstanceLogger):
         the "command" action.
         '''
 
-        self.log.debug('In _read_response_follows().')
+        #self.log.debug('In _read_response_follows().')
 
         lines = []
         packet = Asterisk.Util.AttributeDict({
@@ -294,7 +294,7 @@ class BaseManager(Asterisk.Logging.InstanceLogger):
 
         while True:
             line = self.file.readline().rstrip()
-            self.log.io('_read_response_follows: recv %r', line)
+            #self.log.io('_read_response_follows: recv %r', line)
             line_nr += 1
 
             # In some case, ActionID is the line 2 the first starting with
@@ -305,11 +305,11 @@ class BaseManager(Asterisk.Logging.InstanceLogger):
 
             elif line == '--END COMMAND--':
                 self.file.readline()
-                self.log.debug('Completed _read_response_follows().')
+                #self.log.debug('Completed _read_response_follows().')
                 return packet
 
-            elif not line:
-                self.log.debug('Empty line encountered.')
+            #elif not line:
+                #self.log.debug('Empty line encountered.')
 
             else:
                 lines.append(line)
@@ -325,24 +325,24 @@ class BaseManager(Asterisk.Logging.InstanceLogger):
         '''
 
         packet = Asterisk.Util.AttributeDict()
-        self.log.debug('In _read_packet().')
+        #self.log.debug('In _read_packet().')
 
         while True:
             line = self.file.readline().rstrip()
-            self.log.io('_read_packet: recv %r', line)
+            #self.log.io('_read_packet: recv %r', line)
 
             if not line:
                 if not packet:
                     raise GoneAwayError('Asterisk Manager connection has gone away.')
 
-                self.log.packet('_read_packet: %r', packet)
+                #self.log.packet('_read_packet: %r', packet)
 
                 if discard_events and 'Event' in packet:
-                    self.log.debug('_read_packet() discarding: %r.', packet)
+                    #self.log.debug('_read_packet() discarding: %r.', packet)
                     packet.clear()
                     continue
 
-                self.log.debug('_read_packet() completed.')
+                #self.log.debug('_read_packet() completed.')
                 return packet
 
             if line.count(':') == 1 and line[-1] == ':': # Empty field:
@@ -362,12 +362,12 @@ class BaseManager(Asterisk.Logging.InstanceLogger):
         'Feed a single packet to an event handler.'
 
         if 'Response' in packet:
-            self.log.debug('_dispatch_packet() placed response in buffer.')
+            #self.log.debug('_dispatch_packet() placed response in buffer.')
             self.response_buffer.append(packet)
 
         elif 'Event' in packet:
             self._translate_event(packet)
-            self.log.debug('_dispatch_packet() passing event to on_Event.')
+            #self.log.debug('_dispatch_packet() passing event to on_Event.')
             self.on_Event(packet)
 
         else:
@@ -406,7 +406,7 @@ class BaseManager(Asterisk.Logging.InstanceLogger):
     def close(self):
         'Log off and close the connection to the PBX.'
 
-        self.log.debug('Closing down.')
+        #self.log.debug('Closing down.')
 
         self._write_action('Logoff')
         packet = self._read_packet(discard_events = True)
@@ -418,7 +418,7 @@ class BaseManager(Asterisk.Logging.InstanceLogger):
     def read(self):
         'Called by the parent code when activity is detected on our fd.'
 
-        self.log.io('read(): Activity detected on our fd.')
+        #self.log.io('read(): Activity detected on our fd.')
         packet = self._read_packet()
         self._dispatch_packet(packet)
 
@@ -527,7 +527,8 @@ class CoreActions(object):
         id = self._write_action('DBGet', {'Family': family, 'Key': key})
         try:
             response = self._translate_response(self.read_response(id))
-        except Asterisk.Manager.ActionFailed as e:
+        except:
+            e = Asterisk.Manager.ActionFailed
             return str(e)
         if response.get('Response') == 'Success':
             packet = self._read_packet()
@@ -563,7 +564,7 @@ class CoreActions(object):
         is not set.
         '''
 
-        self.log.debug('Getvar(%r, %r, default=%r)', channel, variable, default)
+        #self.log.debug('Getvar(%r, %r, default=%r)', channel, variable, default)
 
         id = self._write_action('Getvar', {
             'Channel': channel,
@@ -580,10 +581,10 @@ class CoreActions(object):
             if default is Asterisk.Util.Unspecified:
                 raise KeyError(variable)
             else:
-                self.log.debug('Getvar() returning %r', default)
+                #self.log.debug('Getvar() returning %r', default)
                 return default
 
-        self.log.debug('Getvar() returning %r', value)
+        #self.log.debug('Getvar() returning %r', value)
         return value
 
 
