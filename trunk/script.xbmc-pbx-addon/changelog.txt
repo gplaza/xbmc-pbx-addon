@@ -1,7 +1,5 @@
 
 TODO
-- Continue improving the GUI (there is one image missing);
-- Enable Fanart;
 - Add support to Eden XBMC releases;
 
 0.0.7
@@ -15,6 +13,7 @@ TODO
 * Added setting to enable/disable DEBUG;
 * Updated py-asterisk library to version 0.2;
 * Fixed VoiceMail sorting;
+* Added a "Refresh" button, so new CDR and VM information is retrieved from Asterisk;
 
 0.0.6
 * Fixed support for both Asterisk 1.4 and Asterisk 1.6;
