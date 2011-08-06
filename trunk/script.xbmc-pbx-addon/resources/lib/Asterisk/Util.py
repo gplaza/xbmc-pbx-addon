@@ -7,7 +7,7 @@ __Id__ = '$Id$'
 
 import sys, copy
 import Asterisk
-from Asterisk import Logging
+#from Asterisk import Logging
 
 
 
@@ -46,7 +46,7 @@ class AttributeDict(dict):
 
 
 
-class EventCollection(Logging.InstanceLogger):
+class EventCollection(object):
     '''
     Utility class to allow grouping and automatic registration of event.
     '''
@@ -58,7 +58,7 @@ class EventCollection(Logging.InstanceLogger):
         '''
 
         self.subscriptions = {}
-        self.log = self.getLogger()
+        #self.log = self.getLogger()
 
         if initial is not None:
             for func in initial:
@@ -104,7 +104,7 @@ class EventCollection(Logging.InstanceLogger):
         return_value = None
 
         for subscription in self.subscriptions[name]:
-            self.log.debug('calling %r(*%r, **%r)', subscription, args, kwargs)
+            #self.log.debug('calling %r(*%r, **%r)', subscription, args, kwargs)
             return_value = subscription(*args, **kwargs)
 
         return return_value
