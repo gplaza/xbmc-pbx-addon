@@ -83,15 +83,14 @@
     <string id="30130">Call Date</string>
     <!-- VM -->
     <string id="30150">Voice Mail</string>
-    <string id="30151">Orig Mailbox</string>
+    <string id="30151">Mailbox</string>
     <string id="30152">Context</string>
     <string id="30153">Macro Context</string>
     <string id="30154">Extension</string>
     <string id="30155">Priority</string>
     <string id="30156">Caller Channel</string>
     <string id="30157">Caller ID</string>
-    <string id="30158">Orig Date</string>
-    <string id="30159">Orig Time</string>
+    <string id="30159">Time/Date</string>
     <string id="30160">Category</string>
     <string id="30161">Flag</string>
     <string id="30162">Duration</string>
