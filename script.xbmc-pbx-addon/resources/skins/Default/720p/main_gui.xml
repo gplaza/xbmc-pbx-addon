@@ -64,7 +64,7 @@
             <posy>40</posy>
             <width>100</width>
             <align>left</align>
-            <!--<label>$LOCALIZE[30109]</label>-->
+            <!--<label>$LOCALIZE[30107]</label>-->
             <font>special12</font>
             <onleft>111</onleft>
             <onright>110</onright>
