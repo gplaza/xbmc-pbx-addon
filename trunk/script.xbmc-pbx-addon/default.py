@@ -97,7 +97,6 @@ class MainGUI(xbmcgui.WindowXML):
         self.getControl(144).setLabel(__language__(30113))  # CDR - dst
         self.getControl(145).setLabel(__language__(30125))  # CDR - disposition
         self.getControl(146).setLabel(__language__(30123))  # CDR - duration
-        #self.getControl(160).setLabel(__language__(30158))  # VM - origdate
         self.getControl(161).setLabel(__language__(30159))  # VM - origtime
         self.getControl(162).setLabel(__language__(30157))  # VM - callerid
         self.getControl(163).setLabel(__language__(30155))  # VM - priority
