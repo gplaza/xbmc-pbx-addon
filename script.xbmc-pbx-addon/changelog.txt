@@ -3,7 +3,7 @@ TODO
 - Add support to Eden XBMC releases;
 
 0.0.7
-* Several fixes and improvements done by oneadvent (XBMC Forum member) Thanx!;
+* Several fixes and improvements done by oneadvent (XBMC Forum member) Thanks!;
 * Added support to Dharma XBMC releases;
 ** Tested it on Linux and LiveCD;
 ** Tested on XBMC4XBOX 3.0.1-r30893

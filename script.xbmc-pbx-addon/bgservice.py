@@ -51,11 +51,9 @@ class get_incoming_call(object):
 
     def __init__(self):
         log("__init__()")
-        global DEBUG
         global asterisk_series
-        self.DEBUG = DEBUG
         self.asterisk_series = asterisk_series
-        if (self.DEBUG): log(">> Asterisk: " + self.asterisk_series)
+        self.DEBUG = False
         self.xbmc_player_paused = False
         self.ast_uniqid = 0
         self.event_callerid = ""
@@ -68,6 +66,15 @@ class get_incoming_call(object):
 
     #####################################################################################################
     def NewChannel(self,pbx,event):
+        settings = xbmcaddon.Addon(__addon_id__)
+        DEBUG = settings.getSetting("xbmc_debug")
+        arr_chan_states = ['Down','Ring']
+        asterisk_chan_state = str(arr_chan_states[int(settings.getSetting("asterisk_chan_state"))])
+        del settings
+        if (DEBUG == "true"):
+            self.DEBUG = True
+        else:
+            self.DEBUG = False
         if (self.DEBUG):
             log("> NewChannel()")
             log(">> UniqueID: " + event.Uniqueid)
@@ -78,10 +85,6 @@ class get_incoming_call(object):
             # Asterisk 1.6+
             event_state = str(event.ChannelStateDesc)
         if (self.DEBUG): log(">> State: " + event_state)
-        arr_chan_states = ['Down','Ring']
-        settings = xbmcaddon.Addon(__addon_id__)
-        asterisk_chan_state = str(arr_chan_states[int(settings.getSetting("asterisk_chan_state"))])
-        del settings
         if (event_state == asterisk_chan_state and self.ast_uniqid == 0):
             self.ast_uniqid = event.Uniqueid
             if (self.DEBUG):
@@ -132,13 +135,14 @@ class get_incoming_call(object):
     #####################################################################################################
     def newcall_actions(self,event):
         log("> newcall_actions()")
-        log(">> Channel: " + str(event.Channel))
-        if (self.DEBUG): log(">> UniqueID: " + self.ast_uniqid)
+        if (self.DEBUG):
+            log(">> Channel: " + str(event.Channel))
+            log(">> UniqueID: " + self.ast_uniqid)
         log(">> CallerID: " + self.event_callerid)
-        xbmc_player = xbmc.Player(xbmc.PLAYER_CORE_AUTO)
-        settings = xbmcaddon.Addon(__addon_id__)
         asterisk_alert_info = str(pbx.Getvar(event.Channel,"ALERT_INFO",""))
         log(">> ALERT_INFO: " + asterisk_alert_info)
+        xbmc_player = xbmc.Player(xbmc.PLAYER_CORE_AUTO)
+        settings = xbmcaddon.Addon(__addon_id__)
         if (xbmc_player.isPlaying() == 1):
             log(">> XBMC is playing content...")
             if (xbmc_player.isPlayingAudio() == 1):
@@ -193,7 +197,6 @@ class get_incoming_call(object):
 try:
     log("Running in background...")
     settings = xbmcaddon.Addon(__addon_id__)
-    DEBUG = settings.getSetting("xbmc_debug")
     manager_host_port = settings.getSetting("asterisk_manager_host"),int(settings.getSetting("asterisk_manager_port"))
     pbx = Manager(manager_host_port,settings.getSetting("asterisk_manager_user"),settings.getSetting("asterisk_manager_pass"))
     vm = settings.getSetting("asterisk_vm_mailbox") +"@"+ settings.getSetting("asterisk_vm_context")
@@ -203,6 +206,7 @@ try:
     asterisk_version = str(pbx.Command("core show version")[1])
     asterisk_series = asterisk_version[9:12]
     log(">> " + asterisk_version)
+    log(">> Asterisk: " + asterisk_series)
     vm_count = str(pbx.MailboxCount(vm)[0])
     xbmc_notification = __language__(30053) + vm_count
     xbmc_img = xbmc.translatePath(os.path.join(RESOURCE_PATH,'media','xbmc-pbx-addon.png'))
