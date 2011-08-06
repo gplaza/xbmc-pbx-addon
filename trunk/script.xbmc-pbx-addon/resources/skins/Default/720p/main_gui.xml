@@ -161,7 +161,7 @@
             <control type="label" id="160">
                 <posx>5</posx>
                 <posy>0</posy>
-                <width>365</width>
+                <width>280</width>
                 <height>20</height>
                 <font>font12</font>
                 <textcolor>FFe2ff43</textcolor>
@@ -170,9 +170,9 @@
                 <!--<label>$LOCALIZE[30158]</label>-->
             </control>
             <control type="label" id="161">
-                <posx>375</posx>
+                <posx>350</posx>
                 <posy>0</posy>
-                <width>265</width>
+                <width>200</width>
                 <height>20</height>
                 <font>font12</font>
                 <textcolor>FFe2ff43</textcolor>
@@ -181,7 +181,7 @@
                 <!--<label>$LOCALIZE[30159]</label>-->
             </control>
             <control type="label" id="162">
-                <posx>545</posx>
+                <posx>475</posx>
                 <posy>0</posy>
                 <width>460</width>
                 <height>20</height>
@@ -203,7 +203,7 @@
                 <!--<label>$LOCALIZE[30155]</label>-->
             </control>
             <control type="label" id="164">
-                <posx>860</posx>
+                <posx>910</posx>
                 <posy>0</posy>
                 <width>265</width>
                 <height>20</height>
@@ -430,7 +430,7 @@
                 <description>VM List Container</description>
                 <posx>0</posx>
                 <posy>0</posy>
-                <width>950</width>
+                <width>1220</width>
                 <height>410</height>
                 <scrolltime>200</scrolltime>
                 <onup>121</onup>
@@ -450,7 +450,7 @@
                     <control type="label">
                         <posx>5</posx>
                         <posy>0</posy>
-                        <width>365</width>
+                        <width>280</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -459,9 +459,9 @@
                         <info>ListItem.Property(origdate)</info>
                     </control>
                     <control type="label">
-                        <posx>375</posx>
+                        <posx>350</posx>
                         <posy>0</posy>
-                        <width>265</width>
+                        <width>200</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -470,9 +470,9 @@
                         <info>ListItem.Property(origtime)</info>
                     </control>
                     <control type="label">
-                        <posx>445</posx>
+                        <posx>475</posx>
                         <posy>0</posy>
-                        <width>460</width>
+                        <width>200</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -481,9 +481,9 @@
                         <info>ListItem.Property(callerid)</info>
                     </control>
                     <control type="label">
-                        <posx>710</posx>
+                        <posx>810</posx>
                         <posy>0</posy>
-                        <width>245</width>
+                        <width>200</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -492,9 +492,9 @@
                         <info>ListItem.Property(priority)</info>
                     </control>
                     <control type="label">
-                        <posx>760</posx>
+                        <posx>910</posx>
                         <posy>0</posy>
-                        <width>265</width>
+                        <width>200</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -503,7 +503,7 @@
                         <info>ListItem.Property(origmailbox)</info>
                     </control>
                     <control type="label">
-                        <posx>1020</posx>
+                        <posx>1120</posx>
                         <posy>0</posy>
                         <width>245</width>
                         <height>20</height>
@@ -534,7 +534,7 @@
                     <control type="label">
                         <posx>5</posx>
                         <posy>0</posy>
-                        <width>365</width>
+                        <width>280</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -543,9 +543,9 @@
                         <info>ListItem.Property(origdate)</info>
                     </control>
                     <control type="label">
-                        <posx>375</posx>
+                        <posx>350</posx>
                         <posy>0</posy>
-                        <width>265</width>
+                        <width>200</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -554,9 +554,9 @@
                         <info>ListItem.Property(origtime)</info>
                     </control>
                     <control type="label">
-                        <posx>445</posx>
+                        <posx>475</posx>
                         <posy>0</posy>
-                        <width>260</width>
+                        <width>200</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -565,9 +565,9 @@
                         <info>ListItem.Property(callerid)</info>
                     </control>
                     <control type="label">
-                        <posx>710</posx>
+                        <posx>810</posx>
                         <posy>0</posy>
-                        <width>245</width>
+                        <width>200</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -576,9 +576,9 @@
                         <info>ListItem.Property(priority)</info>
                     </control>
                     <control type="label">
-                        <posx>760</posx>
+                        <posx>910</posx>
                         <posy>0</posy>
-                        <width>265</width>
+                        <width>200</width>
                         <height>20</height>
                         <font>font12</font>
                         <textcolor>FFFFFFFF</textcolor>
@@ -587,7 +587,7 @@
                         <info>ListItem.Property(origmailbox)</info>
                     </control>
                     <control type="label">
-                        <posx>1020</posx>
+                        <posx>1120</posx>
                         <posy>0</posy>
                         <width>245</width>
                         <height>20</height>
