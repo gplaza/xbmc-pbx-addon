@@ -171,7 +171,9 @@ elseif (isset($_GET["cdr"]) || isset($_GET["vm"])) {
                         $val = date("Y-m-d H:i:s",$val);
                     }
                     $element->appendChild($xmldoc->createTextNode($val));
-                    $node->appendChild($element);
+                    if ($key != 'origdate') {
+                        $node->appendChild($element);
+                    }
                 }
                 $xmlroot->appendChild($node);
             }
