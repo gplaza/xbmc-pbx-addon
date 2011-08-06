@@ -58,6 +58,18 @@
             <onright>110</onright>
             <ondown>113</ondown>
         </control>
+        <control type="button" id="109">
+            <description>Refresh Button</description>
+            <posx>700</posx>
+            <posy>40</posy>
+            <width>100</width>
+            <align>left</align>
+            <!--<label>$LOCALIZE[30103]</label>-->
+            <font>special12</font>
+            <onleft>111</onleft>
+            <onright>110</onright>
+            <ondown>113</ondown>
+        </control>
         <control type="image" id="0">
             <description>contentpanel slice</description>
             <posx>0</posx>
@@ -158,17 +170,6 @@
             <width>950</width>
             <height>20</height>
             <visible>stringcompare(Window.Property(show_info),vm)</visible>
-            <control type="label" id="160">
-                <posx>5</posx>
-                <posy>0</posy>
-                <width>280</width>
-                <height>20</height>
-                <font>font12</font>
-                <textcolor>FFe2ff43</textcolor>
-                <aligny>center</aligny>
-                <align>left</align>
-                <!--<label>$LOCALIZE[30158]</label>-->
-            </control>
             <control type="label" id="161">
                 <posx>350</posx>
                 <posy>0</posy>
@@ -448,17 +449,6 @@
                         <texture border="5">MenuItemNF.png</texture>
                     </control>
                     <control type="label">
-                        <posx>5</posx>
-                        <posy>0</posy>
-                        <width>280</width>
-                        <height>20</height>
-                        <font>font12</font>
-                        <textcolor>FFFFFFFF</textcolor>
-                        <aligny>center</aligny>
-                        <align>left</align>
-                        <info>ListItem.Property(origdate)</info>
-                    </control>
-                    <control type="label">
                         <posx>350</posx>
                         <posy>0</posy>
                         <width>200</width>
@@ -530,17 +520,6 @@
                         <posy>0</posy>
                         <texture border="5">MenuItemFO.png</texture>
                         <visible>Control.HasFocus(121)</visible>
-                    </control>
-                    <control type="label">
-                        <posx>5</posx>
-                        <posy>0</posy>
-                        <width>280</width>
-                        <height>20</height>
-                        <font>font12</font>
-                        <textcolor>FFFFFFFF</textcolor>
-                        <aligny>center</aligny>
-                        <align>left</align>
-                        <info>ListItem.Property(origdate)</info>
                     </control>
                     <control type="label">
                         <posx>350</posx>
