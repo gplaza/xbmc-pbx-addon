@@ -3,7 +3,7 @@ Asterisk Manager API Python package.
 '''
 
 __author__ = 'David Wilson'
-__id__ = '$Id: __init__.py 165 2008-09-23 17:27:39Z dmw $'
+__id__ = '$Id$'
 
 try:
     __revision__ = int('$Rev$'.split()[1])
