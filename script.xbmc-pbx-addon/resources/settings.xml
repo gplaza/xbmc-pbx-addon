@@ -31,7 +31,7 @@
         <setting id="asterisk_info" type="text" label="30041" default="" enable="false"/>
         <setting id="asterisk_info_url" type="text" label="30042" default="http://asterisk/xbmc-pbx-addon.php"/>
         <setting id="xbmc_vm_notification_timeout" type="enum" label="30043" values="5|10|15|20|25|30" default="2"/>
-        <setting id="asterisk_vm_mailbox" type="text" label="30044" default="000"/>
+        <setting id="asterisk_vm_mailbox" type="number" label="30044" default="000"/>
         <setting id="asterisk_vm_context" type="text" label="30045" default="default"/>
         <setting id="asterisk_vm_format" type="enum" label="30046" values="wav|gsm|mp3" default="0"/>
     </category>
@@ -40,7 +40,7 @@
         <setting id="separator" type="lsep" label="30011"/>
         <setting id="asterisk_manager" type="text" label="30012" default="" enable="false"/>
         <setting id="asterisk_manager_host" type="text" label="30013" default="asterisk"/>
-        <setting id="asterisk_manager_port" type="text" label="30014" default="5038"/>
+        <setting id="asterisk_manager_port" type="number" label="30014" default="5038"/>
         <setting id="asterisk_manager_user" type="text" label="30015" default="xbmc"/>
         <setting id="asterisk_manager_pass" type="text" label="30016" default="xbmc"/>
     </category>
