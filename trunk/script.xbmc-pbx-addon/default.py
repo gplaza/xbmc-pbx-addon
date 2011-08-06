@@ -86,6 +86,7 @@ class MainGUI(xbmcgui.WindowXML):
     def skinSetup(self):
         log("> skinSetup()")
         xbmcgui.lock()
+        self.getControl(109).setLabel(__language__(30107))  # CDR toggle button
         self.getControl(110).setLabel(__language__(30101))  # CDR toggle button
         self.getControl(111).setLabel(__language__(30102))  # VM toggle button
         self.getControl(112).setLabel(__language__(30103))  # Settings button
