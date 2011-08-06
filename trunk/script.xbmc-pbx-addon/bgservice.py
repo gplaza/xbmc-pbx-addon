@@ -163,7 +163,7 @@ class get_incoming_call(object):
                     time.sleep(1)
                     if (asterisk_alert_info == settings.getSetting("asterisk_cid_alert_info")):
                         xbmc_new_remaining_time = xbmc_player.getTotalTime() - xbmc_player.getTime()
-                        if (xbmc_remaining_time > xbmc_new_remaining_time):
+                        if (not self.xbmc_player_paused and xbmc_remaining_time > xbmc_new_remaining_time):
                             log(">> Pause media...")
                             xbmc_player.pause()
                             self.xbmc_player_paused = True
