@@ -88,7 +88,7 @@ class get_incoming_call(object):
         if (event_state == asterisk_chan_state and self.ast_uniqid == 0):
             self.ast_uniqid = event.Uniqueid
             if (self.DEBUG):
-                log(">>> Uniqueid: " + self.ast_uniqid)
+                log(">>> UniqueID: " + self.ast_uniqid)
                 log(">>> State: " + asterisk_chan_state)
 
     #####################################################################################################
