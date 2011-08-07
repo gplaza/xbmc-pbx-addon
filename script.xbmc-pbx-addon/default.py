@@ -11,7 +11,7 @@ __author__      = "hmronline"
 __url__         = "http://code.google.com/p/xbmc-pbx-addon/"
 __version__     = "0.0.7"
 
-xbmc.output("[%s]: Version %s\n" % (__addon__,__version__))
+xbmc.log("[%s]: Version %s\n" % (__addon__,__version__))
 
 # Modules
 import sys, os
@@ -27,7 +27,7 @@ if re.match("Linux", __os__):
         env2 = platform.machine()
         if(env2 == "x86_64"):
                 __os__ = "Linux64"
-xbmc.output("[%s]: XBMC for %s\n" % (__addon__,__os__))
+xbmc.log("[%s]: XBMC for %s\n" % (__addon__,__os__))
 
 __language__    = xbmcaddon.Addon(__addon_id__).getLocalizedString
 CWD             = xbmcaddon.Addon(__addon_id__).getAddonInfo('path')
@@ -42,7 +42,7 @@ ACTION_EXIT_SCRIPT  = (9,10,247,275,61467,216,257,61448,)
 #############################################################################################################
 def log(msg):
     try:
-        xbmc.output("[%s]: %s\n" % (__addon__,str(msg)))
+        xbmc.log("[%s]: %s\n" % (__addon__,str(msg)))
     except:
         pass
 
@@ -51,7 +51,8 @@ class MainGUI(xbmcgui.WindowXML):
 
     def __init__(self,*args,**kwargs):
         log("__init__()")
-        xbmcgui.WindowXML.__init__(self,*args,**kwargs)
+        #xbmcgui.WindowXML.__init__(self,*args,**kwargs)
+        xbmcgui.WindowXML.__init__(self)
 
     #####################################################################################################
     def onInit(self):
@@ -90,7 +91,6 @@ class MainGUI(xbmcgui.WindowXML):
     #####################################################################################################
     def skinSetup(self):
         log("> skinSetup()")
-        xbmcgui.lock()
         self.getControl(109).setLabel(__language__(30107))  # CDR toggle button
         self.getControl(110).setLabel(__language__(30101))  # CDR toggle button
         self.getControl(111).setLabel(__language__(30102))  # VM toggle button
@@ -107,7 +107,6 @@ class MainGUI(xbmcgui.WindowXML):
         self.getControl(163).setLabel(__language__(30155))  # VM - priority
         self.getControl(164).setLabel(__language__(30151))  # VM - origmailbox
         self.getControl(165).setLabel(__language__(30162))  # VM - duration
-        xbmcgui.unlock()
 
     #####################################################################################################
     def getInfo(self):
@@ -135,7 +134,6 @@ class MainGUI(xbmcgui.WindowXML):
     def showInfo(self):
         log("> showInfo()")
         options = {"cdr":120,"vm":121}
-        xbmcgui.lock()
         for option in options.keys():
             self.getControl(options[option]).reset()
             # Parse CDR/VM XML content
@@ -149,7 +147,6 @@ class MainGUI(xbmcgui.WindowXML):
                             listitem.setProperty(childNode.nodeName,"")
                 self.getControl(options[option]).addItem(listitem)
                 del listitem
-        xbmcgui.unlock()
         del self.dom
 
     #####################################################################################################

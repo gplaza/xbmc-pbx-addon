@@ -90,7 +90,7 @@
     <string id="30155">Priority</string>
     <string id="30156">Caller Channel</string>
     <string id="30157">Caller ID</string>
-    <string id="30159">Time/Date</string>
+    <string id="30159">Date/Time</string>
     <string id="30160">Category</string>
     <string id="30161">Flag</string>
     <string id="30162">Duration</string>
@@ -98,7 +98,7 @@
     
     <!-- First time use instructions -->
     <string id="30171">-== First time use instructions ==-</string>
-    <string id="30172">1. Edit then copy the autoexec.py file to XBMC's scripts folder</string>
+    <string id="30172">1. Edit then copy the autoexec.py file to XBMC's addons folder</string>
     <string id="30173">2. Customize and then copy the manager_custom.conf file to /etc/asterisk on your Asterisk server</string>
     <string id="30174">3. Copy the xbmc-pbx-addon.php file to your Asterisk web server (Apache?) root directory</string>
     <string id="30175">4. Customize this script settings using the GUI</string>

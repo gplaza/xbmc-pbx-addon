@@ -11,7 +11,7 @@ __author__      = "hmronline"
 __url__         = "http://code.google.com/p/xbmc-pbx-addon/"
 __version__     = "0.0.7"
 
-xbmc.output("[%s]: Version %s\n" % (__addon__,__version__))
+xbmc.log("[%s]: Version %s\n" % (__addon__,__version__))
 
 # Modules
 import sys, os
@@ -27,7 +27,7 @@ if re.match("Linux", __os__):
         env2 = platform.machine()
         if(env2 == "x86_64"):
                 __os__ = "Linux64"
-xbmc.output("[%s]: XBMC for %s\n" % (__addon__,__os__))
+xbmc.log("[%s]: XBMC for %s\n" % (__addon__,__os__))
 
 __language__    = xbmcaddon.Addon(__addon_id__).getLocalizedString
 CWD             = xbmcaddon.Addon(__addon_id__).getAddonInfo('path')
@@ -42,7 +42,7 @@ import Asterisk.Manager, Asterisk.Util
 #############################################################################################################
 def log(msg):
     try:
-        xbmc.output("[%s]: %s\n" % (__addon__,str(msg)))
+        xbmc.log("[%s]: %s\n" % (__addon__,str(msg)))
     except:
         pass
 
