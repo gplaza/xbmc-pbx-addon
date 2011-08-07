@@ -219,7 +219,7 @@ except:
     xbmc_notification = str(sys.exc_info()[1])
     xbmc_img = xbmc.translatePath(os.path.join(RESOURCE_PATH,'media','xbmc-pbx-addon.png'))
     log(">> Notification: " + xbmc_notification)
-    xbmc.executebuiltin("XBMC.Notification("+ __language__(30051) +","+ xbmc_notification +","+ str(xbmc_vm_notification_timeout*1000) +","+ xbmc_img +")")
+    xbmc.executebuiltin("XBMC.Notification("+ __language__(30051) +","+ xbmc_notification +","+ str(15*1000) +","+ xbmc_img +")")
 try:
     del grab
     del pbx
