@@ -56,7 +56,8 @@ class get_incoming_call(object):
         self.DEBUG = False
         self.xbmc_player_paused = False
         self.asterisk_now_playing = False
-        self.ast_uniqid = 0
+        self.ast_first_uniqid = 0
+        self.ast_my_uniqid = 0
         self.event_callerid = ""
         self.events = Asterisk.Util.EventCollection()
         self.events.clear()
@@ -85,12 +86,14 @@ class get_incoming_call(object):
             # Asterisk 1.6+
             event_state = str(event.ChannelStateDesc)
         if (self.DEBUG): log(">> State: " + event_state)
-        if (event_state == asterisk_chan_state and self.ast_uniqid == 0):
-            self.ast_uniqid = event.Uniqueid
+        if (event_state == asterisk_chan_state and self.ast_my_uniqid == 0 and self.ast_first_uniqid == 0):
+            self.ast_my_uniqid = event.Uniqueid
             if (self.DEBUG):
                 log(">>> Will attach to this one:")
-                log(">>> UniqueID: " + self.ast_uniqid)
+                log(">>> UniqueID: " + self.ast_my_uniqid)
                 log(">>> State: " + asterisk_chan_state)
+        if (self.ast_first_uniqid == 0):
+            self.ast_first_uniqid = event.Uniqueid
 
     #####################################################################################################
     def NewCallerID(self,pbx,event):
@@ -106,7 +109,7 @@ class get_incoming_call(object):
         if (event.CallerIDName != "" and event_callerid_num != ""):
             self.event_callerid = str(event.CallerIDName + " <" + event_callerid_num + ">")
         if (self.DEBUG): log(">> CallerID: " + self.event_callerid)
-        if (event.Uniqueid == self.ast_uniqid and self.event_callerid != ""):
+        if (event.Uniqueid == self.ast_my_uniqid and self.event_callerid != ""):
             self.newcall_actions(event)
 
     #####################################################################################################
@@ -114,8 +117,10 @@ class get_incoming_call(object):
         if (self.DEBUG):
             log("> Hangup()")
             log(">> UniqueID: " + event.Uniqueid)
-        if (event.Uniqueid == self.ast_uniqid):
-            self.ast_uniqid = 0
+        if (event.Uniqueid == self.ast_first_uniqid):
+            self.ast_first_uniqid = 0
+        if (event.Uniqueid == self.ast_my_uniqid):
+            self.ast_my_uniqid = 0
             self.hangup_actions(event)
 
     #####################################################################################################
@@ -142,7 +147,7 @@ class get_incoming_call(object):
         asterisk_alert_info = str(pbx.Getvar(event.Channel,"ALERT_INFO",""))
         if (self.DEBUG):
             log(">> Channel: " + str(event.Channel))
-            log(">> UniqueID: " + self.ast_uniqid)
+            log(">> UniqueID: " + self.ast_my_uniqid)
             log(">> CallerID: " + self.event_callerid)
             log(">> ALERT_INFO: " + asterisk_alert_info)
         settings = xbmcaddon.Addon(__addon_id__)
@@ -200,13 +205,13 @@ class get_incoming_call(object):
                             self.asterisk_now_playing = True
                     except:
                         log(">> ERROR: %s::%s (%d) - %s" % (self.__class__.__name__,sys.exc_info()[2].tb_frame.f_code.co_name,sys.exc_info()[2].tb_lineno,sys.exc_info()[1],))
+        del xbmc_player
         # Show Incoming Call Notification Popup
         if (xbmc_oncall_notification):
             if (asterisk_alert_info == cfg_asterisk_cid_alert_info or cfg_asterisk_cid_alert_info == ''):
                 xbmc_notification = self.event_callerid
                 log(">> Notification: " + xbmc_notification)
                 xbmc.executebuiltin("XBMC.Notification("+ __language__(30050) +","+ xbmc_notification +","+ str(xbmc_oncall_notification_timeout*1000) +","+ xbmc_img +")")
-        del xbmc_player
 
 
 #################################################################################################################
