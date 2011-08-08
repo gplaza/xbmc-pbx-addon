@@ -55,6 +55,7 @@ class get_incoming_call(object):
         self.asterisk_series = asterisk_series
         self.DEBUG = False
         self.xbmc_player_paused = False
+        self.asterisk_now_playing = False
         self.ast_uniqid = 0
         self.event_callerid = ""
         self.events = Asterisk.Util.EventCollection()
@@ -71,10 +72,9 @@ class get_incoming_call(object):
         arr_chan_states = ['Down','Ring']
         asterisk_chan_state = str(arr_chan_states[int(settings.getSetting("asterisk_chan_state"))])
         del settings
+        self.DEBUG = False
         if (DEBUG == "true"):
             self.DEBUG = True
-        else:
-            self.DEBUG = False
         if (self.DEBUG):
             log("> NewChannel()")
             log(">> UniqueID: " + event.Uniqueid)
@@ -88,6 +88,7 @@ class get_incoming_call(object):
         if (event_state == asterisk_chan_state and self.ast_uniqid == 0):
             self.ast_uniqid = event.Uniqueid
             if (self.DEBUG):
+                log(">>> Will attach to this one:")
                 log(">>> UniqueID: " + self.ast_uniqid)
                 log(">>> State: " + asterisk_chan_state)
 
@@ -120,6 +121,9 @@ class get_incoming_call(object):
     #####################################################################################################
     def hangup_actions(self,event):
         log("> hangup_actions()")
+        if (self.DEBUG):
+            log(">> UniqueID: " + event.Uniqueid)
+        self.asterisk_now_playing = False
         xbmc_player = xbmc.Player(xbmc.PLAYER_CORE_AUTO)
         if (xbmc_player.isPlaying() == 1):
             # Resume media
@@ -135,19 +139,36 @@ class get_incoming_call(object):
     #####################################################################################################
     def newcall_actions(self,event):
         log("> newcall_actions()")
+        asterisk_alert_info = str(pbx.Getvar(event.Channel,"ALERT_INFO",""))
         if (self.DEBUG):
             log(">> Channel: " + str(event.Channel))
             log(">> UniqueID: " + self.ast_uniqid)
-        log(">> CallerID: " + self.event_callerid)
-        asterisk_alert_info = str(pbx.Getvar(event.Channel,"ALERT_INFO",""))
-        log(">> ALERT_INFO: " + asterisk_alert_info)
-        xbmc_player = xbmc.Player(xbmc.PLAYER_CORE_AUTO)
+            log(">> CallerID: " + self.event_callerid)
+            log(">> ALERT_INFO: " + asterisk_alert_info)
         settings = xbmcaddon.Addon(__addon_id__)
+        arr_timeout = [5,10,15,20,25,30]
+        xbmc_oncall_notification_timeout = int(arr_timeout[int(settings.getSetting("xbmc_oncall_notification_timeout"))])
+        cfg_asterisk_cid_alert_info = settings.getSetting("asterisk_cid_alert_info")
+        cfg_asterisk_redir_alert_info = settings.getSetting("asterisk_redir_alert_info")
+        asterisk_now_playing_context = settings.getSetting("asterisk_now_playing_context")
+        xbmc_img = xbmc.translatePath(os.path.join(RESOURCE_PATH,'media','xbmc-pbx-addon.png'))
+        xbmc_oncall_pause_media = False
+        if (settings.getSetting("xbmc_oncall_pause_media") == "true"):
+            xbmc_oncall_pause_media = True
+        asterisk_now_playing_enabled = False
+        if (settings.getSetting("asterisk_now_playing_enabled") == "true"):
+            asterisk_now_playing_enabled = True
+        xbmc_oncall_notification = False
+        if (settings.getSetting("xbmc_oncall_notification") == "true"):
+            xbmc_oncall_notification = True
+        del settings
+        xbmc_player = xbmc.Player(xbmc.PLAYER_CORE_AUTO)
         if (xbmc_player.isPlaying() == 1):
             log(">> XBMC is playing content...")
             if (xbmc_player.isPlayingAudio() == 1):
                 info_tag = xbmc_player.getMusicInfoTag(object)
-                log(">> Music title: " + info_tag.getTitle())
+                if (self.DEBUG):
+                    log(">> Music title: " + info_tag.getTitle())
                 del info_tag
             if (xbmc_player.isPlayingVideo() == 1):
                 xbmc_remaining_time = xbmc_player.getTotalTime() - xbmc_player.getTime()
@@ -155,38 +176,36 @@ class get_incoming_call(object):
                 xbmc_video_title = info_tag.getTitle()
                 xbmc_video_rating = info_tag.getRating()
                 del info_tag
-                log(">> Video title: " + xbmc_video_title)
-                log(">> Rating: " + str(xbmc_video_rating))
-                log(">> Remaining time (minutes): " + str(round(xbmc_remaining_time/60)))
+                if (self.DEBUG):
+                    log(">> Video title: " + xbmc_video_title)
+                    log(">> Rating: " + str(xbmc_video_rating))
+                    log(">> Remaining time (minutes): " + str(round(xbmc_remaining_time/60)))
                 # Pause Video
-                if (settings.getSetting("xbmc_oncall_pause_media") == "true"):
+                if (xbmc_oncall_pause_media):
                     time.sleep(1)
-                    if (asterisk_alert_info == settings.getSetting("asterisk_cid_alert_info")):
+                    if (asterisk_alert_info == cfg_asterisk_cid_alert_info or cfg_asterisk_cid_alert_info == ''):
                         xbmc_new_remaining_time = xbmc_player.getTotalTime() - xbmc_player.getTime()
                         if (not self.xbmc_player_paused and xbmc_remaining_time > xbmc_new_remaining_time):
-                            log(">> Pause media...")
+                            log(">> Pausing player...")
                             xbmc_player.pause()
                             self.xbmc_player_paused = True
                 # Redirect Incoming Call
-                if (settings.getSetting("asterisk_now_playing_enabled") == "true"):
+                if (asterisk_now_playing_enabled):
                     try:
-                        if (asterisk_alert_info == settings.getSetting("asterisk_redir_alert_info")):
-                            log(">> Redirect call...")
+                        if ((asterisk_alert_info == cfg_asterisk_redir_alert_info or cfg_asterisk_redir_alert_info == '') and not self.asterisk_now_playing):
+                            log(">> Redirecting call...")
                             pbx.Setvar(event.Channel,"xbmc_video_title",xbmc_video_title)
                             pbx.Setvar(event.Channel,"xbmc_remaining_time",round(xbmc_remaining_time/60))
-                            pbx.Redirect(event.Channel,settings.getSetting("asterisk_now_playing_context"))
+                            pbx.Redirect(event.Channel,asterisk_now_playing_context)
+                            self.asterisk_now_playing = True
                     except:
                         log(">> ERROR: %s::%s (%d) - %s" % (self.__class__.__name__,sys.exc_info()[2].tb_frame.f_code.co_name,sys.exc_info()[2].tb_lineno,sys.exc_info()[1],))
         # Show Incoming Call Notification Popup
-        if (settings.getSetting("xbmc_oncall_notification") == "true"):
-            if (asterisk_alert_info == settings.getSetting("asterisk_cid_alert_info")):
-                arr_timeout = [5,10,15,20,25,30]
-                xbmc_oncall_notification_timeout = int(arr_timeout[int(settings.getSetting("xbmc_oncall_notification_timeout"))])
+        if (xbmc_oncall_notification):
+            if (asterisk_alert_info == cfg_asterisk_cid_alert_info or cfg_asterisk_cid_alert_info == ''):
                 xbmc_notification = self.event_callerid
-                xbmc_img = xbmc.translatePath(os.path.join(RESOURCE_PATH,'media','xbmc-pbx-addon.png'))
                 log(">> Notification: " + xbmc_notification)
                 xbmc.executebuiltin("XBMC.Notification("+ __language__(30050) +","+ xbmc_notification +","+ str(xbmc_oncall_notification_timeout*1000) +","+ xbmc_img +")")
-        del settings
         del xbmc_player
 
 
@@ -197,6 +216,7 @@ class get_incoming_call(object):
 try:
     log("Running in background...")
     settings = xbmcaddon.Addon(__addon_id__)
+    DEBUG = settings.getSetting("xbmc_debug")
     manager_host_port = settings.getSetting("asterisk_manager_host"),int(settings.getSetting("asterisk_manager_port"))
     pbx = Manager(manager_host_port,settings.getSetting("asterisk_manager_user"),settings.getSetting("asterisk_manager_pass"))
     vm = settings.getSetting("asterisk_vm_mailbox") +"@"+ settings.getSetting("asterisk_vm_context")
@@ -205,7 +225,7 @@ try:
     del settings
     asterisk_version = str(pbx.Command("core show version")[1])
     asterisk_series = asterisk_version[9:12]
-    log(">> " + asterisk_version)
+    if (DEBUG == "true"): log(">> " + asterisk_version)
     log(">> Asterisk: " + asterisk_series)
     vm_count = str(pbx.MailboxCount(vm)[0])
     xbmc_notification = __language__(30053) + vm_count
