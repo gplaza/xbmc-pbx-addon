@@ -11,13 +11,13 @@ __author__      = "hmronline"
 __url__         = "http://code.google.com/p/xbmc-pbx-addon/"
 __version__     = "0.0.7"
 
-xbmc.log("[%s]: Version %s\n" % (__addon__,__version__))
-
 # Modules
 import sys, os
 import xbmc, xbmcaddon, xbmcgui
 import re, traceback, time
 import urllib, urlparse, urllib2, xml.dom.minidom
+
+xbmc.log("[%s]: Version %s\n" % (__addon__,__version__))
 
 # Get environment OS
 __os__          = os.environ.get( "OS", "win32" )
