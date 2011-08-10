@@ -204,7 +204,9 @@ class get_incoming_call(object):
                             pbx.Redirect(event.Channel,asterisk_now_playing_context)
                             self.asterisk_now_playing = True
                     except:
-                        log(">> ERROR: %s::%s (%d) - %s" % (self.__class__.__name__,sys.exc_info()[2].tb_frame.f_code.co_name,sys.exc_info()[2].tb_lineno,sys.exc_info()[1],))
+                        xbmc_notification = str(sys.exc_info()[1])
+                        log(">> Notification: " + xbmc_notification)
+                        xbmc.executebuiltin("XBMC.Notification("+ __language__(30051) +","+ xbmc_notification +","+ str(15*1000) +","+ xbmc_img +")")
         del xbmc_player
         # Show Incoming Call Notification Popup
         if (xbmc_oncall_notification):
