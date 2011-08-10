@@ -51,7 +51,6 @@ class MainGUI(xbmcgui.WindowXML):
 
     def __init__(self,*args,**kwargs):
         log("__init__()")
-        #xbmcgui.WindowXML.__init__(self,*args,**kwargs)
         xbmcgui.WindowXML.__init__(self)
 
     #####################################################################################################
@@ -91,6 +90,7 @@ class MainGUI(xbmcgui.WindowXML):
     #####################################################################################################
     def skinSetup(self):
         log("> skinSetup()")
+        if (__os__ == 'xbox'): xbmcgui.lock()
         self.getControl(109).setLabel(__language__(30107))  # CDR toggle button
         self.getControl(110).setLabel(__language__(30101))  # CDR toggle button
         self.getControl(111).setLabel(__language__(30102))  # VM toggle button
@@ -107,6 +107,7 @@ class MainGUI(xbmcgui.WindowXML):
         self.getControl(163).setLabel(__language__(30155))  # VM - priority
         self.getControl(164).setLabel(__language__(30151))  # VM - origmailbox
         self.getControl(165).setLabel(__language__(30162))  # VM - duration
+        if (__os__ == 'xbox'): xbmcgui.unlock()
 
     #####################################################################################################
     def getInfo(self):
@@ -134,6 +135,7 @@ class MainGUI(xbmcgui.WindowXML):
     def showInfo(self):
         log("> showInfo()")
         options = {"cdr":120,"vm":121}
+        if (__os__ == 'xbox'): xbmcgui.lock()
         for option in options.keys():
             self.getControl(options[option]).reset()
             # Parse CDR/VM XML content
@@ -147,6 +149,7 @@ class MainGUI(xbmcgui.WindowXML):
                             listitem.setProperty(childNode.nodeName,"")
                 self.getControl(options[option]).addItem(listitem)
                 del listitem
+        if (__os__ == 'xbox'): xbmcgui.unlock()
         del self.dom
 
     #####################################################################################################
@@ -229,7 +232,7 @@ class MainGUI(xbmcgui.WindowXML):
         del self.vm_player
         if (self.url_vm != ""):
             dialog = xbmcgui.Dialog()
-            if (dialog.yesno(__script__,__language__(30106))):
+            if (dialog.yesno(__addon__,__language__(30106))):
                 self.delete_voice_mail()
                 self.onInit()
             del dialog
