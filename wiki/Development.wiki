@@ -1,4 +1,4 @@
-#summary Documentation used for all Development phases: Requirements, Design, Implementation.
+#summary Documentation used for all Development phases: Requirements, Design and Implementation.
 #labels Phase-Requirements,Phase-Design,Phase-Implementation
 
 = Requirements =
