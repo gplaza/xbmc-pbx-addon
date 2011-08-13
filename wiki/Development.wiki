@@ -1,4 +1,4 @@
-#summary WIP
+#summary Documentation used for all Development phases: Requirements, Design, Implementation.
 #labels Phase-Requirements,Phase-Design,Phase-Implementation
 
 = Requirements =
