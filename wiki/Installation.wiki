@@ -5,39 +5,62 @@
 
 This addon has two components:
   * A frontend, which runs on XBMC as a Program Addon;
-  * A backend, which runs on the Asterisk server as the Asterisk itself and as PHP component;
+  * A backend, which runs on the PBX server as part of the Asterisk itself and as PHP component;
 
 = XBMC: Frontend Installation =
 
 == Via zip file ==
   # Download latest version from here: [http://code.google.com/p/xbmc-pbx-addon/downloads/list]
-  # Go to XBMCs Addon Browser: System -> Add-ons -> Install from zip file 
+    * Save this file somewhere, you will need it later;
+  # In XBMC, go to __System__ -> __Add-ons__ -> __Install from zip file__;
+    * Find and select the file you just downloaded;
 
 
-= Asterisk: Backend Installation =
+= PBX: Backend Installation =
 
 == Move files around ==
-{{{
-josh-laptop$cd ~/.xbmc/addons/script.xbmc-pbx-addon/
-}}}
-Using your favorite FTP program move the folder server_side to your PBX.
+  # Unzip the zip file you downloaded before;
+  # Find a folder named `backend_files` inside the file you just extracted;
+  # Using your favorite FTP program move this folder content to your PBX server;
 
 == PBX Time ==
-  # Put the xbmc-pbx-addon.php somewhere you can access it from a browser.
-  # Using a standard install of FreePBX and Asterisk I did not have to change any values in the php file.
-  # Add the values you want from manager_custom.conf to /etc/asterisk/manager.conf 
-  # Add the information from extensions_custom.conf.sample to your own extensions_custom.conf *DO NOT OVERWRITE THAT* That should be located /etc/asterisk/extensions_custom.conf
-  # (optional) To stop Fail2Ban from banning XBMC while setting it up set ignoreip = [IP OF XBMC] in /etc/fail2ban/jail.conf
-
-== Reboot PBX ==
-Alternatively:
+  # Log-in into your PBX server;
+  # Put the `xbmc-pbx-addon.php` file somewhere you can access it from a web browser;
+    * You must already have a Web Server (i.e. Apache) running on the server;
+  # Using a standard install of FreePBX and Asterisk you may not have to change any values in the PHP file;
+    * Otherwise, do so;
+  # Put the `manager_custom.conf` file into `/etc/asterisk/`;
+  # If you are not using a standard install of FreePBX and Asterisk make sure `/etc/asterisk/manager.conf` has an include line like this one:
+{{{
+#include manager_custom.conf
+}}}
+  # Append the contents from `extensions_custom.conf.sample` to your own `/etc/asterisk/extensions_custom.conf`;
+    * *DO NOT OVERWRITE IT*
+  # Once you've finished, restart your PBX software:
+    * If you have FreePBX installed:
 {{{
 root-pbx$amportal restart
+}}}
+    * Otherwise:
+{{{
+root-pbx$/etc/init.d/asterisk restart
+}}}
+
+=== Optional ===
+  # To stop Fail2Ban from banning XBMC while setting it up set: 
+{{{
+ignoreip = [IP OF XBMC]
+}}}
+    * Do this in `/etc/fail2ban/jail.conf`;
+  # Also, restart it:
+{{{
 root-pbx$service fail2ban restart
 }}}
 
-= Addon Configuration =
+== XBMC: Frontend Configuration =
 
-== Setup Values in XBMC ==
-  # This should be under "Programs" and then "Addons"
-  # Be very careful to put the correct values for AMI (the ones you put in manager.conf) and set the server to the correct IP address, as well as the correct web address.
+  # In XBMC, go to __System__ -> __Add-ons__ -> __Enabled Add-ons__ -> __Program Add-ons__ -> __XBMC PBX Addon__ -> __Configure__;
+    * Be very careful to put the correct values for AMI (the ones you put in `/etc/asterisk/manager_custom.conf`) and set the PBX Server to the correct IP address, as well as the correct web address;
+
+== First run ==
+  # To open (run) it, just go to __Programs__ from the XBMC home screen and find *XBMC PBX Addon*;
