@@ -1,6 +1,9 @@
 '''
-        XBMC PBX Addon
-                Script (Running in Background)
+
+    XBMC PBX Addon
+        Fron-end (XBMC) side
+        This script will be running as a service in background
+
 
 '''
 

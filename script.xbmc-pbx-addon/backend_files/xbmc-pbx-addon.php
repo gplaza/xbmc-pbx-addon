@@ -1,8 +1,9 @@
 <?php
 /*
     XBMC PBX Addon
+        Back-end (Asterisk PBX) side
+        This script is used to access Call Detail Records (CDR) and VoiceMail (VM)
 
-    Server Side script to access Call Detail Records (CDR) and VoiceMail (VM)
 
 */
 
@@ -231,7 +232,7 @@ else {
         echo "\n\nErrors found. Please check this file, update paths accordingly and fix any errors.";
     }
     else {
-        echo "\nSeems everything is ok on server-side. Please continue the setup on XBMC side.";
+        echo "\nSeems everything is ok on the Back-end (PBX Server) side. \nPlease continue the setup on the Front-end (XBMC) side.";
     }
 }
 function array_sort_by_column(&$arr, $col, $dir = SORT_ASC) {

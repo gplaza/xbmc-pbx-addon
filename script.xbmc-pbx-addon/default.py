@@ -1,6 +1,9 @@
 '''
-        XBMC PBX Addon
-                Script (GUI)
+
+    XBMC PBX Addon
+        Fron-end (XBMC) side
+        This script is the User Interface
+
 
 '''
 
