@@ -1,4 +1,6 @@
 #labels Phase-Support
+# summary List of changes introduced with each version.
+
 = Changelog =
 
 == 0.0.7 ==
