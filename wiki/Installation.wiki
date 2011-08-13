@@ -3,46 +3,41 @@
 
 = Introduction =
 
-The process for installing this script is different than installing a plugin. Please follow the directions here, and if you have trouble post them here: http://forum.xbmc.org/showthread.php?t=71206
+This addon has two components:
+  * A frontend, which runs on XBMC as a Program Addon;
+  * A backend, which runs on the Asterisk server as the Asterisk itself and as PHP component;
+
+= XBMC: Frontend Installation =
+
+== Via zip file ==
+  # Download latest version from here: [http://code.google.com/p/xbmc-pbx-addon/downloads/list]
+  # Go to XBMCs Addon Browser: System -> Add-ons -> Install from zip file 
 
 
-= Details =
+= Asterisk: Backend Installation =
 
-==1. Get the code:==
-I like to make a directory for my source for different projects:
+== Move files around ==
 {{{
-josh-laptop$ mkdir ~/source
-josh-laptop$ svn checkout http://xbmc-pbx-addon.googlecode.com/svn/trunk/ xbmc-pbx-addon-read-only
-josh-laptop$ cd xbmc-pbx-addon-read-only/
-}}}
-
-==2. Move files around:==
-{{{
-josh-laptop$mv script.xbmc-pbx-addon/ ~/.xbmc/addons/
 josh-laptop$cd ~/.xbmc/addons/script.xbmc-pbx-addon/
 }}}
 Using your favorite FTP program move the folder server_side to your PBX.
 
-==3. PBX Time:==
-1. Put the xbmc-pbx-addon.php somewhere you can access it from a browser.
-2. Using a standard install of FreePBX and Asterisk I did not have to change any values in the php file.
-3. Add the values you want from manager_custom.conf to /etc/asterisk/manager.conf 
-4. Add the information from extensions_custom.conf.sample to your own extensions_custom.conf *DO NOT OVERWRITE THAT* That should be located /etc/asterisk/extensions_custom.conf
-5. (optional) To stop Fail2Ban from banning XBMC while setting it up set ignoreip = [IP OF XBMC] in /etc/fail2ban/jail.conf
+== PBX Time ==
+  # Put the xbmc-pbx-addon.php somewhere you can access it from a browser.
+  # Using a standard install of FreePBX and Asterisk I did not have to change any values in the php file.
+  # Add the values you want from manager_custom.conf to /etc/asterisk/manager.conf 
+  # Add the information from extensions_custom.conf.sample to your own extensions_custom.conf *DO NOT OVERWRITE THAT* That should be located /etc/asterisk/extensions_custom.conf
+  # (optional) To stop Fail2Ban from banning XBMC while setting it up set ignoreip = [IP OF XBMC] in /etc/fail2ban/jail.conf
 
-==4. Reboot XBMC==
-
-==5. Setup Values in XBMC==
-1. This should be under "Programs" and then "Addons"
-2. Be very careful to put the correct values for AMI (the ones you put in manager.conf) and set the server to the correct IP address, as well as the correct web address.
-
-==6. Reboot PBX ==
+== Reboot PBX ==
 Alternatively:
 {{{
 root-pbx$amportal restart
 root-pbx$service fail2ban restart
 }}}
 
-==7. Reboot one more time.==
+= Addon Configuration =
 
-==8. That should be good to go.==
+== Setup Values in XBMC ==
+  # This should be under "Programs" and then "Addons"
+  # Be very careful to put the correct values for AMI (the ones you put in manager.conf) and set the server to the correct IP address, as well as the correct web address.
