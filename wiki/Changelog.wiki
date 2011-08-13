@@ -1,5 +1,5 @@
+#summary List of changes introduced with each version.
 #labels Phase-Support
-# summary List of changes introduced with each version.
 
 = Changelog =
 
