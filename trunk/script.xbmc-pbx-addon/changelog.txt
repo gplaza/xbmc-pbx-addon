@@ -1,5 +1,8 @@
 = Changelog =
 
+== 1.0.7 ==
+  * Minor updates to make it compatible with the Official XBMC Eden(-pre) Add-on repository;
+
 == 0.0.7 ==
   * Several fixes and improvements done by oneadvent (XBMC Forum member) Thanks!;
   * Made it compatible with Dharma and Eden XBMC releases;
