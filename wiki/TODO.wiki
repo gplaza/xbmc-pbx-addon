@@ -1,0 +1,7 @@
+#summary To Do
+
+= To Do =
+
+  * Maybe remove the !NewChannel State setting and set it according to the Asterisk version;
+  * Add a dialpad to initiate phone calls;
+  * Add the ability to call back numbers from the voicemail list;
