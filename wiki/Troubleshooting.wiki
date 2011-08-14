@@ -1,4 +1,54 @@
 #summary If you are having issues, take a look here.
 #labels Phase-Support
 
-WIP
+= Back-end =
+
+== Test the PHP script ==
+
+# With a web browser open the URL to reach `xbmc-pbx-addon.php`, i.e. `http://asterisk/xbmc-pbx-addon.php`
+# You must see this message:
+{{{
+XBMC PBX Addon 0.0.7
+Back-end (PBX Server) Side Setup
+
+Seems everything is ok on the Back-end (PBX Server) side. 
+Please continue the setup on the Front-end (XBMC) side.
+}}}
+
+== Test the PHP script is able to get CDR information ==
+
+# With a web browser open the URL to reach `xbmc-pbx-addon.php` followed by *?cdr*, i.e. `http://asterisk/xbmc-pbx-addon.php?cdr`
+# You must see a big XML file with something like this:
+{{{
+<pbx>
+  <cdr>
+    <accountcode/>
+    <src>101</src>
+    <dst>44440000</dst>
+    <dcontext>from-internal</dcontext>
+    <clid>"My Extension" <101></clid>
+    <channel>SIP/101-0000036f</channel>
+    <dstchannel>Local/44440000@local_minutes-f32a;1</dstchannel>
+    <lastapp>Dial</lastapp>
+    <lastdata>Local/44440000@local_minutes,300,</lastdata>
+    <start>2011-08-10 21:32:47</start>
+    <answer>2011-08-10 21:32:52</answer>
+    <end>2011-08-10 21:45:03</end>
+    <duration>736</duration>
+    <billsec>731</billsec>
+    <disposition>ANSWERED</disposition>
+    <amaflags>DOCUMENTATION</amaflags>
+    <uniqueid>1313011967.674</uniqueid>
+    <userfield/>
+  </cdr>
+</pbx>
+<!-- XBMC PBX Addon 0.0.7 -->
+}}}
+
+= Front-end =
+
+== Test the notification is triggerd on inbound calls ==
+
+  * Remembert that the first *Inbound Calls* setting (*...NewChannel State*) defines how inbound calls are detected so you might try these values:
+    * *Ring* if you have an Asterisk 1.6 PBX server;
+    * *Down* if you have an Asterisk 1.4 PBX server; 
