@@ -76,7 +76,7 @@ root-pbx$service fail2ban restart
     * Also set the *hostname* to the correct hostname or IP address for your PBX Server;
   # _CDR & !VoiceMail_:
     * Specify the URL you used with your web-browser to access the `xbmc-pbx-addon.php`;
-    * Then you may want to change the *Mailbox Number* for the one you would like to retrieve !VoiceMail messages;
+    * Then you may want to change the *Mailbox number* for the one you would like to retrieve !VoiceMail messages;
   # _Outbound Calls_:
     * Customize it with the *extension* (and *context*) you would like to use when initiating outbound calls;
   # _Inbound Calls_:
@@ -85,7 +85,7 @@ root-pbx$service fail2ban restart
       * *Down* if you have an _Asterisk 1.4_ PBX server; 
     * Personalize the remaining settings to modify the XBMC and Asterisk behavior for inbound calls;
 
-= XBCM Reboot =
+= XBMC Reboot =
   # Reboot XBMC for the background service to automatically start;
   # Once XBMC has loaded, you should see a notification pop-up showing the number of !VoiceMail messages you have in your Mailbox;
     * If not, see the [Troubleshooting] page;
