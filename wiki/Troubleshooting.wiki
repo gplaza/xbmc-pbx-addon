@@ -47,8 +47,20 @@ Please continue the setup on the Front-end (XBMC) side.
 
 = Front-end =
 
-== Test the notification is triggerd on inbound calls ==
+== Test the notification is triggered on inbound calls ==
 
   * Remembert that the first *Inbound Calls* setting (*...NewChannel State*) defines how inbound calls are detected so you might try these values:
     * *Ring* if you have an Asterisk 1.6 PBX server;
-    * *Down* if you have an Asterisk 1.4 PBX server; 
+    * *Down* if you have an Asterisk 1.4 PBX server;
+
+== Debug ==
+
+  * In settings, enable *Debug*;
+  * Place an inbound call;
+  * Find the XBMC Log file;
+    * More info about this file here: [http://wiki.xbmc.org/index.php?title=Log_File]
+  * See for *XBMC PBX Addon* messages;
+
+= Beyond this =
+
+  * Go to the XBMC Community Forums (Script Development): [http://forum.xbmc.org/showthread.php?t=71206]
