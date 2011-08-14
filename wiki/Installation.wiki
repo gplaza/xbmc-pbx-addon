@@ -75,8 +75,7 @@ root-pbx$service fail2ban restart
     * Be very careful to put here the correct values for AMI (the ones you put in `/etc/asterisk/manager_custom.conf`);
     * Also set the *hostname* to the correct hostname or IP address for your PBX Server;
   # _CDR & !VoiceMail_:
-    * Specify the URL you used your web-browser to access the `xbmc-pbx-addon.php`;
-, as well as the correct web address;
+    * Specify the URL you used with your web-browser to access the `xbmc-pbx-addon.php`;
     * Then you may want to change the *Mailbox Number* for the one you would like to retrieve !VoiceMail messages;
   # _Outbound Calls_:
     * Customize it with the *extension* (and *context*) you would like to use when initiating outbound calls;
