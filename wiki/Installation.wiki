@@ -64,6 +64,11 @@ root-pbx$service fail2ban restart
     * Find and select the `script.xbmc-pbx-addon.zip` file you downloaded before;
   # You must see a notification pop-up saying *XBMC PBX Addon* is *Enabled*;
 
+== Via Add-ons official repository ==
+  # In XBMC, go to _System_ -> _Add-ons_ -> _Get Add-ons_ -> _XBMC.org Add-ons_ -> _Program Add-ons_ -> _XBMC PBX Addon_;
+  # Select the *Install* option;
+  # You must see a notification pop-up saying *XBMC PBX Addon* is *Enabled*;
+
 == Autoexec.py ==
   * For XBMC Eden, you don't need to worry about this;
   * For XBMC Dharma, copy the `autoexec.py` file (from the `script.xbmc-pbx-addon.zip` file you downloaded before) to `~/.xbmc/userdata/`;
