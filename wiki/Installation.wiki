@@ -19,6 +19,7 @@ This addon has two components:
   # Unzip the `script.xbmc-pbx-addon.zip` file you downloaded before;
   # Find a directory named `backend_files` inside the file you just extracted;
   # Using your favorite FTP program move this folder content to your PBX server;
+    * You might try !FileZilla if you don't have one: [http://filezilla-project.org/]
 
 == PBX Time ==
   # Log-in into your PBX server;
