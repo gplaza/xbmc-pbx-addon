@@ -27,17 +27,17 @@ This addon has two components:
     * Probably you'll pace it here: `/var/www/html/`;
     * And you may reach it with the web browser at: `http://asterisk/xbmc-pbx-addon.php`;
     * Of course, you must already have a Web Server (i.e. Apache) running on the PBX server;
-  # Using a standard install of !FreePBX and Asterisk you may not have to change any values in the PHP file;
+  # Using a standard install of FreePBX and Asterisk you may not have to change any values in the PHP file;
     * Otherwise, do so;
   # Put the `manager_custom.conf` file into `/etc/asterisk/`;
-  # If you are not using a standard install of !FreePBX and Asterisk make sure `/etc/asterisk/manager.conf` has an include line like this one:
+  # If you are not using a standard install of FreePBX and Asterisk make sure `/etc/asterisk/manager.conf` has an include line like this one:
 {{{
 #include manager_custom.conf
 }}}
   # Append the contents from `extensions_custom.conf.sample` to your own `/etc/asterisk/extensions_custom.conf`;
     * *DO NOT OVERWRITE IT*
   # Once you've finished, restart your PBX software:
-    * If you have !FreePBX installed:
+    * If you have FreePBX installed:
 {{{
 root-pbx$amportal restart
 }}}
