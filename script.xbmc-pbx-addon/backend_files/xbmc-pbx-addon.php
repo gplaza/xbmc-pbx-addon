@@ -192,7 +192,7 @@ else {
     //
     header ("content-type: text/plain");
     echo $__addon__ ." ". $__version__;
-    echo "\nServer Side Setup\n";
+    echo "\nBack-end (PBX Server) Side Setup\n";
     if (!is_dir($vm_path)) {
         echo "\nNot able to access VoiceMail (VM) directory: $vm_path";
         $found_err = true;
