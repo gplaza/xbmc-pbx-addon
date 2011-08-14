@@ -87,8 +87,8 @@ root-pbx$service fail2ban restart
   # _OK_:
     * Click *OK* for settings to be saved;
 
-= XBMC Reboot =
-  # Reboot XBMC for the background service to automatically start;
+= XBMC Restart =
+  # Restart XBMC for the background service to automatically start;
   # Once XBMC has loaded, you should see a notification pop-up showing the number of !VoiceMail messages you have in your Mailbox;
     * If not, see the [Troubleshooting] page;
 
