@@ -84,6 +84,8 @@ root-pbx$service fail2ban restart
       * *Ring* if you have an _Asterisk 1.6_ PBX server;
       * *Down* if you have an _Asterisk 1.4_ PBX server; 
     * Personalize the remaining settings to modify the XBMC and Asterisk behavior for inbound calls;
+  # _OK_:
+    * Click *OK* for settings to be saved;
 
 = XBMC Reboot =
   # Reboot XBMC for the background service to automatically start;
