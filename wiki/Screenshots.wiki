@@ -1,4 +1,23 @@
 #summary Screenshot Gallery
 #labels Phase-Support
 
-WIP
+= 0.0.6 =
+
+* Screenshot of instructions on first time use.
+http://xbmc-pbx-addon.googlecode.com/files/screenshot000b.png
+* When closing the instructions window, settings are shown for customization.
+http://xbmc-pbx-addon.googlecode.com/files/screenshot001b.png
+* A progress bar is shown on script startup.
+http://xbmc-pbx-addon.googlecode.com/files/screenshot002b.png
+* Main screen showing CDR (Call Detail Record) list.
+http://xbmc-pbx-addon.googlecode.com/files/screenshot003b.png
+* You can select/click on any focused item in order to make an outgoing call to that number.
+http://xbmc-pbx-addon.googlecode.com/files/screenshot004b.png
+* Voice Mail screen showing list of messages.
+http://xbmc-pbx-addon.googlecode.com/files/screenshot005b.png
+* You can select/click on any focused item in order to reproduce Voice Mail messages through XBMC player.
+http://xbmc-pbx-addon.googlecode.com/files/screenshot006b.png
+* Voice Mail playback showing player controls.
+http://xbmc-pbx-addon.googlecode.com/files/screenshot007b.png
+* You are prompted to delete Voice Mail after playback.
+http://xbmc-pbx-addon.googlecode.com/files/screenshot008b.png
