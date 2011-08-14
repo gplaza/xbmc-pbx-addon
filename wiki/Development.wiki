@@ -76,13 +76,3 @@ There are two types of interactions with Asterisk:
   * Skinnable
  * Use XBMC's built-in Settings manager *- done*
   * http://xbmc.sourceforge.net/python-docs/xbmc.html#Settings
-
-= ToDo =
-
- * Review, fix and improve python code
- * Review, fix and improve php code
- * Review, fix and improve GUI
- * Review, fix and improve Settings
- * Review, fix, improve and add features
- * Your whish here
- 
