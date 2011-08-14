@@ -65,7 +65,7 @@ root-pbx$service fail2ban restart
   # You must see a notification pop-up saying *XBMC PBX Addon* is *Enabled*;
 
 == Autoexec.py ==
-  * Fox XBMC Eden, you don't need to worry about this;
+  * For XBMC Eden, you don't need to worry about this;
   * For XBMC Dharma, copy the `autoexec.py` file (from the `script.xbmc-pbx-addon.zip` file you downloaded before) to `~/.xbmc/userdata/`;
   * For XBMC4XBOX 3.0.1, customize then copy the `autoexec.py` file (from the `script.xbmc-pbx-addon.zip` file you downloaded before) to `Q:\scripts`;
 
