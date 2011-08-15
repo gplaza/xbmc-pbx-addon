@@ -24,6 +24,7 @@ This addon has two components:
 == PBX Time ==
   # Log-in into your PBX server;
   # Put the `manager_custom.conf` file into `/etc/asterisk/`;
+  # Edit this file, specially the IP address which has to be IP Address of your XBMC host;
   # If you are not using a standard install of FreePBX and Asterisk make sure `/etc/asterisk/manager.conf` has an include line like this one:
 {{{
 #include manager_custom.conf
