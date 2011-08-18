@@ -45,7 +45,7 @@ Please continue the setup on the Front-end (XBMC) side.
 <!-- XBMC PBX Addon 0.0.7 -->
 }}}
 
-= Check you have php-xml installed =
+== Check you have php-xml installed ==
 
   * For CentOS:
 {{{
