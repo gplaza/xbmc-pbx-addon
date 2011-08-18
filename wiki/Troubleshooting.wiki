@@ -52,6 +52,10 @@ Please continue the setup on the Front-end (XBMC) side.
 [root@asterisk ~]# rpm -qa | grep php-xml
 php-xml-5.1.6-27.el5_5.3
 }}}
+  * You can install it with:
+{{{
+[root@asterisk ~]# yum install php-xml
+}}}
 
 = Front-end =
 
