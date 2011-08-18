@@ -1,6 +1,9 @@
 #summary Screenshot Gallery
 #labels Phase-Support
 
+<wiki:toc max_depth="2" />
+
+
 = Version 0.0.6 =
 
   * Screenshot of instructions on first time use.
