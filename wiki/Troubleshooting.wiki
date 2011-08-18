@@ -45,6 +45,14 @@ Please continue the setup on the Front-end (XBMC) side.
 <!-- XBMC PBX Addon 0.0.7 -->
 }}}
 
+= Check you have php-xml installed =
+
+  * For CentOS:
+{{{
+[root@asterisk ~]# rpm -qa | grep php-xml
+php-xml-5.1.6-27.el5_5.3
+}}}
+
 = Front-end =
 
 == Test the notification is triggered on inbound calls ==
