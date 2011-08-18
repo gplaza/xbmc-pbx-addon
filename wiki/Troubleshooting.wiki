@@ -8,8 +8,8 @@
 
 == Test the PHP script ==
 
-# With a web browser open the URL to reach `xbmc-pbx-addon.php`, i.e. `http://asterisk/xbmc-pbx-addon.php`
-# You must see this message:
+  * With a web browser open the URL to reach `xbmc-pbx-addon.php`, i.e. `http://asterisk/xbmc-pbx-addon.php`
+  * You must see this message:
 {{{
 XBMC PBX Addon 0.0.7
 Back-end (PBX Server) Side Setup
@@ -20,8 +20,8 @@ Please continue the setup on the Front-end (XBMC) side.
 
 == Test the PHP script is able to get CDR information ==
 
-# With a web browser open the URL to reach `xbmc-pbx-addon.php` followed by *?cdr*, i.e. `http://asterisk/xbmc-pbx-addon.php?cdr`
-# You must see a big XML file with something like this:
+  * With a web browser open the URL to reach `xbmc-pbx-addon.php` followed by *?cdr*, i.e. `http://asterisk/xbmc-pbx-addon.php?cdr`
+  * You must see a big XML file with something like this:
 {{{
 <pbx>
   <cdr>
