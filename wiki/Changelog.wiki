@@ -3,12 +3,20 @@
 
 = Changelog =
 
+== 0.0.8 ==
+
+  * Updated images (fanart and icons) to comply with this guideline: http://wiki.xbmc.org/index.php?title=Add-ons_for_XBMC_%28Development%29
+  * Removed (unnecessary) check for Linux64 that was causing trouble with XBMC Eden(-pre). Thanks freebs (XBMC Forum member);
+  * Added option to disable background service (so video is not going to be paused and notification popups are not going to be shown);
+  * Added check for Front-end and Back-end versions to make sure they match;
+  * Some other minor changes;
+
 == 0.0.7 ==
   * Several fixes and improvements done by oneadvent (XBMC Forum member) Thanks!;
   * Made it compatible with Dharma and Eden XBMC releases;
     * Tested it on XBMC for Linux, Windows, XBMC4XBOX 3.0.1 and LiveCD;
   * Added some checks and instructions on server-side;
-  * Added settings for VoiceMail notification timeout;
+  * Added settings for !VoiceMail notification timeout;
   * Added settings to display Caller ID and/or pause video only if ALERT_INFO matches;
   * Added setting to enable/disable DEBUG;
   * Updated py-asterisk library to version 0.2;
