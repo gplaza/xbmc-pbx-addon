@@ -1,6 +1,6 @@
 = Changelog =
 
-== 1.0.8 ==
+== 0.0.8 ==
   * Updated images (fanart and icons) to comply with this guideline: http://wiki.xbmc.org/index.php?title=Add-ons_for_XBMC_%28Development%29
   * Removed (unnecessary) check for Linux64 that was causing trouble with XBMC Eden(-pre). Thanks freebs (XBMC Forum member);
   * Added option to disable background service (so video is not going to be paused and notification popups are not going to be shown);
