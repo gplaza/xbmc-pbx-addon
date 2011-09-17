@@ -12,7 +12,7 @@ __addon__       = "XBMC PBX Addon"
 __addon_id__    = "script.xbmc-pbx-addon"
 __author__      = "hmronline"
 __url__         = "http://code.google.com/p/xbmc-pbx-addon/"
-__version__     = "1.0.8"
+__version__     = "1.0.9"
 
 # Modules
 import sys, os
@@ -119,8 +119,10 @@ class MainGUI(xbmcgui.WindowXML):
         del settings
         pbx = Manager(manager_host_port,manager_user,manager_pass)
         asterisk_version = str(pbx.Command("core show version")[1])
+        asterisk_series = asterisk_version[9:12]
         del pbx
-        log(">> " + asterisk_version)
+        log(">> Asterisk " + asterisk_series)
+        if (DEBUG): log(">> " + asterisk_version)
         str_url = str_url +"?vm&cdr&mailbox="+ asterisk_vm_mailbox
         str_url = str_url +"&vmcontext="+ asterisk_vm_context
         if (self.DEBUG):
@@ -243,6 +245,7 @@ class MainGUI(xbmcgui.WindowXML):
         if (self.url_vm != ""):
             dialog = xbmcgui.Dialog()
             if (dialog.yesno(__addon__,__language__(30106))):
+                # Delete Voice Mail
                 self.delete_voice_mail()
                 self.onInit()
             del dialog
