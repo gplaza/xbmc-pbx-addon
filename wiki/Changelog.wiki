@@ -6,13 +6,9 @@
 == 0.0.9 ==
 
   * Restored autoexec.py which is still needed for Dharma;
-
   * Added option to Auto-select NewChannel State setting based on Asterisk Version;
-
   * Added the ability to call back numbers from the voicemail list;
-
   * Added a Dialpad (keyboard input) to initiate phone calls;
-
   * Some other minor changes;
 
 == 0.0.8 ==
