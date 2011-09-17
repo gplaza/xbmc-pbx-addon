@@ -193,6 +193,15 @@ class MainGUI(xbmcgui.WindowXML):
                 dialog = xbmcgui.Dialog()
                 if (dialog.yesno(__addon__,__language__(30105))):
                     self.play_voice_mail(recindex)
+                else:
+                    # Callback
+                    del dialog
+                    number_to_call = self.getControl(121).getSelectedItem().getProperty("callerid")
+                    number_to_call = number_to_call.split('<')[0]
+                    if (number_to_call != ""):
+                        dialog = xbmcgui.Dialog()
+                        if (dialog.yesno(__addon__,__language__(30104) + " '" + number_to_call + "'?")):
+                            self.make_outgoing_call(number_to_call)
                 del dialog
         # Settings
         elif (controlId == 112):
