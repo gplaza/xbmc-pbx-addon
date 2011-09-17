@@ -3,4 +3,3 @@
 = To Do =
 
   * Add a dialpad to initiate phone calls;
-  * Add the ability to call back numbers from the voicemail list;
