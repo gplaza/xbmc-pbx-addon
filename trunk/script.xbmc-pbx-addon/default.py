@@ -88,9 +88,10 @@ class MainGUI(xbmcgui.WindowXML):
     def skinSetup(self):
         log("> skinSetup()")
         if (__os__ == 'xbox'): xbmcgui.lock()
-        self.getControl(109).setLabel(__language__(30107))  # CDR toggle button
         self.getControl(110).setLabel(__language__(30101))  # CDR toggle button
         self.getControl(111).setLabel(__language__(30102))  # VM toggle button
+        self.getControl(109).setLabel(__language__(30107))  # Refresh button
+        self.getControl(108).setLabel(__language__(30108))  # Dialer button
         self.getControl(112).setLabel(__language__(30103))  # Settings button
         self.getControl(140).setLabel(__language__(30130))  # CDR - start
         self.getControl(141).setLabel(__language__(30116))  # CDR - channel
@@ -203,14 +204,22 @@ class MainGUI(xbmcgui.WindowXML):
                         if (dialog.yesno(__addon__,__language__(30104) + " '" + number_to_call + "'?")):
                             self.make_outgoing_call(number_to_call)
                 del dialog
+        # Refresh
+        elif (controlId == 109):
+            self.onInit()
+        # Dialer
+        elif (controlId == 108):
+            kb = xbmc.Keyboard('',__language__(30108))
+            kb.doModal()
+            if (kb.isConfirmed()):
+                number_to_call = kb.getText()
+                if (number_to_call != ""):
+                    self.make_outgoing_call(number_to_call)
         # Settings
         elif (controlId == 112):
             settings = xbmcaddon.Addon(__addon_id__)
             settings.openSettings()
             del settings
-            self.onInit()
-        # Refresh
-        elif (controlId == 109):
             self.onInit()
 
     def onFocus(self,controlId):
