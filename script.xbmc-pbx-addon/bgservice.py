@@ -255,7 +255,7 @@ class get_incoming_call(object):
                 log(">> Showing Caller's picture")
                 popup = PopUpGUI("popup.xml",CWD,"Default")
                 popup .show()
-                popup.addControl(xbmcgui.ControlImage(100,100,800,600, xbmc_caller_picture))
+                popup.getControl(110).setImage(xbmc_caller_picture)
                 xbmc.sleep(xbmc_oncall_notification_timeout*1000)
                 popup .close()
                 del popup
@@ -265,9 +265,6 @@ class PopUpGUI(xbmcgui.WindowXML):
     def __init__(self,*args,**kwargs):
         xbmcgui.WindowXML.__init__(self)
         
-    def onInit(self):
-        pass
-
     def onAction(self, action):
         self.close()
         

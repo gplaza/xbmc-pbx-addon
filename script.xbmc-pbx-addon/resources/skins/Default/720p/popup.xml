@@ -15,4 +15,5 @@
         	<aspectratio>keep</aspectratio>
         	<texture>background.png</texture>
       	</control>
+    </controls>
 </window>
