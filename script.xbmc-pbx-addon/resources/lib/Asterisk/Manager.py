@@ -181,7 +181,8 @@ class BaseManager(object):
 
     _AST_BANNERS = [
         'Asterisk Call Manager/1.0\r\n',
-        'Asterisk Call Manager/1.1\r\n'
+        'Asterisk Call Manager/1.1\r\n',
+        'Asterisk Call Manager/1.2\r\n'
     ]
 
 
