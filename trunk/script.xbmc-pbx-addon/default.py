@@ -49,7 +49,7 @@ sys.path.append(os.path.join(RESOURCE_PATH,'lib'))
 from Asterisk.Manager import Manager
 import Asterisk.Manager, Asterisk.Util
 
-ACTION_EXIT_SCRIPT  = (9,10,247,275,61467,216,257,61448,)
+ACTION_EXIT_SCRIPT  = (9,10,247,275,61467,216,257,92,61448,)
 
 #############################################################################################################
 def log(msg):
