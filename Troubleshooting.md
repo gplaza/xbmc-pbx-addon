@@ -1,0 +1,79 @@
+
+
+
+# Back-end #
+
+## Test the PHP script ##
+
+  * With a web browser open the URL to reach `xbmc-pbx-addon.php`, i.e. `http://asterisk/xbmc-pbx-addon.php`
+  * You must see this message:
+```
+XBMC PBX Addon 0.0.7
+Back-end (PBX Server) Side Setup
+
+Seems everything is ok on the Back-end (PBX Server) side. 
+Please continue the setup on the Front-end (XBMC) side.
+```
+
+## Test the PHP script is able to get CDR information ##
+
+  * With a web browser open the URL to reach `xbmc-pbx-addon.php` followed by **?cdr**, i.e. `http://asterisk/xbmc-pbx-addon.php?cdr`
+  * You must see a big XML file with something like this:
+```
+<pbx>
+  <cdr>
+    <accountcode/>
+    <src>101</src>
+    <dst>44440000</dst>
+    <dcontext>from-internal</dcontext>
+    <clid>"My Extension" <101></clid>
+    <channel>SIP/101-0000036f</channel>
+    <dstchannel>Local/44440000@local_minutes-f32a;1</dstchannel>
+    <lastapp>Dial</lastapp>
+    <lastdata>Local/44440000@local_minutes,300,</lastdata>
+    <start>2011-08-10 21:32:47</start>
+    <answer>2011-08-10 21:32:52</answer>
+    <end>2011-08-10 21:45:03</end>
+    <duration>736</duration>
+    <billsec>731</billsec>
+    <disposition>ANSWERED</disposition>
+    <amaflags>DOCUMENTATION</amaflags>
+    <uniqueid>1313011967.674</uniqueid>
+    <userfield/>
+  </cdr>
+</pbx>
+<!-- XBMC PBX Addon 0.0.7 -->
+```
+
+## Check you have php-xml installed ##
+
+### For CentOS ###
+  * You can check for it with:
+```
+[root@asterisk ~]# rpm -qa | grep php-xml
+php-xml-5.1.6-27.el5_5.3
+```
+  * You can install it with:
+```
+[root@asterisk ~]# yum install php-xml
+```
+
+# Front-end #
+
+## Test the notification is triggered on inbound calls ##
+
+  * Remember that the first setting in **Inbound Calls** (the one named **...NewChannel State**) defines how inbound calls are detected, so you might try these values:
+    * **Ring** if you have an Asterisk 1.6 PBX server;
+    * **Down** if you have an Asterisk 1.4 PBX server;
+
+## Debug ##
+
+  * In settings, enable **Debug**;
+  * Place an inbound call;
+  * Find the XBMC Log file;
+    * More info about this file here: http://wiki.xbmc.org/index.php?title=Log_File
+  * See for **XBMC PBX Addon** messages;
+
+# Beyond this #
+
+  * Go to the XBMC Community Forums (Script Development): http://forum.xbmc.org/showthread.php?t=71206

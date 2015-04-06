@@ -1,0 +1,75 @@
+# Requirements #
+
+  * Display Asterisk CDR and VoiceMail information into XBMC
+  * VoiceMail playback through XBMC
+  * XBMC actions on Asterisk incoming phone calls
+  * Optional:
+    * Initiating phone calls
+    * Display FAXes into XBMC
+    * Asterisk actions based on XBMC status
+
+# Design #
+
+## Possible interaction methods ##
+
+There are two types of interactions with Asterisk:
+
+  * Real Time
+    * Initiating Asterisk phone calls through XBMC
+      * Communication would be handled by an internal extension and context you define
+      * This could be useful for call-backs to missed calls, voicemails, or just initiating a new phone call
+    * Displaying incoming Asterisk phone call info into XBMC
+      * i.e. Caller-ID popup notification (configurable)
+    * Actions based on incoming Asterisk phone calls
+      * i.e. XBMC could be muted, paused, etc (configurable)
+      * i.e. Asterisk could reject/park/voicemail phone calls if you are watching a movie, etc (configurable(
+  * Historical
+    * Access CDR information
+      * Information should be shown as a List
+    * Access Voicemail recordings
+      * Information should be shown as a List
+      * Playback through XBMC player
+      * Voicemail mailbox would need to be previously configured
+    * Access received FAXes
+      * Display FAXes though XBMC image viewer
+
+
+# Implementation #
+
+## Real Time interaction with Asterisk ##
+
+  * Develop incoming and outgoing call handlers **- done**
+  * Use Asterisk Manager Interface (AMI)
+    * http://www.voip-info.org/wiki/view/Asterisk+manager+API
+    * http://ofps.oreilly.com/titles/9780596517342/asterisk-AMI.html
+  * Take advantage of the existing Python Asterisk package:
+    * http://code.google.com/p/py-asterisk/
+
+## Interact with Historical Asterisk information ##
+
+  * Develop a PHP page acting as a WebService in order to provide access to:
+    * Stored CDR info **- done**
+    * VoiceMail info and audio files **- done**
+    * FAX files
+  * Take advantage of existing code, such as:
+    * http://www.littlejohnconsulting.com/ari
+      * Used by FreePBX
+      * http://www.freepbx.org/trac/browser/freepbx/branches/2.7/amp_conf/htdocs/recordings
+    * http://www.voip-info.org/wiki/index.php?page=Asterisk+CDR+Areski+GUI
+      * Used by FreePBX
+      * http://www.freepbx.org/trac/browser/freepbx/branches/2.7/amp_conf/htdocs/admin/cdr
+    * http://voicemailx.sourceforge.net/
+    * http://www.voip-info.org/wiki/view/Asterisk+gui+vmail.cgi
+    * http://web.archive.org/web/20061013071611/www.3ait.co.uk/~jon/cdr-info.pls
+    * http://astweb.sourceforge.net/
+
+## GUI ##
+
+  * Develop a XBMC python script (not plugin) **- done**
+    * http://wiki.xbmc.org/index.php?title=Python_Development
+  * Use XBMC's WindowsXML **- done**
+    * http://wiki.xbmc.org/index.php?title=WindowXML_GUI_Toolkit
+    * Localization
+    * Skinnable
+  * Use XBMC's built-in Settings manager **- done**
+    * http://xbmc.sourceforge.net/python-docs/xbmc.html#Settings
